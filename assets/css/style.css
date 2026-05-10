@@ -266,13 +266,13 @@ textarea {
 }
 
 .hero-editorial .hero-grid {
-  align-items: stretch;
+  align-items: start;
 }
 
 .hero-editorial .hero-copy,
 .hero-editorial .hero-visual {
-  align-self: stretch;
-  height: 100%;
+  align-self: start;
+  height: auto;
 }
 
 .hero::after {
