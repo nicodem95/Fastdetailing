@@ -124,6 +124,9 @@
 
   const filterButtons = document.querySelectorAll('[data-filter]');
   const galleryItems = document.querySelectorAll('#galleryGrid .gallery-card');
+  const lightbox = document.getElementById('galleryLightbox');
+  const lightboxImage = lightbox ? lightbox.querySelector('.lightbox-image') : null;
+  const lightboxClose = lightbox ? lightbox.querySelector('.lightbox-close') : null;
 
   filterButtons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -143,6 +146,49 @@
       });
     });
   });
+
+  if (lightbox && lightboxImage) {
+    const openLightbox = (src, alt) => {
+      lightboxImage.src = src;
+      lightboxImage.alt = alt || 'Photo réalisation';
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('nav-open');
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImage.src = '';
+      document.body.classList.remove('nav-open');
+    };
+
+    galleryItems.forEach((item) => {
+      const img = item.querySelector('img');
+      if (!img) {
+        return;
+      }
+
+      item.style.cursor = 'zoom-in';
+      item.addEventListener('click', () => openLightbox(img.src, img.alt));
+    });
+
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+        closeLightbox();
+      }
+    });
+  }
 
   if (!prefersReducedMotion) {
     const revealItems = document.querySelectorAll('.reveal');
