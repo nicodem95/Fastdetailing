@@ -339,6 +339,11 @@ textarea {
   max-width: 14ch;
 }
 
+.before-after-side-by-side .hero-copy h1 {
+  max-width: 16ch;
+  font-size: clamp(2rem, 4vw, 3.9rem);
+}
+
 .section-heading h2,
 .wide-cta h2 {
   font-size: clamp(1.75rem, 3vw, 3rem);
