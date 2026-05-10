@@ -265,6 +265,15 @@ textarea {
   border-radius: 16px;
 }
 
+.hero-editorial .hero-grid {
+  align-items: start;
+}
+
+.hero-editorial .hero-copy,
+.hero-editorial .hero-visual {
+  align-self: start;
+}
+
 .hero::after {
   content: "";
   position: absolute;
