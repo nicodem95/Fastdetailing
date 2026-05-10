@@ -4,27 +4,31 @@
     "rating": 5,
     "source": "Google",
     "location": "Gisors",
-    "text": "Accueil professionnel, explications claires et travail impeccable. Véhicule rendu comme neuf. Garage sérieux et efficace."
+    "shortText": "Accueil professionnel et véhicule rendu comme neuf. Garage sérieux et efficace.",
+    "fullText": "J’ai été très satisfaite de mon passage dans ce garage. L’accueil est professionnel, les explications sont claires et transparentes, et on sent vraiment que l’équipe connaît son métier. Le diagnostic a été rapide, le devis respecté à l’euro près, et les réparations ont été faites dans les délais annoncés. En plus, ma voiture a été rendue parfaitement nettoyée, comme neuve. Le véhicule fonctionne parfaitement depuis et on m’a même donné quelques conseils d’entretien. Un garage sérieux, honnête et efficace — je recommande sans hésiter."
   },
   {
     "name": "Kevin",
     "rating": 5,
     "source": "Google",
     "location": "Gisors",
-    "text": "Prestation intérieur/extérieur parfaite. Ma voiture est comme au premier jour. Très accueillant et professionnel."
+    "shortText": "Ma voiture est comme au premier jour. Très accueillant et professionnel.",
+    "fullText": "Travail de professionnel, je n’ai rien à redire. La prestation intérieur/extérieur ainsi que les sièges ont rendu ma voiture comme au premier jour. Merci infiniment pour la qualité de la prestation. La personne est adorable et très accueillante. Allez-y sans hésiter."
   },
   {
     "name": "Eva",
     "rating": 5,
     "source": "Google",
     "location": "Gisors",
-    "text": "Prestation réalisée sur mon van avec un résultat impressionnant. Mon véhicule est comme neuf."
+    "shortText": "Résultat impressionnant sur mon van. Véhicule comme neuf.",
+    "fullText": "Ma demande était peu commune : j’ai demandé une prestation pour mon van (remorque cheval) quand beaucoup refusent. Fast Detailing l’a prise en charge et le résultat est impressionnant. Mon van est comme neuf, voire mieux que quand je l’ai récupéré de la concession. Merci encore."
   },
   {
     "name": "Marco",
     "rating": 5,
     "source": "Google",
     "location": "Gisors",
-    "text": "Très bon travail sur ma voiture et ma moto. Excellent rapport qualité/prix."
+    "shortText": "Excellent travail sur ma voiture et ma moto. Très bon rapport qualité/prix.",
+    "fullText": "Très bon travail fait par un vrai professionnel. J’ai fait faire ma voiture et ma moto, c’est une tuerie. En plus le tarif est plus que raisonnable et la personne est adorable. N’hésitez pas."
   }
 ]

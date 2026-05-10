@@ -190,8 +190,53 @@
     });
   }
 
-  const reviewsGrid = document.getElementById('reviewsGrid');
+  const reviewsGrid = document.getElementById('reviews-list');
   if (reviewsGrid) {
+    const escapeHtml = (value) => String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+
+    const setupReviewToggles = (container) => {
+      const toggleButtons = container.querySelectorAll('.review-toggle');
+      toggleButtons.forEach((button) => {
+        const targetId = button.getAttribute('aria-controls');
+        const textWrap = targetId ? document.getElementById(targetId) : null;
+        if (!textWrap) {
+          return;
+        }
+
+        const reviewText = textWrap.querySelector('.review-text');
+        if (!reviewText) {
+          return;
+        }
+
+        const lineHeight = parseFloat(window.getComputedStyle(reviewText).lineHeight) || 24;
+        const collapsedMaxHeight = Math.round(lineHeight * 4 + 2);
+        const expandedMaxHeight = reviewText.scrollHeight;
+
+        if (expandedMaxHeight <= collapsedMaxHeight + 8) {
+          textWrap.style.maxHeight = 'none';
+          reviewText.classList.remove('is-collapsed');
+          button.remove();
+          return;
+        }
+
+        textWrap.style.maxHeight = `${collapsedMaxHeight}px`;
+
+        button.addEventListener('click', () => {
+          const isExpanded = button.getAttribute('aria-expanded') === 'true';
+          const nextExpanded = !isExpanded;
+          button.setAttribute('aria-expanded', String(nextExpanded));
+          button.textContent = nextExpanded ? 'Voir moins' : 'Voir plus';
+          reviewText.classList.toggle('is-collapsed', !nextExpanded);
+          textWrap.style.maxHeight = nextExpanded ? `${reviewText.scrollHeight}px` : `${collapsedMaxHeight}px`;
+        });
+      });
+    };
+
     fetch('data/reviews.json')
       .then((response) => {
         if (!response.ok) {
@@ -204,26 +249,22 @@
           return;
         }
 
-        const escapeHtml = (value) => String(value)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-
-        const reviewsMarkup = reviews.map((review) => {
+        const reviewsMarkup = reviews.map((review, index) => {
           const name = escapeHtml(review.name || 'Client');
           const location = escapeHtml(review.location || 'Gisors');
           const source = escapeHtml(review.source || 'Google');
-          const text = escapeHtml(review.text || '');
+          const fullText = escapeHtml(review.fullText || review.shortText || '');
+          const shortText = escapeHtml(review.shortText || '');
           const rating = Math.max(0, Math.min(5, Number(review.rating) || 0));
           const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
           const initial = name.charAt(0).toUpperCase();
+          const textId = `review-text-${index + 1}`;
 
-          return `<article class="review-card"><div class="review-head"><span class="review-avatar">${initial}</span><div><strong>${name}</strong><p>${location}</p></div><span class="review-source">${source}</span></div><p class="review-stars" aria-label="Note ${rating} sur 5">${stars}</p><p>${text}</p></article>`;
+          return `<article class="review-card"><div class="review-head"><span class="review-avatar" aria-hidden="true">${initial}</span><div><strong>${name}</strong><p>${location}</p></div><span class="review-source">${source}</span></div><p class="review-stars" role="img" aria-label="Note ${rating} sur 5">${stars}</p><div class="review-text-wrap" id="${textId}"><p class="review-text is-collapsed">${fullText}</p></div><button type="button" class="review-toggle" aria-expanded="false" aria-controls="${textId}" aria-label="Afficher plus de l'avis de ${name}">Voir plus</button><p class="review-summary" hidden>${shortText}</p></article>`;
         }).join('');
 
         reviewsGrid.innerHTML = reviewsMarkup;
+        setupReviewToggles(reviewsGrid);
       })
       .catch(() => {
         reviewsGrid.innerHTML = '<p class="review-fallback">Les avis seront affichés très prochainement.</p>';
