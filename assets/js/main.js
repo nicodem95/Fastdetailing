@@ -106,7 +106,7 @@
 
     const update = () => {
       const value = Number(range.value);
-      after.style.clipPath = `inset(0 ${100 - value}% 0 0)`;
+      after.style.clipPath = `inset(0 0 0 ${value}%)`;
       if (separator) {
         separator.style.left = `${value}%`;
       }
