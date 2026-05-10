@@ -99,8 +99,14 @@
     const range = card.querySelector('.before-after-range');
     const after = card.querySelector('.media-after');
     const separator = card.querySelector('.before-after-separator');
+    const sideBySideMode = document.body.classList.contains('before-after-side-by-side');
 
     if (!range || !after) {
+      return;
+    }
+
+    if (sideBySideMode) {
+      after.style.clipPath = 'none';
       return;
     }
 

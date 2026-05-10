@@ -1033,6 +1033,43 @@ textarea {
   box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.22), 0 10px 22px rgba(0, 0, 0, 0.4);
 }
 
+.before-after-side-by-side .before-after-media {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+.before-after-side-by-side .before-after-media::after {
+  content: none;
+}
+
+.before-after-side-by-side .before-after-media img {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.before-after-side-by-side .media-before,
+.before-after-side-by-side .media-after {
+  clip-path: none;
+}
+
+.before-after-side-by-side .before-after-separator,
+.before-after-side-by-side .before-after-range {
+  display: none;
+}
+
+.before-after-side-by-side .before-label,
+.before-after-side-by-side .after-label {
+  top: 18px;
+}
+
 .before-label,
 .after-label {
   position: absolute;
