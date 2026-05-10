@@ -1713,6 +1713,82 @@ textarea {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
+.prestations-page .prestation-marketing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.prestations-page .prestation-intro-card {
+  padding: 22px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(140deg, rgba(225, 29, 46, 0.1), rgba(255, 122, 26, 0.04)),
+    rgba(20, 16, 24, 0.66);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
+}
+
+.prestations-page .prestation-intro-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.18rem;
+}
+
+.prestations-page .prestation-intro-card p {
+  margin: 0;
+  color: #d0d5df;
+}
+
+.prestations-page .service-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+}
+
+.prestations-page .service-card,
+.prestations-page .service-card:nth-child(1),
+.prestations-page .service-card:nth-child(2),
+.prestations-page .service-card:nth-child(3),
+.prestations-page .service-card:nth-child(4),
+.prestations-page .service-card:nth-child(5),
+.prestations-page .service-card:nth-child(6),
+.prestations-page .service-card:nth-child(7) {
+  grid-column: span 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.prestations-page .service-card h3 {
+  min-height: 2.5em;
+}
+
+.prestations-page .service-card p {
+  margin: 0;
+  color: #d7dbe4;
+}
+
+.prestations-page .service-footer {
+  margin-top: auto;
+  width: 100%;
+}
+
+.prestations-page .service-footer .btn {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 10px;
+  clip-path: none;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.84rem;
+  padding: 0 14px;
+}
+
 .quick-contact-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1759,6 +1835,14 @@ textarea {
   }
 
   .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .prestations-page .prestation-marketing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prestations-page .service-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1933,6 +2017,29 @@ textarea {
 
   .quick-contact-grid {
     grid-template-columns: 1fr;
+  }
+
+  .prestations-page .prestation-intro-card {
+    padding: 18px;
+  }
+
+  .prestations-page .service-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .prestations-page .service-card {
+    padding: 16px;
+  }
+
+  .prestations-page .service-card h3 {
+    min-height: 0;
+    margin-bottom: 8px;
+  }
+
+  .prestations-page .service-footer .btn {
+    min-height: 42px;
+    font-size: 0.82rem;
   }
 
   .service-footer {
