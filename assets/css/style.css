@@ -266,12 +266,13 @@ textarea {
 }
 
 .hero-editorial .hero-grid {
-  align-items: start;
+  align-items: stretch;
 }
 
 .hero-editorial .hero-copy,
 .hero-editorial .hero-visual {
-  align-self: start;
+  align-self: stretch;
+  height: 100%;
 }
 
 .hero::after {
@@ -609,6 +610,13 @@ textarea {
 .hero-mini-cards article {
   padding: 18px;
   border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  min-height: 170px;
+}
+
+.hero-mini-cards article p {
+  margin: 0;
 }
 
 .hero-mini-cards strong {
@@ -635,6 +643,9 @@ textarea {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
   border: 1px solid rgba(255, 122, 26, 0.28);
   box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  min-height: 108px;
 }
 
 .hero-aside-card strong {
