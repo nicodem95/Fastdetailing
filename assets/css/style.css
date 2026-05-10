@@ -263,6 +263,23 @@ textarea {
   padding: 18px;
 }
 
+.hero-editorial::before {
+  background:
+    linear-gradient(112deg, rgba(4, 4, 7, 0.9) 18%, rgba(8, 8, 11, 0.78) 56%, rgba(2, 2, 5, 0.72) 100%),
+    radial-gradient(circle at 78% 16%, rgba(255, 255, 255, 0.08), transparent 34%),
+    radial-gradient(circle at 10% 10%, rgba(255, 42, 42, 0.2), transparent 28%),
+    url("../Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.49 (3).jpeg") center / cover no-repeat;
+}
+
+.hero-editorial .hero-copy {
+  background: rgba(8, 8, 12, 0.54);
+  border-radius: 16px;
+}
+
+.hero-editorial .hero-visual {
+  border-radius: 16px;
+}
+
 .hero::after {
   content: "";
   position: absolute;
@@ -316,6 +333,15 @@ textarea {
   background-clip: text;
   color: transparent;
   letter-spacing: 0.02em;
+}
+
+.hero-editorial .hero-copy h1 {
+  font-family: "Space Grotesk", "Manrope", sans-serif;
+  text-transform: none;
+  line-height: 1.03;
+  letter-spacing: 0.01em;
+  font-size: clamp(2rem, 4.4vw, 4.2rem);
+  max-width: 14ch;
 }
 
 .section-heading h2,
@@ -384,6 +410,11 @@ textarea {
   margin: 28px 0 18px;
 }
 
+.cta-row-editorial {
+  margin: 24px 0 20px;
+  gap: 10px;
+}
+
 .cta-row.compact {
   margin: 0;
 }
@@ -445,6 +476,66 @@ textarea {
 
 .btn-block {
   width: 100%;
+}
+
+.btn-premium,
+.btn-premium-alt {
+  border-radius: 12px;
+  clip-path: none;
+  min-height: 50px;
+  padding: 0 18px;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.88rem;
+}
+
+.btn-premium {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.34);
+}
+
+.btn-premium-alt {
+  background: rgba(12, 11, 16, 0.5);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ebe6ea;
+}
+
+.btn-premium:hover,
+.btn-premium:focus-visible,
+.btn-premium-alt:hover,
+.btn-premium-alt:focus-visible {
+  border-color: rgba(255, 122, 26, 0.5);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.38), 0 0 18px rgba(255, 122, 26, 0.12);
+}
+
+.hero-signals {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.hero-signals li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ede8ee;
+  font-size: 0.86rem;
+}
+
+.hero-signals li span {
+  color: #ffb986;
+  font-weight: 700;
 }
 
 .hero-points {
@@ -604,6 +695,11 @@ textarea {
   border-radius: 7px;
   border: 1px solid rgba(255, 122, 26, 0.4);
   background: rgba(255, 122, 26, 0.14);
+}
+
+.hero-editorial .hero-badges span {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .section-heading {
@@ -1547,6 +1643,35 @@ textarea {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
+.quick-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.quick-contact-card {
+  background: rgba(16, 14, 20, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.32);
+}
+
+.quick-contact-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.quick-contact-card p {
+  margin: 0;
+  color: #d0d5df;
+}
+
+.quick-contact-card a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 1080px) {
   body.nav-open {
     overflow: hidden;
@@ -1564,6 +1689,10 @@ textarea {
   }
 
   .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .quick-contact-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1698,9 +1827,42 @@ textarea {
     flex-direction: column;
   }
 
+  .hero-editorial .cta-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 20px 0 18px;
+  }
+
+  .hero-editorial .btn {
+    width: auto;
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 0.8rem;
+  }
+
+  .hero-editorial .btn-premium,
+  .hero-editorial .btn-premium-alt {
+    width: auto;
+    flex: 0 0 auto;
+  }
+
+  .hero-signals {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-editorial .hero-copy,
+  .hero-editorial .hero-visual {
+    padding: 16px;
+  }
+
   .btn,
   .contact-chip {
     width: 100%;
+  }
+
+  .quick-contact-grid {
+    grid-template-columns: 1fr;
   }
 
   .service-footer {
