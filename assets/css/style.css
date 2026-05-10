@@ -2073,6 +2073,21 @@ textarea {
     color: #fff;
   }
 
+  .mobile-sticky-cta.mobile-sticky-cta-home a {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.2);
+    text-transform: none;
+    letter-spacing: 0.02em;
+    clip-path: none;
+    border-radius: 10px;
+  }
+
+  .mobile-sticky-cta.mobile-sticky-cta-home a:first-child {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #f2f4f7;
+  }
+
   .site-footer {
     padding-bottom: 88px;
   }
