@@ -1,4 +1,5 @@
 (function () {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const placeholderMap = {
     garage: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
@@ -97,6 +98,7 @@
   document.querySelectorAll('[data-before-after]').forEach((card) => {
     const range = card.querySelector('.before-after-range');
     const after = card.querySelector('.media-after');
+    const separator = card.querySelector('.before-after-separator');
 
     if (!range || !after) {
       return;
@@ -104,7 +106,10 @@
 
     const update = () => {
       const value = Number(range.value);
-      after.style.clipPath = `inset(0 0 0 ${100 - value}%)`;
+      after.style.clipPath = `inset(0 ${100 - value}% 0 0)`;
+      if (separator) {
+        separator.style.left = `${value}%`;
+      }
     };
 
     range.addEventListener('input', update);
@@ -123,10 +128,41 @@
 
       galleryItems.forEach((item) => {
         const visible = filter === 'all' || item.dataset.category === filter;
-        item.classList.toggle('is-hidden', !visible);
+        item.classList.toggle('is-fading-out', !visible);
+        item.classList.toggle('is-fading-in', visible);
+        window.setTimeout(() => {
+          item.classList.toggle('is-hidden', !visible);
+          item.classList.remove('is-fading-out');
+        }, visible ? 0 : 180);
       });
     });
   });
+
+  if (!prefersReducedMotion) {
+    const revealItems = document.querySelectorAll('.reveal');
+    if (revealItems.length > 0) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16 });
+
+      revealItems.forEach((item) => revealObserver.observe(item));
+    }
+
+    const parallaxTarget = document.querySelector('.hero-cinematic .hero-card img');
+    if (parallaxTarget) {
+      window.addEventListener('scroll', () => {
+        const offset = Math.min(window.scrollY * 0.08, 30);
+        parallaxTarget.style.transform = `scale(1.06) translateY(${offset}px)`;
+      }, { passive: true });
+    }
+  } else {
+    document.querySelectorAll('.reveal').forEach((item) => item.classList.add('is-visible'));
+  }
 
   const contactForm = document.getElementById('contactForm');
 
@@ -137,11 +173,13 @@
       const formData = new FormData(contactForm);
       const name = formData.get('name') || 'Nom non renseigné';
       const phone = formData.get('phone') || 'Téléphone non renseigné';
+      const email = formData.get('email') || 'Email non renseigné';
+      const vehicle = formData.get('vehicle') || 'Type de véhicule non renseigné';
       const service = formData.get('service') || 'Prestation à préciser';
       const message = formData.get('message') || 'Message non renseigné';
 
       const subject = encodeURIComponent(`Demande de devis Fast Detailing - ${service}`);
-      const body = encodeURIComponent(`Nom: ${name}\nTéléphone: ${phone}\nPrestation: ${service}\n\nMessage:\n${message}`);
+      const body = encodeURIComponent(`Nom: ${name}\nTéléphone: ${phone}\nEmail: ${email}\nType de véhicule: ${vehicle}\nPrestation: ${service}\n\nMessage:\n${message}`);
 
       window.location.href = `mailto:fastdetailing27140@gmail.com?subject=${subject}&body=${body}`;
     });
