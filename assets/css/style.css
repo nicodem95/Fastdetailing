@@ -1178,6 +1178,26 @@ textarea {
   gap: 16px;
 }
 
+.reviews-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 16px;
+}
+
+.reviews-trust span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: #e8edf6;
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+}
+
 .why-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -1204,7 +1224,7 @@ textarea {
 }
 
 .reviews-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .review-head {
@@ -1218,6 +1238,16 @@ textarea {
   margin: 3px 0 0;
   font-size: 0.86rem;
   color: #aeb5c0;
+}
+
+.review-source {
+  margin-left: auto;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.72rem;
+  color: #dce3ee;
 }
 
 .review-avatar {
@@ -1239,6 +1269,11 @@ textarea {
   color: #ffc37f;
   letter-spacing: 0.12em;
   font-size: 0.92rem;
+}
+
+.review-fallback {
+  color: #d2d7e0;
+  margin: 0;
 }
 
 .gallery-masonry .gallery-card img {
@@ -2098,6 +2133,19 @@ textarea {
   .why-grid,
   .reviews-grid {
     grid-template-columns: 1fr;
+  }
+
+  .reviews-grid.reviews-grid-scroll {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(82%, 1fr);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 6px;
+  }
+
+  .reviews-grid.reviews-grid-scroll .review-card {
+    scroll-snap-align: start;
   }
 
   .cta-row {

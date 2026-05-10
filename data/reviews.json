@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Sonia",
+    "rating": 5,
+    "source": "Google",
+    "location": "Gisors",
+    "text": "Accueil professionnel, explications claires et travail impeccable. Véhicule rendu comme neuf. Garage sérieux et efficace."
+  },
+  {
+    "name": "Kevin",
+    "rating": 5,
+    "source": "Google",
+    "location": "Gisors",
+    "text": "Prestation intérieur/extérieur parfaite. Ma voiture est comme au premier jour. Très accueillant et professionnel."
+  },
+  {
+    "name": "Eva",
+    "rating": 5,
+    "source": "Google",
+    "location": "Gisors",
+    "text": "Prestation réalisée sur mon van avec un résultat impressionnant. Mon véhicule est comme neuf."
+  },
+  {
+    "name": "Marco",
+    "rating": 5,
+    "source": "Google",
+    "location": "Gisors",
+    "text": "Très bon travail sur ma voiture et ma moto. Excellent rapport qualité/prix."
+  }
+]

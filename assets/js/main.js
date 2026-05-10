@@ -190,6 +190,46 @@
     });
   }
 
+  const reviewsGrid = document.getElementById('reviewsGrid');
+  if (reviewsGrid) {
+    fetch('data/reviews.json')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Reviews JSON unavailable');
+        }
+        return response.json();
+      })
+      .then((reviews) => {
+        if (!Array.isArray(reviews)) {
+          return;
+        }
+
+        const escapeHtml = (value) => String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+
+        const reviewsMarkup = reviews.map((review) => {
+          const name = escapeHtml(review.name || 'Client');
+          const location = escapeHtml(review.location || 'Gisors');
+          const source = escapeHtml(review.source || 'Google');
+          const text = escapeHtml(review.text || '');
+          const rating = Math.max(0, Math.min(5, Number(review.rating) || 0));
+          const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+          const initial = name.charAt(0).toUpperCase();
+
+          return `<article class="review-card"><div class="review-head"><span class="review-avatar">${initial}</span><div><strong>${name}</strong><p>${location}</p></div><span class="review-source">${source}</span></div><p class="review-stars" aria-label="Note ${rating} sur 5">${stars}</p><p>${text}</p></article>`;
+        }).join('');
+
+        reviewsGrid.innerHTML = reviewsMarkup;
+      })
+      .catch(() => {
+        reviewsGrid.innerHTML = '<p class="review-fallback">Les avis seront affichés très prochainement.</p>';
+      });
+  }
+
   if (!prefersReducedMotion) {
     const revealItems = document.querySelectorAll('.reveal');
     if (revealItems.length > 0) {
