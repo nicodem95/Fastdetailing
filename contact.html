@@ -134,21 +134,25 @@
             </div>
             <div class="form-row">
               <label>
+                Code postal
+                <input id="contactPostalCode" type="text" name="postalCode" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="27140">
+              </label>
+              <label>
                 Email (facultatif)
                 <input type="email" name="email" placeholder="votre@email.com">
               </label>
-              <label>
-                Type de véhicule
-                <select name="vehicle" required>
-                  <option value="">Sélectionner...</option>
-                  <option value="Voiture">Voiture</option>
-                  <option value="SUV">SUV</option>
-                  <option value="Monospace">Monospace</option>
-                  <option value="Moto">Moto</option>
-                  <option value="Autre">Autre</option>
-                </select>
-              </label>
             </div>
+            <label>
+              Type de véhicule
+              <select name="vehicle" required>
+                <option value="">Sélectionner...</option>
+                <option value="Voiture">Voiture</option>
+                <option value="SUV">SUV</option>
+                <option value="Monospace">Monospace</option>
+                <option value="Moto">Moto</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </label>
             <label>
               Prestation souhaitée
               <select name="service" required>

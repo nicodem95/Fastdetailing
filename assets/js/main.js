@@ -321,6 +321,15 @@
   }
 
   const contactForm = document.getElementById('contactForm');
+  const contactPostalCodeInput = document.getElementById('contactPostalCode');
+
+  if (contactPostalCodeInput) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cpParam = (urlParams.get('cp') || '').replace(/\D/g, '').slice(0, 5);
+    if (cpParam) {
+      contactPostalCodeInput.value = cpParam;
+    }
+  }
 
   if (contactForm) {
     contactForm.addEventListener('submit', (event) => {
@@ -329,13 +338,14 @@
       const formData = new FormData(contactForm);
       const name = formData.get('name') || 'Nom non renseigné';
       const phone = formData.get('phone') || 'Téléphone non renseigné';
+      const postalCode = formData.get('postalCode') || 'Code postal non renseigné';
       const email = formData.get('email') || 'Email non renseigné';
       const vehicle = formData.get('vehicle') || 'Type de véhicule non renseigné';
       const service = formData.get('service') || 'Prestation à préciser';
       const message = formData.get('message') || 'Message non renseigné';
 
       const subject = encodeURIComponent(`Demande de devis Fast Detailing - ${service}`);
-      const body = encodeURIComponent(`Nom: ${name}\nTéléphone: ${phone}\nEmail: ${email}\nType de véhicule: ${vehicle}\nPrestation: ${service}\n\nMessage:\n${message}`);
+      const body = encodeURIComponent(`Nom: ${name}\nTéléphone: ${phone}\nCode postal: ${postalCode}\nEmail: ${email}\nType de véhicule: ${vehicle}\nPrestation: ${service}\n\nMessage:\n${message}`);
 
       window.location.href = `mailto:fastdetailing27140@gmail.com?subject=${subject}&body=${body}`;
     });
