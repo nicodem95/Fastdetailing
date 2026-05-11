@@ -724,6 +724,19 @@ textarea {
   color: #cfd8e7;
 }
 
+.home-assurance-offer {
+  margin-top: 10px;
+  font-weight: 800;
+  color: #ffe3c8;
+  font-size: 1.03rem;
+}
+
+.home-assurance-note {
+  margin-top: 6px;
+  color: #bfc8d8;
+  font-size: 0.86rem;
+}
+
 .home-steps-timeline {
   margin: 16px 0 0;
   padding: 0;
