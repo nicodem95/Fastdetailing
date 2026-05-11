@@ -620,6 +620,182 @@ textarea {
   padding-top: clamp(44px, 6.4vw, 72px);
 }
 
+.assurance-advantage-grid {
+  margin: 22px 0 30px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 18px;
+}
+
+.assurance-panel,
+.benefits-panel {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(16, 14, 22, 0.74);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.34);
+  padding: clamp(18px, 2.5vw, 26px);
+}
+
+.assurance-panel h3,
+.benefits-panel h3 {
+  margin: 0;
+  font-family: "Teko", "Manrope", sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 0.98;
+}
+
+.assurance-panel h3 {
+  font-size: clamp(1.5rem, 2.3vw, 2rem);
+}
+
+.assurance-intro {
+  margin: 10px 0 0;
+  color: #d6dde8;
+}
+
+.assurance-points {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.assurance-points li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #edf2fb;
+}
+
+.assurance-point-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffd4ab;
+  background: linear-gradient(145deg, rgba(255, 184, 118, 0.2), rgba(155, 114, 82, 0.16));
+  border: 1px solid rgba(255, 190, 130, 0.42);
+}
+
+.assurance-point-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.assurance-note {
+  margin: 14px 0 0;
+  color: #bcc6d6;
+  font-size: 0.95rem;
+}
+
+.benefits-panel {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(248, 198, 149, 0.18), transparent 36%),
+    linear-gradient(150deg, rgba(34, 37, 53, 0.96), rgba(18, 21, 32, 0.94));
+  border-color: rgba(255, 205, 156, 0.34);
+  position: relative;
+  overflow: hidden;
+}
+
+.benefits-panel::after {
+  content: "";
+  position: absolute;
+  inset: auto -18% -42% 32%;
+  height: 180px;
+  background: radial-gradient(circle, rgba(240, 192, 137, 0.26), transparent 72%);
+  pointer-events: none;
+}
+
+.benefits-badge {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ffe4c9;
+  border: 1px solid rgba(255, 221, 189, 0.45);
+  background: rgba(255, 224, 190, 0.12);
+}
+
+.benefits-badge-icon {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+}
+
+.benefits-badge-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.benefits-panel h3 {
+  margin-top: 14px;
+  font-size: clamp(1.84rem, 3vw, 2.5rem);
+  color: #fff4e5;
+  max-width: 17ch;
+}
+
+.benefits-lead {
+  margin: 12px 0 0;
+  font-size: 1.03rem;
+  color: #f6dcc0;
+}
+
+.benefits-note {
+  margin: 10px 0 0;
+  color: #c9d2e0;
+  font-size: 0.9rem;
+}
+
+.benefits-cta {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 9px;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #2a1f13;
+  background: linear-gradient(135deg, #f7cc9f, #dfab78);
+  border: 1px solid rgba(255, 226, 189, 0.62);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.benefits-cta:hover,
+.benefits-cta:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+}
+
+.section-heading-compact {
+  margin-top: 4px;
+}
+
+.section-heading-compact h2 {
+  font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+}
+
 .windshield-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2536,6 +2712,15 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .assurance-advantage-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .benefits-panel {
+    order: -1;
+  }
+
   .hero-windshield .hero-grid {
     gap: 16px;
   }
@@ -2790,6 +2975,31 @@ textarea {
 
   .hero-windshield .hero-mini-cards {
     display: none;
+  }
+
+  .assurance-advantage-grid {
+    margin: 14px 0 20px;
+  }
+
+  .assurance-panel,
+  .benefits-panel {
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .assurance-panel h3 {
+    font-size: clamp(1.4rem, 7vw, 1.8rem);
+  }
+
+  .benefits-panel h3 {
+    margin-top: 12px;
+    font-size: clamp(1.62rem, 8vw, 2.04rem);
+  }
+
+  .benefits-cta {
+    width: 100%;
+    min-height: 46px;
+    font-size: 0.76rem;
   }
 
   .hero-windshield .hero-scroll-wrap {
