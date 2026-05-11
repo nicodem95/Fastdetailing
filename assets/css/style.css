@@ -620,6 +620,155 @@ textarea {
   padding-top: clamp(44px, 6.4vw, 72px);
 }
 
+.hero-windshield-slim {
+  min-height: min(76vh, 700px);
+}
+
+.hero-windshield-slim .hero-copy,
+.hero-windshield-slim .hero-visual {
+  padding: clamp(20px, 3vw, 28px);
+}
+
+.hero-windshield-slim .hero-copy h1 {
+  max-width: 14ch;
+  text-transform: none;
+  line-height: 1.02;
+}
+
+.hero-windshield-slim .hero-text {
+  font-size: clamp(1.02rem, 2vw, 1.16rem);
+  max-width: 54ch;
+}
+
+.hero-slim-cta {
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.home-reassurance {
+  padding-top: clamp(40px, 5vw, 60px);
+}
+
+.home-reassurance-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-reassurance-card {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(16, 13, 21, 0.78);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.26);
+  padding: 14px;
+}
+
+.home-reassurance-icon {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  color: #f9d8b6;
+  border: 1px solid rgba(255, 192, 140, 0.45);
+  background: rgba(255, 192, 140, 0.12);
+  font-weight: 800;
+}
+
+.home-reassurance-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.home-reassurance-card h3 {
+  margin: 0 0 6px;
+  font-size: 1.02rem;
+}
+
+.home-reassurance-card p {
+  margin: 0;
+  color: #ced7e5;
+  font-size: 0.9rem;
+}
+
+.home-assurance-compact {
+  padding-top: clamp(26px, 4vw, 44px);
+}
+
+.home-assurance-panel {
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background:
+    radial-gradient(circle at 86% 12%, rgba(255, 188, 130, 0.14), transparent 32%),
+    rgba(15, 12, 20, 0.82);
+  box-shadow: 0 22px 42px rgba(0, 0, 0, 0.3);
+  padding: clamp(18px, 2.7vw, 28px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.home-assurance-panel h2 {
+  margin: 0;
+  font-family: "Teko", "Manrope", sans-serif;
+  font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+  line-height: 0.98;
+}
+
+.home-assurance-panel p {
+  margin: 8px 0 0;
+  color: #cfd8e7;
+}
+
+.home-steps-timeline {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-step-card {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(16, 13, 21, 0.78);
+  padding: 14px;
+}
+
+.home-step-card span {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 188, 130, 0.18);
+  border: 1px solid rgba(255, 188, 130, 0.46);
+  color: #ffe2c6;
+  font-weight: 800;
+  font-size: 0.82rem;
+}
+
+.home-step-card h3 {
+  margin: 10px 0 6px;
+  font-size: 1rem;
+}
+
+.home-step-card p {
+  margin: 0;
+  color: #c8d1df;
+  font-size: 0.9rem;
+}
+
+.home-secondary .section-heading p {
+  max-width: 66ch;
+}
+
 .assurance-advantage-grid {
   margin: 22px 0 30px;
   display: grid;
@@ -2992,6 +3141,22 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .home-reassurance-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-assurance-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .home-assurance-panel .btn {
+    width: fit-content;
+  }
+
+  .home-steps-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .assurance-advantage-grid {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -3159,6 +3324,36 @@ textarea {
 
   .hero-windshield.section-pad {
     padding: 20px 0 30px;
+  }
+
+  .hero-windshield-slim .hero-copy,
+  .hero-windshield-slim .hero-visual {
+    padding: 14px;
+  }
+
+  .hero-windshield-slim .hero-copy h1,
+  .hero-windshield-slim .hero-text {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .hero-slim-cta {
+    justify-content: center;
+    margin-top: 14px;
+  }
+
+  .home-reassurance-grid,
+  .home-steps-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .home-reassurance-card,
+  .home-step-card {
+    padding: 12px;
+  }
+
+  .home-assurance-panel .btn {
+    width: 100%;
   }
 
   .admin-hero.section-pad {
