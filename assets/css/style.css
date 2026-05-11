@@ -2515,6 +2515,286 @@ textarea {
   gap: 24px;
 }
 
+.admin-page .site-nav a[aria-current="page"] {
+  background: linear-gradient(135deg, rgba(255, 122, 26, 0.24), rgba(255, 255, 255, 0.08));
+  border-color: rgba(255, 184, 118, 0.56);
+}
+
+.admin-hero {
+  min-height: min(82vh, 760px);
+}
+
+.admin-hero::before {
+  background:
+    linear-gradient(112deg, rgba(5, 5, 8, 0.9) 12%, rgba(12, 12, 16, 0.78) 56%, rgba(4, 4, 7, 0.74) 100%),
+    radial-gradient(circle at 12% 6%, rgba(255, 192, 140, 0.16), transparent 32%),
+    radial-gradient(circle at 84% 10%, rgba(140, 180, 255, 0.1), transparent 35%),
+    url("../bureau/bureau2.jpeg") center / cover no-repeat;
+}
+
+.admin-page .hero-copy,
+.admin-page .hero-visual {
+  align-self: start;
+}
+
+.admin-hero .hero-copy,
+.admin-hero .hero-visual {
+  background: rgba(11, 10, 15, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 26px 52px rgba(0, 0, 0, 0.46);
+}
+
+.admin-hero .hero-copy h1 {
+  max-width: 13ch;
+  text-transform: none;
+  line-height: 1.03;
+}
+
+.admin-hero .hero-text {
+  color: #d7deea;
+}
+
+.admin-hero-cta {
+  margin-top: 24px;
+  gap: 10px;
+}
+
+.admin-whatsapp-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #edf2fa;
+}
+
+.admin-hero-media {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.admin-hero-media img {
+  aspect-ratio: 4 / 3.5;
+  object-fit: cover;
+  object-position: center;
+}
+
+.admin-welcome {
+  padding-top: clamp(42px, 6vw, 72px);
+}
+
+.admin-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  gap: clamp(20px, 3vw, 34px);
+  align-items: center;
+}
+
+.admin-photo-card {
+  margin: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(18, 14, 24, 0.72);
+  box-shadow: 0 24px 46px rgba(0, 0, 0, 0.33);
+}
+
+.admin-photo-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.admin-copy h2 {
+  margin: 0;
+  font-family: "Teko", "Manrope", sans-serif;
+  font-size: clamp(1.76rem, 3vw, 2.7rem);
+  line-height: 0.98;
+}
+
+.admin-copy p {
+  margin: 12px 0 0;
+  color: #d0d8e7;
+}
+
+.admin-badges {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.admin-badges li {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 195, 147, 0.42);
+  background: rgba(255, 210, 166, 0.1);
+  color: #f7e0c8;
+  font-weight: 700;
+  font-size: 0.84rem;
+}
+
+.admin-services-grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.admin-featured-photo {
+  margin: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 196, 151, 0.36);
+  background: rgba(20, 17, 27, 0.78);
+  box-shadow: 0 28px 48px rgba(0, 0, 0, 0.35);
+}
+
+.admin-featured-photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.admin-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.admin-service-card {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(15, 13, 21, 0.8);
+  padding: 15px;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.22);
+}
+
+.admin-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #24190f;
+  background: linear-gradient(135deg, #f6c79b, #dfaa74);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.admin-service-card h3 {
+  margin: 10px 0 8px;
+  font-size: 1.02rem;
+}
+
+.admin-service-card p {
+  margin: 0;
+  color: #c6cfde;
+  font-size: 0.9rem;
+}
+
+.admin-steps {
+  position: relative;
+}
+
+.admin-timeline {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.admin-timeline li {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(16, 13, 22, 0.78);
+  padding: 14px;
+}
+
+.admin-step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 170, 106, 0.2);
+  border: 1px solid rgba(255, 196, 151, 0.48);
+  color: #ffe0c3;
+  font-weight: 800;
+  font-size: 0.82rem;
+}
+
+.admin-timeline h3 {
+  margin: 10px 0 6px;
+  font-size: 1rem;
+}
+
+.admin-timeline p {
+  margin: 0;
+  color: #c6cfdd;
+  font-size: 0.9rem;
+}
+
+.admin-trust {
+  background:
+    radial-gradient(circle at 10% 2%, rgba(251, 201, 153, 0.12), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.016), rgba(255, 255, 255, 0.005));
+}
+
+.admin-trust-card {
+  padding: clamp(18px, 2.8vw, 34px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(14, 12, 20, 0.8);
+  box-shadow: 0 24px 46px rgba(0, 0, 0, 0.34);
+}
+
+.admin-trust-card h2 {
+  margin: 0;
+  font-family: "Teko", "Manrope", sans-serif;
+  font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+  line-height: 0.98;
+}
+
+.admin-trust-card p {
+  margin: 10px 0 0;
+  color: #d0d8e7;
+}
+
+.admin-trust-points {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.admin-trust-points li {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.admin-seo-local .section-heading p {
+  max-width: 74ch;
+}
+
 .contact-trust-list {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 20px;
@@ -2853,6 +3133,23 @@ textarea {
   .map-section iframe {
     height: 300px;
   }
+
+  .admin-split,
+  .admin-services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-featured-photo img {
+    min-height: 260px;
+  }
+
+  .admin-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 720px) {
@@ -2862,6 +3159,71 @@ textarea {
 
   .hero-windshield.section-pad {
     padding: 20px 0 30px;
+  }
+
+  .admin-hero.section-pad {
+    padding: 24px 0 34px;
+  }
+
+  .admin-hero .hero-copy,
+  .admin-hero .hero-visual {
+    padding: 14px;
+  }
+
+  .admin-hero .hero-copy h1 {
+    font-size: clamp(1.7rem, 8vw, 2.24rem);
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .admin-hero .eyebrow,
+  .admin-hero .hero-text {
+    text-align: center;
+  }
+
+  .admin-hero-cta {
+    margin-top: 16px;
+    justify-content: center;
+  }
+
+  .admin-hero-cta .btn {
+    min-height: 44px;
+    font-size: 0.78rem;
+    padding: 0 14px;
+  }
+
+  .admin-hero-media img {
+    aspect-ratio: 4 / 4.8;
+  }
+
+  .admin-welcome {
+    padding-top: 30px;
+  }
+
+  .admin-copy h2,
+  .admin-trust-card h2 {
+    font-size: clamp(1.48rem, 8vw, 1.98rem);
+  }
+
+  .admin-badges {
+    gap: 8px;
+  }
+
+  .admin-badges li {
+    font-size: 0.74rem;
+    min-height: 34px;
+  }
+
+  .admin-cards-grid,
+  .admin-trust-points,
+  .admin-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-service-card,
+  .admin-timeline li,
+  .admin-trust-points li {
+    padding: 12px;
   }
 
   .hero-windshield .hero-grid {
