@@ -725,11 +725,34 @@ textarea {
   color: #cfd8e7;
 }
 
+.home-assurance-kicker {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  margin-top: 12px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 203, 157, 0.5);
+  background: rgba(255, 203, 157, 0.1);
+  color: #ffe1c3;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .home-assurance-offer {
   margin-top: 10px;
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 213, 174, 0.52);
+  background: linear-gradient(135deg, rgba(255, 188, 130, 0.18), rgba(255, 223, 194, 0.08));
   font-weight: 800;
-  color: #ffe3c8;
-  font-size: 1.03rem;
+  color: #ffe9d3;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .home-assurance-note {
@@ -3368,6 +3391,17 @@ textarea {
 
   .home-assurance-panel .btn {
     width: 100%;
+  }
+
+  .home-assurance-kicker {
+    min-height: 28px;
+    font-size: 0.7rem;
+    padding: 0 10px;
+  }
+
+  .home-assurance-offer {
+    padding: 9px 10px;
+    font-size: 0.96rem;
   }
 
   .admin-hero.section-pad {
