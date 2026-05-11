@@ -2720,7 +2720,11 @@ textarea {
 
 .admin-page .hero-copy,
 .admin-page .hero-visual {
-  align-self: start;
+  align-self: stretch;
+}
+
+.admin-hero .hero-grid {
+  align-items: stretch;
 }
 
 .admin-hero .hero-copy,
@@ -2731,7 +2735,18 @@ textarea {
   box-shadow: 0 26px 52px rgba(0, 0, 0, 0.46);
 }
 
+.admin-hero .hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.admin-hero .hero-visual {
+  display: flex;
+}
+
 .admin-hero .hero-copy h1 {
+  font-size: clamp(2.2rem, 5.2vw, 4.6rem);
   max-width: 13ch;
   text-transform: none;
   line-height: 1.03;
@@ -2753,12 +2768,18 @@ textarea {
 }
 
 .admin-hero-media {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   border-radius: 14px;
   overflow: hidden;
 }
 
 .admin-hero-media img {
-  aspect-ratio: 4 / 3.5;
+  flex: 1;
+  min-height: 320px;
   object-fit: cover;
   object-position: center;
 }
