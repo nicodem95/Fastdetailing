@@ -28,12 +28,31 @@
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.site-nav');
 
+  document.querySelectorAll('img:not([decoding])').forEach((img) => {
+    img.decoding = 'async';
+  });
+
+  document.querySelectorAll('img:not([loading])').forEach((img) => {
+    if (!img.closest('.hero') && !img.closest('.brand')) {
+      img.loading = 'lazy';
+    }
+  });
+
   if (menuToggle && nav) {
+    const syncNavAria = () => {
+      const isMobile = window.innerWidth <= 1080;
+      const isOpen = nav.classList.contains('is-open');
+      nav.setAttribute('aria-hidden', isMobile ? String(!isOpen) : 'false');
+    };
+
+    syncNavAria();
+
     const closeMenu = () => {
       nav.classList.remove('is-open');
       menuToggle.setAttribute('aria-expanded', 'false');
       menuToggle.textContent = 'Menu';
       document.body.classList.remove('nav-open');
+      syncNavAria();
     };
 
     const setMenuState = (isOpen) => {
@@ -41,6 +60,7 @@
       menuToggle.setAttribute('aria-expanded', String(isOpen));
       menuToggle.textContent = isOpen ? 'Fermer' : 'Menu';
       document.body.classList.toggle('nav-open', isOpen);
+      syncNavAria();
     };
 
     menuToggle.addEventListener('click', () => {
@@ -75,7 +95,10 @@
     window.addEventListener('resize', () => {
       if (window.innerWidth > 1080 && nav.classList.contains('is-open')) {
         closeMenu();
+        return;
       }
+
+      syncNavAria();
     });
 
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
@@ -287,7 +310,7 @@
     }
 
     const parallaxTarget = document.querySelector('.hero-cinematic .hero-card img');
-    if (parallaxTarget) {
+    if (parallaxTarget && window.innerWidth > 720) {
       window.addEventListener('scroll', () => {
         const offset = Math.min(window.scrollY * 0.08, 30);
         parallaxTarget.style.transform = `scale(1.06) translateY(${offset}px)`;
