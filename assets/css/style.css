@@ -644,6 +644,19 @@ textarea {
 .hero-slim-cta {
   margin-top: 20px;
   gap: 10px;
+  align-items: center;
+}
+
+.hero-slim-cta .btn {
+  min-height: 50px;
+  padding: 0 18px;
+  border-radius: 10px;
+  clip-path: none;
+  white-space: nowrap;
+}
+
+.hero-slim-cta .btn-outline {
+  border-width: 1px;
 }
 
 .home-reassurance {
