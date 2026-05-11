@@ -630,6 +630,24 @@ textarea {
   padding: clamp(20px, 3vw, 28px);
 }
 
+.hero-windshield-slim .hero-visual {
+  display: flex;
+}
+
+.hero-windshield-slim .hero-card {
+  margin: 0;
+  width: 100%;
+}
+
+.hero-windshield-slim .hero-card img {
+  aspect-ratio: 4 / 3.3;
+  object-fit: cover;
+}
+
+.hero-windshield-slim .hero-card figcaption {
+  padding: 12px 16px 14px;
+}
+
 .hero-windshield-slim .hero-copy h1 {
   max-width: 14ch;
   text-transform: none;
