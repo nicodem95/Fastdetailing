@@ -2772,6 +2772,19 @@ textarea {
 .admin-hero-cta {
   margin-top: 24px;
   gap: 10px;
+  align-items: center;
+}
+
+.admin-hero-cta .btn {
+  min-height: 50px;
+  padding: 0 18px;
+  border-radius: 10px;
+  clip-path: none;
+  white-space: nowrap;
+}
+
+.admin-hero-cta .btn-outline {
+  border-width: 1px;
 }
 
 .admin-whatsapp-btn {
