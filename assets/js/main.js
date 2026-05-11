@@ -350,4 +350,15 @@
       window.location.href = `mailto:fastdetailing27140@gmail.com?subject=${subject}&body=${body}`;
     });
   }
+
+  const heroFastleadForm = document.querySelector('.hero-fastlead-form');
+  if (heroFastleadForm) {
+    heroFastleadForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const cpInput = heroFastleadForm.querySelector('input[name="cp"]');
+      const cp = (cpInput.value || '').replace(/\D/g, '').slice(0, 5);
+      const url = `contact.html?cp=${cp}#formulaire-devis`;
+      window.location.href = url;
+    });
+  }
 })();
