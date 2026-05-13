@@ -211,6 +211,13 @@
       box-shadow: 0 10px 25px rgba(20, 145, 70, 0.34);
     }
 
+    .btn-soft {
+      color: #e9eef7;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow: none;
+    }
+
     .btn:hover,
     .btn:focus-visible {
       transform: translateY(-1px);
@@ -498,6 +505,69 @@
       background: linear-gradient(90deg, #169e53, #12b763);
     }
 
+    @media (max-width: 699px) {
+      .hero-badges {
+        gap: 0.42rem;
+      }
+
+      .hero-badge {
+        font-size: 0.74rem;
+        font-weight: 600;
+        padding: 0.5rem 0.55rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+
+      .btn {
+        padding: 0.78rem 0.86rem;
+        font-size: 0.92rem;
+        box-shadow: none;
+        border-radius: 12px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(90deg, #146bc7, #2182de);
+      }
+
+      .btn-whatsapp {
+        background: rgba(21, 133, 79, 0.12);
+        border: 1px solid rgba(64, 220, 143, 0.26);
+        color: #d9f9e9;
+      }
+
+      .mobile-hide {
+        display: none;
+      }
+
+      .mobile-sticky {
+        left: 0.72rem;
+        right: 0.72rem;
+        bottom: 0.62rem;
+        grid-template-columns: 1fr;
+        padding: 0.38rem;
+        background: rgba(8, 11, 16, 0.74);
+        border-color: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+      }
+
+      .mobile-sticky a {
+        padding: 0.62rem 0.66rem;
+        border-radius: 9px;
+        font-size: 0.86rem;
+        font-weight: 600;
+      }
+
+      .mobile-sticky .sticky-main {
+        background: transparent;
+        border: 1px solid rgba(57, 142, 255, 0.58);
+        color: #dcebff;
+      }
+
+      .mobile-sticky .sticky-alt {
+        display: none;
+      }
+    }
+
     [data-reveal] {
       opacity: 0;
       transform: translateY(14px);
@@ -628,7 +698,7 @@
 
       <div class="cta-row" aria-label="Actions principales">
         <a class="btn btn-primary" href="#tarifs">Voir les tarifs</a>
-        <a class="btn btn-whatsapp" href="contact.html">Prendre rendez-vous</a>
+        <a class="btn btn-soft mobile-hide" href="contact.html">Prendre rendez-vous</a>
       </div>
     </div>
     </section>
@@ -842,7 +912,7 @@
           <h2>Besoin d'un lavage auto a Gisors ?</h2>
           <div class="cta-row" aria-label="Call to action final">
             <a class="btn btn-primary" href="contact.html">Prendre rendez-vous</a>
-            <a class="btn btn-whatsapp" href="https://wa.me/33666084467?text=Bonjour%20Fast%20Detailing%2C%20je%20souhaite%20prendre%20rendez-vous%20pour%20un%20lavage%20auto." target="_blank" rel="noopener noreferrer">Echanger sur WhatsApp</a>
+            <a class="btn btn-soft mobile-hide" href="https://wa.me/33666084467?text=Bonjour%20Fast%20Detailing%2C%20je%20souhaite%20prendre%20rendez-vous%20pour%20un%20lavage%20auto." target="_blank" rel="noopener noreferrer">Echanger sur WhatsApp</a>
           </div>
         </div>
       </div>
