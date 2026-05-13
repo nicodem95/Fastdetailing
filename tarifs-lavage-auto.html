@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0b0d">
+  <meta name="description" content="Tarifs lavage auto premium a Gisors : interieur, exterieur, complet, detailing, vitrages et prise en charge assurance.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <link rel="canonical" href="https://fastdetailing.example/tarifs-lavage-auto.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="assets/Hero/hero.jpeg">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Tarifs Lavage Auto Premium | Fast Detailing">
+  <meta property="og:description" content="Lavage auto professionnel, detailing, vitrage et avantages client : sans avance de frais, franchise offerte, carte cadeau.">
+  <meta property="og:url" content="https://fastdetailing.example/tarifs-lavage-auto.html">
+  <meta property="og:image" content="https://fastdetailing.example/assets/Hero/hero.jpeg">
+  <title>Tarifs Lavage Auto Premium | Fast Detailing Gisors</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    :root {
+      --bg: #0a0b0d;
+      --bg-elev: #12151a;
+      --card: #141922;
+      --text: #f6f8fb;
+      --muted: #b2bac6;
+      --line: rgba(255, 255, 255, 0.12);
+      --accent: #0f7bff;
+      --accent-2: #d91f37;
+      --ok: #18a957;
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% -10%, rgba(15, 123, 255, 0.15), transparent 45%),
+        radial-gradient(circle at 90% 10%, rgba(217, 31, 55, 0.12), transparent 50%),
+        linear-gradient(180deg, #090a0c 0%, #0e1116 55%, #0a0b0d 100%);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      padding-bottom: 84px;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max), 100% - 2rem);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.5rem 0;
+    }
+
+    .section-title {
+      font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+      font-size: clamp(1.6rem, 4.7vw, 2.45rem);
+      line-height: 1.15;
+      margin: 0.2rem 0 0.8rem;
+      letter-spacing: 0.01em;
+    }
+
+    .section-subtitle {
+      margin: 0;
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: clamp(0.98rem, 2.9vw, 1.1rem);
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(120deg, rgba(15, 123, 255, 0.22), rgba(217, 31, 55, 0.22));
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      isolation: isolate;
+      overflow: hidden;
+      padding: 5.5rem 0 3rem;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(7, 10, 14, 0.78) 10%, rgba(7, 10, 14, 0.57) 50%, rgba(7, 10, 14, 0.84) 100%);
+      z-index: -1;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image: url("assets/Hero/hero.jpeg");
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.03);
+      animation: heroZoom 14s ease-out forwards;
+      filter: saturate(1.05) contrast(1.02);
+    }
+
+    @keyframes heroZoom {
+      from { transform: scale(1.12); }
+      to { transform: scale(1.03); }
+    }
+
+    .top-reassure {
+      display: grid;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+
+    .top-reassure article {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(9, 11, 15, 0.5);
+      backdrop-filter: blur(6px);
+      padding: 0.7rem 0.85rem;
+      border-radius: 11px;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+      font-size: clamp(2rem, 7vw, 4rem);
+      line-height: 1.06;
+      margin: 0.9rem 0 0.9rem;
+      max-width: 14ch;
+    }
+
+    .hero p {
+      max-width: 56ch;
+      margin: 0;
+      font-size: clamp(1rem, 3.2vw, 1.2rem);
+      color: #e8edf6;
+    }
+
+    .hero-badges {
+      margin: 1.3rem 0 1.5rem;
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .service-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin: 1rem 0 0;
+    }
+
+    .service-pill {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      padding: 0.34rem 0.62rem;
+      background: rgba(11, 13, 17, 0.56);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #f0f4fb;
+    }
+
+    .hero-badge {
+      font-size: 0.81rem;
+      font-weight: 700;
+      padding: 0.6rem 0.68rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.27);
+      background: rgba(11, 13, 17, 0.66);
+      text-align: center;
+    }
+
+    .cta-row {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 0.3rem;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 0.95rem 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.48rem;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(90deg, var(--accent), #2f91ff);
+      box-shadow: 0 10px 25px rgba(15, 123, 255, 0.36);
+    }
+
+    .btn-whatsapp {
+      color: #f5fbf8;
+      background: linear-gradient(90deg, #169e53, #12b763);
+      box-shadow: 0 10px 25px rgba(20, 145, 70, 0.34);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+      outline: none;
+    }
+
+    .grid-4 {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.45rem;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: auto -15% 0 auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(15, 123, 255, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .icon-bubble {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(140deg, rgba(15, 123, 255, 0.28), rgba(217, 31, 55, 0.28));
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      color: #fff;
+    }
+
+    .icon-bubble svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .card h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.08rem;
+      font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+      line-height: 1.2;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .pricing-wrap {
+      margin-top: 1.4rem;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(22, 26, 33, 0.95), rgba(14, 17, 22, 0.95));
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      display: none;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    .pricing-table th {
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #ced6e2;
+    }
+
+    .price-complet {
+      font-weight: 800;
+      color: #ffffff;
+      position: relative;
+      background: linear-gradient(90deg, rgba(15, 123, 255, 0.22), rgba(217, 31, 55, 0.13));
+    }
+
+    .price-chip {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.72rem;
+      background: rgba(217, 31, 55, 0.2);
+      border: 1px solid rgba(217, 31, 55, 0.52);
+      margin-left: 0.45rem;
+      vertical-align: middle;
+    }
+
+    .pricing-cards {
+      display: grid;
+      gap: 0.9rem;
+      padding: 0.95rem;
+    }
+
+    .pricing-card {
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.95rem;
+    }
+
+    .pricing-card h3 {
+      margin: 0;
+      font-size: 1.08rem;
+      font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+    }
+
+    .price-lines {
+      display: grid;
+      gap: 0.55rem;
+      margin-top: 0.8rem;
+    }
+
+    .price-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.7rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.16);
+      font-size: 0.93rem;
+    }
+
+    .price-line strong {
+      font-size: 1.03rem;
+      color: #fff;
+    }
+
+    .price-line.complet {
+      border: 1px solid rgba(15, 123, 255, 0.43);
+      border-radius: 12px;
+      padding: 0.55rem 0.6rem;
+      background: linear-gradient(90deg, rgba(15, 123, 255, 0.22), rgba(217, 31, 55, 0.12));
+      margin-top: 0.15rem;
+      border-bottom-style: solid;
+    }
+
+    .badge-demand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(217, 31, 55, 0.2);
+      border: 1px solid rgba(217, 31, 55, 0.52);
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 0.55rem;
+    }
+
+    .documents {
+      display: grid;
+      gap: 0.7rem;
+      margin-top: 1.3rem;
+    }
+
+    .doc-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.85rem 0.9rem;
+      background: rgba(255, 255, 255, 0.03);
+      font-weight: 600;
+    }
+
+    .doc-item::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, var(--ok), #5fd28f);
+      box-shadow: 0 0 0 5px rgba(24, 169, 87, 0.15);
+      flex: 0 0 auto;
+    }
+
+    .timeline {
+      margin-top: 1.45rem;
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .step {
+      position: relative;
+      padding: 0.95rem 0.9rem 0.95rem 3rem;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .step::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 0.83rem;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 7px 18px rgba(0, 0, 0, 0.34);
+    }
+
+    .step h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .step p {
+      margin: 0.3rem 0 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .foot-note {
+      color: #97a4b5;
+      font-size: 0.78rem;
+      margin-top: 0.6rem;
+    }
+
+    .mobile-sticky {
+      position: fixed;
+      left: 0.5rem;
+      right: 0.5rem;
+      bottom: 0.45rem;
+      z-index: 60;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.45rem;
+      background: rgba(10, 12, 17, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 14px;
+      padding: 0.5rem;
+    }
+
+    .mobile-sticky a {
+      text-align: center;
+      padding: 0.72rem 0.6rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      border: 1px solid transparent;
+    }
+
+    .mobile-sticky .sticky-main {
+      background: linear-gradient(90deg, var(--accent), #2f91ff);
+    }
+
+    .mobile-sticky .sticky-alt {
+      background: linear-gradient(90deg, #169e53, #12b763);
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    [data-reveal].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 700px) {
+      body {
+        padding-bottom: 0;
+      }
+
+      .container {
+        width: min(var(--max), 100% - 3rem);
+      }
+
+      .top-reassure {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .hero-badges {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .cta-row {
+        grid-template-columns: max-content max-content;
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .timeline {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .mobile-sticky {
+        display: none;
+      }
+    }
+
+    @media (min-width: 980px) {
+      .section {
+        padding: 5rem 0;
+      }
+
+      .pricing-table {
+        display: table;
+      }
+
+      .pricing-cards {
+        display: none;
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(15, 123, 255, 0.45);
+      }
+
+      .timeline {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .step {
+        min-height: 145px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["AutoRepair", "AutomotiveBusiness", "LocalBusiness"],
+    "name": "Fast Detailing",
+    "url": "https://fastdetailing.example/tarifs-lavage-auto.html",
+    "telephone": "+33666084467",
+    "description": "Tarifs lavage auto, detailing, vitrage et prise en charge assurance a Gisors.",
+    "areaServed": ["Gisors", "Etrepagny", "Trie-Chateau", "Magny-en-Vexin"],
+    "priceRange": "30EUR - 100EUR"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <header class="site-header" id="top"><div class="container header-inner"><a class="brand" href="index.html" aria-label="Fast Detailing, accueil"><img src="assets/Hero/hero.jpeg" alt="Logo Fast Detailing" class="brand-mark" onerror="this.style.display='none'"><span class="brand-copy"><strong>Fast Detailing</strong><span>Gisors</span></span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-principal">Menu</button><nav class="site-nav" id="nav-principal"><a href="index.html">Accueil</a><a href="prestations.html">Prestations</a><a href="avant-apres.html">Avant/Après</a><a href="realisations.html">Réalisations</a><a href="pare-brise.html">Pare-brise</a><a href="tarifs-lavage-auto.html" aria-current="page">Tarifs Lavage Auto</a><a href="administratif-assurance.html">Assurance</a><a href="contact.html">Contact</a></nav><a class="header-call" href="tel:+33666084467">06 66 08 44 67</a></div></header>
+
+  <main id="contenu">
+    <section class="hero">
+    <div class="container">
+      <span class="kicker">Centre auto premium a Gisors</span>
+
+      <div class="top-reassure" aria-label="Elements de reassurance immediate">
+        <article>Nettoyage professionnel interieur et exterieur</article>
+        <article>Prise en charge assurance simplifiee</article>
+        <article>Avantages client exclusifs en magasin</article>
+      </div>
+
+      <h1>Lavage Auto Professionnel &amp; Finition Premium</h1>
+      <p>Interieur, exterieur, nettoyage complet, renovation et avantages exclusifs.</p>
+
+      <div class="service-strip" aria-label="Services proposes">
+        <span class="service-pill">Lavage auto</span>
+        <span class="service-pill">Detailing</span>
+        <span class="service-pill">Vitrage / Pare-brise</span>
+        <span class="service-pill">Vitres teintees</span>
+      </div>
+
+      <div class="hero-badges" aria-label="Avantages client">
+        <span class="hero-badge">Sans avance de frais</span>
+        <span class="hero-badge">Franchise offerte*</span>
+        <span class="hero-badge">Carte cadeau jusqu'a 350&euro;</span>
+        <span class="hero-badge">Lavage complet offert</span>
+      </div>
+
+      <div class="cta-row" aria-label="Actions principales">
+        <a class="btn btn-primary" href="contact.html">Prendre rendez-vous</a>
+        <a class="btn btn-whatsapp" href="https://wa.me/33666084467?text=Bonjour%20Fast%20Detailing%2C%20je%20souhaite%20prendre%20rendez-vous%20pour%20un%20lavage%20auto." target="_blank" rel="noopener noreferrer">Echanger sur WhatsApp</a>
+      </div>
+
+      <p class="foot-note">* Selon assurance et conditions en magasin.</p>
+    </div>
+    </section>
+
+    <section class="section" id="avantages">
+      <div class="container" data-reveal>
+        <span class="kicker">Avantages client</span>
+        <h2 class="section-title">Des services utiles, visibles et rassurants</h2>
+        <p class="section-subtitle">Chaque intervention est pensee pour simplifier votre experience et valoriser votre vehicule.</p>
+
+        <div class="grid-4">
+          <article class="card">
+            <div class="icon-bubble" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2l3.2 6.5L22 9.2l-5 4.9 1.2 6.9L12 17.6 5.8 21l1.2-6.9-5-4.9 6.8-.7L12 2z"/></svg>
+            </div>
+            <h3>Franchise offerte</h3>
+            <p>Selon assurance et conditions en magasin.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon-bubble" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"></path></svg>
+            </div>
+            <h3>Carte cadeau offerte</h3>
+            <p>Recevez une carte cadeau de 100&euro; a 350&euro; selon prestation.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon-bubble" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 12a8 8 0 0116 0"></path><path d="M12 12v5"></path><path d="M9 17h6"></path><circle cx="12" cy="12" r="10"></circle></svg>
+            </div>
+            <h3>Sans avance de frais</h3>
+            <p>Nous nous occupons des demarches avec votre assurance.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon-bubble" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 13l2.5-5h13L21 13"></path><path d="M5 13h14v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6z"></path><circle cx="8.5" cy="16" r="1"></circle><circle cx="15.5" cy="16" r="1"></circle></svg>
+            </div>
+            <h3>Lavage complet offert</h3>
+            <p>Votre vehicule est rendu propre et pret a reprendre la route.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tarifs">
+      <div class="container" data-reveal>
+        <span class="kicker">Tarifs</span>
+        <h2 class="section-title">Nos Tarifs Lavage Auto</h2>
+        <p class="section-subtitle">Des prestations adaptees a tous les vehicules.</p>
+
+        <div class="pricing-wrap" aria-label="Tarifs lavage auto">
+          <table class="pricing-table">
+            <thead>
+              <tr>
+                <th>Type vehicule</th>
+                <th>Interieur</th>
+                <th>Exterieur</th>
+                <th>Complet <span class="price-chip">Le plus demande</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Citadine</td>
+                <td>30&euro;</td>
+                <td>30&euro;</td>
+                <td class="price-complet">50&euro;</td>
+              </tr>
+              <tr>
+                <td>Berline</td>
+                <td>35&euro;</td>
+                <td>35&euro;</td>
+                <td class="price-complet">60&euro;</td>
+              </tr>
+              <tr>
+                <td>Monospace</td>
+                <td>40&euro;</td>
+                <td>40&euro;</td>
+                <td class="price-complet">70&euro;</td>
+              </tr>
+              <tr>
+                <td>SUV</td>
+                <td>45&euro;</td>
+                <td>45&euro;</td>
+                <td class="price-complet">80&euro;</td>
+              </tr>
+              <tr>
+                <td>Van / Utilitaire</td>
+                <td>55&euro;</td>
+                <td>55&euro;</td>
+                <td class="price-complet">100&euro;</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="pricing-cards">
+            <article class="pricing-card">
+              <h3>Citadine</h3>
+              <div class="price-lines">
+                <div class="price-line"><span>Interieur</span><strong>30&euro;</strong></div>
+                <div class="price-line"><span>Exterieur</span><strong>30&euro;</strong></div>
+                <div class="badge-demand">Le plus demande</div>
+                <div class="price-line complet"><span>Complet</span><strong>50&euro;</strong></div>
+              </div>
+            </article>
+
+            <article class="pricing-card">
+              <h3>Berline</h3>
+              <div class="price-lines">
+                <div class="price-line"><span>Interieur</span><strong>35&euro;</strong></div>
+                <div class="price-line"><span>Exterieur</span><strong>35&euro;</strong></div>
+                <div class="badge-demand">Le plus demande</div>
+                <div class="price-line complet"><span>Complet</span><strong>60&euro;</strong></div>
+              </div>
+            </article>
+
+            <article class="pricing-card">
+              <h3>Monospace</h3>
+              <div class="price-lines">
+                <div class="price-line"><span>Interieur</span><strong>40&euro;</strong></div>
+                <div class="price-line"><span>Exterieur</span><strong>40&euro;</strong></div>
+                <div class="badge-demand">Le plus demande</div>
+                <div class="price-line complet"><span>Complet</span><strong>70&euro;</strong></div>
+              </div>
+            </article>
+
+            <article class="pricing-card">
+              <h3>SUV</h3>
+              <div class="price-lines">
+                <div class="price-line"><span>Interieur</span><strong>45&euro;</strong></div>
+                <div class="price-line"><span>Exterieur</span><strong>45&euro;</strong></div>
+                <div class="badge-demand">Le plus demande</div>
+                <div class="price-line complet"><span>Complet</span><strong>80&euro;</strong></div>
+              </div>
+            </article>
+
+            <article class="pricing-card">
+              <h3>Van / Utilitaire</h3>
+              <div class="price-lines">
+                <div class="price-line"><span>Interieur</span><strong>55&euro;</strong></div>
+                <div class="price-line"><span>Exterieur</span><strong>55&euro;</strong></div>
+                <div class="badge-demand">Le plus demande</div>
+                <div class="price-line complet"><span>Complet</span><strong>100&euro;</strong></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="options">
+      <div class="container" data-reveal>
+        <span class="kicker">Prestations complementaires</span>
+        <h2 class="section-title">Options premium pour aller plus loin</h2>
+        <p class="section-subtitle">Ajoutez des services a forte valeur pour un vehicule encore plus net, protege et valorise.</p>
+
+        <div class="grid-4">
+          <article class="card">
+            <div class="icon-bubble" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 7h18"></path><path d="M5 7l1 10a2 2 0 002 2h8a2 2 0 002-2l1-10"></path><path d="M9 11v5M15 11v5"></path></svg>
+            </div>
+            <h3>Vitres teintees</h3>
+            <p>Gagnez en confort thermique, intimite et style avec une finition propre et homogene. Tarif sur devis selon vitrage.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon-bubble" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 14c2.5 0 2.5 2 5 2s2.5-2 5-2 2.5 2 5 2"></path><path d="M2 18h20"></path><path d="M6 10c0-2 2-4 6-4s6 2 6 4"></path></svg>
+            </div>
+            <h3>Shampoing siege : 20&euro;</h3>
+            <p>Detache, assainit et ravive les tissus en profondeur pour retrouver une assise propre et plus agreable au quotidien.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon-bubble" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="3"></circle><path d="M2 12h3m14 0h3M12 2v3m0 14v3"></path><path d="M5 5l2 2m10 10l2 2M5 19l2-2m10-10l2-2"></path></svg>
+            </div>
+            <h3>Renovation optique : 50&euro;</h3>
+            <p>Redonnez de la clarte a vos phares et ameliorez l'esthetique du vehicule, tout en optimisant votre visibilite de nuit.</p>
+          </article>
+
+          <article class="card">
+            <div class="icon-bubble" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 13l2.5-5h13L21 13"></path><path d="M5 13h14"></path><path d="M7 17h10"></path></svg>
+            </div>
+            <h3>Pack detailing & vitrage</h3>
+            <p>Combinez nettoyage detaille et intervention vitrage pour repartir avec un vehicule propre, securise et pret a rouler.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="documents">
+      <div class="container" data-reveal>
+        <span class="kicker">Assurance</span>
+        <h2 class="section-title">Documents necessaires</h2>
+        <p class="section-subtitle">Nous vous accompagnons dans les demarches administratives.</p>
+
+        <div class="documents" aria-label="Documents necessaires pour le dossier">
+          <div class="doc-item">Carte grise</div>
+          <div class="doc-item">Attestation d'assurance</div>
+          <div class="doc-item">Controle technique</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container" data-reveal>
+        <span class="kicker">Process simple</span>
+        <h2 class="section-title">Un parcours fluide en 4 etapes</h2>
+        <p class="section-subtitle">Un suivi clair, rapide et lisible pour que vous sachiez exactement ou en est votre vehicule.</p>
+
+        <div class="timeline" aria-label="Etapes de prise en charge">
+          <article class="step" data-step="1">
+            <h3>Vous nous contactez</h3>
+            <p>Par telephone, formulaire ou WhatsApp selon votre preference.</p>
+          </article>
+
+          <article class="step" data-step="2">
+            <h3>Nous preparons votre prise en charge</h3>
+            <p>Verification rapide des besoins, des options et des pieces administratives.</p>
+          </article>
+
+          <article class="step" data-step="3">
+            <h3>Intervention rapide</h3>
+            <p>Traitement propre et controle qualite selon les standards detailing.</p>
+          </article>
+
+          <article class="step" data-step="4">
+            <h3>Vous recuperez votre vehicule propre et pret</h3>
+            <p>Remise finale avec conseils d'entretien et options complementaires.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><p>Fast Detailing - Gisors</p><p><a href="index.html">Accueil</a></p><p><a href="https://www.instagram.com/fastdetailing27140/" target="_blank" rel="noopener noreferrer" aria-label="Suivre sur Instagram" title="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a></p></div></footer>
+
+  <div class="mobile-sticky" aria-label="Actions rapides mobile">
+    <a class="sticky-main" href="contact.html">Prendre rendez-vous</a>
+    <a class="sticky-alt" href="https://wa.me/33666084467?text=Bonjour%20Fast%20Detailing%2C%20je%20souhaite%20un%20devis%20lavage%20auto." target="_blank" rel="noopener noreferrer">WhatsApp</a>
+  </div>
+
+  <script>
+    (function () {
+      const revealEls = document.querySelectorAll("[data-reveal]");
+      if (!revealEls.length) {
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      revealEls.forEach((el, index) => {
+        el.style.transitionDelay = `${Math.min(index * 90, 280)}ms`;
+        observer.observe(el);
+      });
+    }());
+  </script>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
