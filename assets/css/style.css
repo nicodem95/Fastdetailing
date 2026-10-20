@@ -815,9 +815,17 @@ textarea {
 }
 
 .home-assurance-offer-line-plus {
-  margin-top: 4px;
   font-size: clamp(1.15rem, 3.7vw, 2rem);
   color: #ffd7b5;
+}
+
+.home-assurance-offer-plus {
+  display: block;
+  margin: 2px 0;
+  color: #ffd7b5;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 800;
+  line-height: 1;
 }
 
 .home-assurance-note {
@@ -3696,6 +3704,11 @@ textarea {
 
   .home-assurance-offer-line {
     font-size: clamp(1.3rem, 7vw, 1.8rem);
+  }
+
+  .home-assurance-offer-line:first-child {
+    font-size: clamp(1rem, 5.2vw, 1.5rem);
+    white-space: nowrap;
   }
 
   .home-assurance-offer-line-plus {
