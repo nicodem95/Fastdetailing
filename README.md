@@ -52,7 +52,7 @@ Les CTA téléphone, email, WhatsApp et Instagram sont déjà cliquables.
 
 ## SEO à faire ensuite
 
-- Remplacer `https://fastdetailing.example/` par votre vrai domaine.
+- Les URL SEO et le sitemap utilisent `https://fastdetailing.fr/`.
 - Ajouter l'adresse exacte si vous voulez un `LocalBusiness` encore plus précis.
 - Brancher de vraies balises `Open Graph` avec vos meilleures images définitives.
 - Ajouter des avis Google intégrés si vous en avez.
