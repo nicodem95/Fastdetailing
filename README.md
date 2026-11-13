@@ -62,3 +62,7 @@ Les CTA téléphone, email, WhatsApp et Instagram sont déjà cliquables.
 ## Formulaire
 
 Le formulaire de contact ouvre la messagerie avec un `mailto:` prérempli. Si vous voulez un envoi serveur réel, ajoutez un petit endpoint PHP sur OVH plus tard.
+
+## Administration avant / après
+
+L'ancien panneau d'administration basé sur Supabase a été supprimé. La future administration utilisera PostgreSQL et le stockage d'images décrits dans [DATABASE_SETUP.md](DATABASE_SETUP.md).

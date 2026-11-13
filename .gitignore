@@ -1,0 +1,13 @@
+node_modules/
+.next/
+*.tsbuildinfo
+.env*
+!.env.example
+backups/
+public/assets/
+public/data/
+public/*.html
+public/favicon.svg
+public/robots.txt
+public/sitemap.xml
+.neon
