@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
+import { injectBeforeAfterCards } from '@/lib/before-after-cards';
 import { getLegacyPage, type LegacyPageSlug } from '@/lib/legacy-pages';
 import { LegacyPageRuntime } from './legacy-page-runtime';
 
@@ -32,8 +33,9 @@ export function getLegacyMetadata(slug: LegacyPageSlug): Metadata {
   };
 }
 
-export function LegacyPage({ slug }: { slug: LegacyPageSlug }) {
+export async function LegacyPage({ slug }: { slug: LegacyPageSlug }) {
   const page = getLegacyPage(slug);
+  if (slug === 'avant-apres') page.mainHtml = await injectBeforeAfterCards(page.mainHtml);
 
   return (
     <>

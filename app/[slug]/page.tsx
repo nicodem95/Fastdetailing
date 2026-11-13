@@ -3,6 +3,7 @@ import { LegacyPage, getLegacyMetadata } from '@/components/legacy-page';
 import { isLegacyPageSlug, legacyPageSlugs } from '@/lib/legacy-pages';
 
 export const dynamicParams = false;
+export const revalidate = 60;
 
 export function generateStaticParams() {
   return legacyPageSlugs.map((slug) => ({ slug }));
