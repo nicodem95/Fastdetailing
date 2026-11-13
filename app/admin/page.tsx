@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getAdminUser } from '@/lib/auth/server';
 import { listRealisations } from '@/lib/services/realisations';
 import { SignOutButton } from './sign-out-button';
+import { ImageUpload } from './image-upload';
 import { createRealisationAction, deleteRealisationAction, togglePublishAction } from './actions';
 
 export const metadata: Metadata = {
@@ -36,7 +37,6 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
         <p>Connecté : {user.email} <SignOutButton /></p>
         <h2>Ajouter une réalisation</h2>
         {erreur === 'champs' ? <p role="alert">Le titre et la catégorie sont obligatoires.</p> : null}
-        {erreur === 'image' ? <p role="alert">Envoi d’image impossible : stockage non configuré, format non supporté (JPEG, PNG, WebP) ou fichier de plus de 8 Mo.</p> : null}
         <form action={createRealisationAction} style={{ display: 'grid', gap: 10, maxWidth: 520 }}>
           <input name="titre" placeholder="Titre" required />
           <input name="categorie" placeholder="Catégorie (ex. intérieur, phares…)" required />
@@ -45,9 +45,9 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             <option value="avant_apres">Avant/Après</option>
             <option value="galerie">Galerie</option>
           </select>
-          <label>Image avant (Avant/Après) <input name="avant" type="file" accept="image/jpeg,image/png,image/webp" /></label>
-          <label>Image après (Avant/Après) <input name="apres" type="file" accept="image/jpeg,image/png,image/webp" /></label>
-          <label>Image (Galerie) <input name="galerie" type="file" accept="image/jpeg,image/png,image/webp" /></label>
+          <ImageUpload name="avant" label="Image avant (Avant/Après)" />
+          <ImageUpload name="apres" label="Image après (Avant/Après)" />
+          <ImageUpload name="galerie" label="Image (Galerie)" />
           <label><input name="publie" type="checkbox" /> Publier immédiatement</label>
           <button className="btn btn-primary" type="submit">Enregistrer</button>
         </form>

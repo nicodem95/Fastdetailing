@@ -2,7 +2,7 @@
 
 The application uses PostgreSQL through Drizzle ORM and the `postgres` driver. The schema is provider-neutral; `DATABASE_URL` can point to Neon or another PostgreSQL service. Use the pooled connection URL for serverless deployments and keep it in local environment files or Vercel project settings, never in source code or client components.
 
-Images use a server-only S3-compatible adapter in `lib/storage/images.ts`, so the bucket provider can be changed through configuration. It supports JPEG, PNG and WebP object uploads and deletion; public image URLs are stored in PostgreSQL, never image bytes. Configure the `OBJECT_STORAGE_*` variables in `.env.local` and Vercel. Use a public CDN/custom domain for `OBJECT_STORAGE_PUBLIC_URL` and credentials restricted to the intended bucket.
+Images use a server-only adapter over Vercel Blob in `lib/storage/images.ts`. It supports JPEG, PNG and WebP uploads and deletion; public image URLs are stored in PostgreSQL, never image bytes. Create a Blob store in the Vercel project (Storage tab); Vercel adds `BLOB_READ_WRITE_TOKEN` to the project, and the same value must be copied into `.env.local` for local development.
 
 ## Local configuration
 
