@@ -1,17 +1,21 @@
 'use client';
 
 import { upload } from '@vercel/blob/client';
-import { useState } from 'react';
+import { useState, type DragEvent } from 'react';
 
 export function ImageUpload({ name, label }: { name: string; label: string }) {
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState('');
-  const [fileName, setFileName] = useState('');
+  const [preview, setPreview] = useState('');
+  const [dragging, setDragging] = useState(false);
 
-  async function onChange(file: File | undefined) {
+  async function handleFile(file: File | undefined) {
     setUrl('');
-    setFileName(file?.name ?? '');
-    if (!file) return setStatus('');
+    if (!file) {
+      setPreview('');
+      return setStatus('');
+    }
+    setPreview(URL.createObjectURL(file));
     setStatus('Envoi en cours…');
     try {
       const extension = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg';
@@ -22,21 +26,39 @@ export function ImageUpload({ name, label }: { name: string; label: string }) {
       setUrl(blob.url);
       setStatus('Image envoyée ✓');
     } catch {
-      setStatus('Échec de l’envoi (JPEG, PNG ou WebP, 8 Mo maximum, stockage configuré).');
+      setStatus('Échec de l’envoi (JPEG, PNG ou WebP, 8 Mo maximum).');
     }
+  }
+
+  function onDrop(event: DragEvent<HTMLLabelElement>) {
+    event.preventDefault();
+    setDragging(false);
+    handleFile(event.dataTransfer.files?.[0]);
   }
 
   return (
     <div className="admin-file">
       <span>{label}</span>
-      <label className="admin-file-drop">
-        <span className="admin-file-btn">{fileName ? 'Changer' : 'Choisir une image'}</span>
-        <span className="admin-file-name">{fileName || 'Aucune image'}</span>
+      <label
+        className={`admin-dropzone${dragging ? ' dragging' : ''}`}
+        onDragOver={(event) => {
+          event.preventDefault();
+          setDragging(true);
+        }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={onDrop}
+      >
+        {preview ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={preview} alt="" />
+        ) : (
+          <span className="admin-dropzone-hint">Glissez une image ici<br />ou cliquez pour choisir</span>
+        )}
         <input
           type="file"
           accept="image/jpeg,image/png,image/webp"
           hidden
-          onChange={(event) => onChange(event.target.files?.[0])}
+          onChange={(event) => handleFile(event.target.files?.[0])}
         />
       </label>
       <input type="hidden" name={name} value={url} />
