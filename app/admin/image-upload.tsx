@@ -6,9 +6,11 @@ import { useState } from 'react';
 export function ImageUpload({ name, label }: { name: string; label: string }) {
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState('');
+  const [fileName, setFileName] = useState('');
 
   async function onChange(file: File | undefined) {
     setUrl('');
+    setFileName(file?.name ?? '');
     if (!file) return setStatus('');
     setStatus('Envoi en cours…');
     try {
@@ -25,11 +27,20 @@ export function ImageUpload({ name, label }: { name: string; label: string }) {
   }
 
   return (
-    <label className="admin-file">
-      {label}
-      <input type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => onChange(event.target.files?.[0])} />
+    <div className="admin-file">
+      <span>{label}</span>
+      <label className="admin-file-drop">
+        <span className="admin-file-btn">{fileName ? 'Changer' : 'Choisir une image'}</span>
+        <span className="admin-file-name">{fileName || 'Aucune image'}</span>
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          hidden
+          onChange={(event) => onChange(event.target.files?.[0])}
+        />
+      </label>
       <input type="hidden" name={name} value={url} />
-      {status ? <small> {status}</small> : null}
-    </label>
+      {status ? <small>{status}</small> : null}
+    </div>
   );
 }
