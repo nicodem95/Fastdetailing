@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { authClient } from '@/lib/auth/client';
+import '../../admin/admin.css';
 
 export default function SignInPage() {
   const [error, setError] = useState('');
@@ -30,12 +31,12 @@ export default function SignInPage() {
 
   return (
     <main className="section-pad">
-      <div className="container" style={{ maxWidth: 420 }}>
+      <div className="admin-login">
         <h1>Connexion</h1>
-        <form onSubmit={onSubmit} style={{ display: 'grid', gap: 12 }}>
+        <form className="admin-form" onSubmit={onSubmit}>
           <input name="email" type="email" placeholder="E-mail" autoComplete="email" required />
           <input name="password" type="password" placeholder="Mot de passe" autoComplete="current-password" required />
-          {error ? <p role="alert">{error}</p> : null}
+          {error ? <p className="admin-alert" role="alert">{error}</p> : null}
           <button className="btn btn-primary" type="submit" disabled={pending}>Se connecter</button>
         </form>
       </div>

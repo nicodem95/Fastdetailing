@@ -25,8 +25,8 @@ export function ImageUpload({ name, label }: { name: string; label: string }) {
   }
 
   return (
-    <label>
-      {label}{' '}
+    <label className="admin-file">
+      {label}
       <input type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => onChange(event.target.files?.[0])} />
       <input type="hidden" name={name} value={url} />
       {status ? <small> {status}</small> : null}

@@ -5,6 +5,7 @@ import { authClient } from '@/lib/auth/client';
 export function SignOutButton() {
   return (
     <button
+      className="admin-small-btn"
       type="button"
       onClick={async () => {
         await authClient.signOut();
