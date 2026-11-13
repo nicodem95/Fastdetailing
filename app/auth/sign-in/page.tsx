@@ -13,16 +13,18 @@ export default function SignInPage() {
     setPending(true);
     const form = new FormData(event.currentTarget);
 
-    const { error: authError } = await authClient.signIn.email({
-      email: String(form.get('email')),
-      password: String(form.get('password')),
-    });
-
-    setPending(false);
-    if (authError) {
-      setError(authError.message || 'Identifiants invalides.');
+    try {
+      const { error: authError } = await authClient.signIn.email({
+        email: String(form.get('email')),
+        password: String(form.get('password')),
+      });
+      if (authError) throw authError;
+    } catch {
+      setPending(false);
+      setError('E-mail ou mot de passe incorrect.');
       return;
     }
+
     window.location.assign('/admin');
   }
 
