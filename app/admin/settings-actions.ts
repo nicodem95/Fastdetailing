@@ -25,8 +25,12 @@ export async function saveSiteInfoAction(formData: FormData) {
   const telephone = plain(formData.get('telephone'), 20);
   const email = plain(formData.get('email'), 120);
   const instagram = String(formData.get('instagram') ?? '').trim();
-  const joursOuverture = plain(formData.get('joursOuverture'), 60);
-  const heures = plain(formData.get('heures'), 60);
+  const timePattern = /^([01]\d|2[0-3]):[0-5]\d$/;
+  const horaires = Array.from({ length: 7 }, (_, index) => ({
+    ouvert: formData.get(`ouvert-${index}`) === 'on',
+    de: String(formData.get(`de-${index}`) ?? ''),
+    a: String(formData.get(`a-${index}`) ?? ''),
+  }));
   const zones = String(formData.get('zones') ?? '')
     .split(/[\n,]/)
     .map((zone) => plain(zone, 60))
@@ -37,10 +41,11 @@ export async function saveSiteInfoAction(formData: FormData) {
     /^0\d( ?\d\d){4}$/.test(telephone) &&
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
     /^https:\/\/(www\.)?instagram\.com\/[\w./-]+$/.test(instagram) &&
-    joursOuverture && heures && zones.length > 0;
+    horaires.every((day) => timePattern.test(day.de) && timePattern.test(day.a) && (!day.ouvert || day.de < day.a)) &&
+    horaires.some((day) => day.ouvert) && zones.length > 0;
   if (!valid) redirect('/admin/infos?erreur=1');
 
-  const info: SiteInfo = { telephone: telephone.replace(/^(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)$/, '$1 $2 $3 $4 $5'), email, instagram, joursOuverture, heures, zones };
+  const info: SiteInfo = { telephone: telephone.replace(/^(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)$/, '$1 $2 $3 $4 $5'), email, instagram, horaires, zones };
   await setSetting(SETTINGS_KEYS.info, info);
   refreshSite();
   redirect('/admin/infos?ok=1');

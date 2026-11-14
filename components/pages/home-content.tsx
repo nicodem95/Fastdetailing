@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
-import { phoneHref, textFields, whatsappHref, zonesText, type SiteInfo } from '@/lib/site-content';
+import { hoursGroups, phoneHref, textFields, whatsappHref, zonesText, type SiteInfo } from '@/lib/site-content';
 
 const icon = { viewBox: '0 0 24 24', role: 'presentation', focusable: 'false' } as const;
 const line = { fill: 'none', stroke: 'currentColor', strokeWidth: 2 } as const;
@@ -151,7 +151,7 @@ export function HomeContent({ info, texts }: { info: SiteInfo; texts: Record<str
             </article>
             <article className="quick-contact-card">
               <h3>Horaires</h3>
-              <p>{info.joursOuverture}<br />{info.heures}</p>
+              {hoursGroups(info).map((group) => <p key={group.days}>{group.days}<br />{group.hours}</p>)}
             </article>
             <article className="quick-contact-card">
               <h3>Zone d'intervention</h3>

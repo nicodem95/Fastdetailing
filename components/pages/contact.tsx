@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
-import { phoneDigits, whatsappHref, zonesText, type SiteInfo } from '@/lib/site-content';
+import { hoursGroups, phoneDigits, whatsappHref, zonesText, type SiteInfo } from '@/lib/site-content';
 
 export function ContactContent({ info }: { info: SiteInfo }) {
   const zones = zonesText(info);
@@ -79,7 +79,7 @@ export function ContactContent({ info }: { info: SiteInfo }) {
                 {info.telephone}
               </p>
               <p className="contact-card-desc">
-                Rapide et direct. Disponible {info.heures}.
+                Rapide et direct. Disponible {hoursGroups(info).map((group) => `${group.days.toLowerCase()} ${group.hours}`).join(', ')}.
               </p>
               <a href={`tel:${phoneDigits(info)}`} className="btn btn-primary btn-small">
                 Appeler
@@ -273,14 +273,14 @@ export function ContactContent({ info }: { info: SiteInfo }) {
             <h3>
               Horaires
             </h3>
-            <p>
-              <strong>
-                {info.heures}
-              </strong>
-            </p>
-            <p className="text-small">
-              {info.joursOuverture}
-            </p>
+            {hoursGroups(info).map((group) => (
+              <div key={group.days}>
+                <p>
+                  <strong>{group.hours}</strong>
+                </p>
+                <p className="text-small">{group.days}</p>
+              </div>
+            ))}
           </div>
           <div className="contact-info-block">
             <h3>

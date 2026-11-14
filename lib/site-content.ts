@@ -1,12 +1,17 @@
 import 'server-only';
 import { getSetting } from '@/lib/services/settings';
 
+export interface DayHours {
+  ouvert: boolean;
+  de: string;
+  a: string;
+}
+
 export interface SiteInfo {
   telephone: string;
   email: string;
   instagram: string;
-  joursOuverture: string;
-  heures: string;
+  horaires: DayHours[];
   zones: string[];
 }
 
@@ -30,8 +35,15 @@ export const defaultSiteInfo: SiteInfo = {
   telephone: '06 66 08 44 67',
   email: 'fastdetailing27140@gmail.com',
   instagram: 'https://www.instagram.com/fastdetailing27140/',
-  joursOuverture: 'Mardi au samedi',
-  heures: '09h00 - 19h00',
+  horaires: [
+    { ouvert: false, de: '09:00', a: '19:00' },
+    { ouvert: true, de: '09:00', a: '19:00' },
+    { ouvert: true, de: '09:00', a: '19:00' },
+    { ouvert: true, de: '09:00', a: '19:00' },
+    { ouvert: true, de: '09:00', a: '19:00' },
+    { ouvert: true, de: '09:00', a: '19:00' },
+    { ouvert: false, de: '09:00', a: '19:00' },
+  ],
   zones: ['Gisors', 'Étrépagny', 'Trie-Château', 'Magny-en-Vexin'],
 };
 
@@ -53,7 +65,9 @@ const SETTINGS_KEYS = { info: 'site-info', prices: 'tarifs', texts: 'textes' } a
 
 export async function getSiteInfo(): Promise<SiteInfo> {
   const saved = await getSetting<Partial<SiteInfo>>(SETTINGS_KEYS.info);
-  return { ...defaultSiteInfo, ...saved };
+  const info = { ...defaultSiteInfo, ...saved };
+  if (!Array.isArray(info.horaires) || info.horaires.length !== 7) info.horaires = defaultSiteInfo.horaires;
+  return info;
 }
 
 export async function getPrices(): Promise<PriceRow[]> {
@@ -98,36 +112,44 @@ function zoneVariants(zones: string[]) {
   };
 }
 
+export const dayNames = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 const WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const WEEK_FR = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 
-function parseDays(text: string) {
-  const lower = text.toLowerCase();
-  const range = lower.match(/(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(?:au|à|a|-)\s+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)/);
-  if (range) {
-    const start = WEEK_FR.indexOf(range[1]);
-    const end = WEEK_FR.indexOf(range[2]);
-    const days: string[] = [];
-    for (let i = start; ; i = (i + 1) % 7) {
-      days.push(WEEK[i]);
-      if (i === end) break;
-    }
-    return days;
-  }
-  return WEEK.filter((_, index) => lower.includes(WEEK_FR[index]));
+const formatTime = (time: string) => time.replace(':', 'h');
+
+export interface HoursGroup {
+  days: string;
+  hours: string;
+  open: string;
+  close: string;
+  weekdays: string[];
 }
 
-function parseHours(text: string) {
-  const match = text.match(/(\d{1,2})\s*h\s*(\d{2})?\D+(\d{1,2})\s*h\s*(\d{2})?/i);
-  if (!match) return null;
-  const format = (hour: string, minutes?: string) => `${hour.padStart(2, '0')}:${minutes ?? '00'}`;
-  return { opens: format(match[1], match[2]), closes: format(match[3], match[4]) };
+// Groups consecutive open days sharing the same hours (e.g. "Mardi au samedi · 09h00 - 19h00").
+export function hoursGroups(info: SiteInfo): HoursGroup[] {
+  const groups: { indexes: number[]; de: string; a: string }[] = [];
+  info.horaires.forEach((day, index) => {
+    if (!day.ouvert) return;
+    const last = groups.at(-1);
+    if (last && last.de === day.de && last.a === day.a && last.indexes.at(-1) === index - 1) last.indexes.push(index);
+    else groups.push({ indexes: [index], de: day.de, a: day.a });
+  });
+  return groups.map(({ indexes, de, a }) => {
+    const first = dayNames[indexes[0]];
+    const lastDay = dayNames[indexes.at(-1)!];
+    const days = indexes.length === 1 ? first : indexes.length === 2 ? `${first} et ${lastDay.toLowerCase()}` : `${first} au ${lastDay.toLowerCase()}`;
+    return { days, hours: `${formatTime(de)} - ${formatTime(a)}`, open: de, close: a, weekdays: indexes.map((index) => WEEK[index]) };
+  });
 }
 
 // Fills the JSON-LD contact data (phone, e-mail, zones, social link, opening hours) from the site settings.
 export function applySiteInfo(jsonLd: string, info: SiteInfo) {
-  const days = parseDays(info.joursOuverture);
-  const hours = parseHours(info.heures);
+  const specs = hoursGroups(info).map((group) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: group.weekdays,
+    opens: group.open,
+    closes: group.close,
+  }));
   const zones = info.zones.length ? info.zones : defaultSiteInfo.zones;
 
   const fill = (node: unknown): unknown => {
@@ -140,7 +162,7 @@ export function applySiteInfo(jsonLd: string, info: SiteInfo) {
       else if (key === 'areaServed') result[key] = zones;
       else if (key === 'sameAs') result[key] = [info.instagram];
       else if (key === 'openingHoursSpecification') {
-        if (days.length && hours) result[key] = [{ '@type': 'OpeningHoursSpecification', dayOfWeek: days, ...hours }];
+        if (specs.length) result[key] = specs;
       } else result[key] = fill(value);
     }
     return result;

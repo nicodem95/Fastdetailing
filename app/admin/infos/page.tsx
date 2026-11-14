@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
-import { getSiteInfo } from '@/lib/site-content';
+import { dayNames, getSiteInfo } from '@/lib/site-content';
 import { saveSiteInfoAction } from '../settings-actions';
 
 export const metadata: Metadata = { title: 'Infos du site', robots: { index: false, follow: false } };
@@ -24,10 +24,20 @@ export default async function InfosPage({ searchParams }: { searchParams: Promis
             <label className="admin-field">Téléphone<input name="telephone" defaultValue={info.telephone} placeholder="06 12 34 56 78" required /></label>
             <label className="admin-field">E-mail<input name="email" type="email" defaultValue={info.email} required /></label>
             <label className="admin-field">Lien Instagram<input name="instagram" defaultValue={info.instagram} required /></label>
-            <div className="admin-grid-2">
-              <label className="admin-field">Jours d’ouverture<input name="joursOuverture" defaultValue={info.joursOuverture} required /></label>
-              <label className="admin-field">Horaires<input name="heures" defaultValue={info.heures} required /></label>
-            </div>
+            <fieldset className="admin-field">
+              Horaires d’ouverture
+              {dayNames.map((name, index) => (
+                <div key={name} className="admin-grid-2" style={{ alignItems: 'center', marginTop: 8 }}>
+                  <label>
+                    <input type="checkbox" name={`ouvert-${index}`} defaultChecked={info.horaires[index].ouvert} /> {name}
+                  </label>
+                  <span>
+                    <input type="time" name={`de-${index}`} defaultValue={info.horaires[index].de} required /> à{' '}
+                    <input type="time" name={`a-${index}`} defaultValue={info.horaires[index].a} required />
+                  </span>
+                </div>
+              ))}
+            </fieldset>
             <label className="admin-field">
               Zones desservies (une par ligne)
               <textarea name="zones" rows={5} defaultValue={info.zones.join('\n')} required />
