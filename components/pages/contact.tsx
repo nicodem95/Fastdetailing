@@ -1,7 +1,8 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
 import { hoursGroups, pageText, phoneDigits, whatsappHref, zonesText, type SiteInfo } from '@/lib/site-content';
+import { sitePhoto } from '@/lib/site-photos';
 
-export function ContactContent({ info, texts }: { info: SiteInfo; texts: Record<string, string> }) {
+export function ContactContent({ info, texts, photos }: { info: SiteInfo; texts: Record<string, string>; photos: Record<string, string> }) {
   const zones = zonesText(info);
   return (
     <>
@@ -44,7 +45,7 @@ export function ContactContent({ info, texts }: { info: SiteInfo; texts: Record<
           </div>
           <div className="hero-visual">
             <figure className="hero-card">
-              <img src="assets/Garage_Interieur/WhatsApp Image 2026-05-09 at 19.58.41.jpeg" alt="Atelier Fast Detailing" loading="eager" decoding="async" data-fallback="garage" />
+              <img src={sitePhoto(photos, 'contact.hero')} alt="Atelier Fast Detailing" loading="eager" decoding="async" data-fallback="garage" />
               <figcaption>
                 Réponse rapide par téléphone, WhatsApp ou email.
               </figcaption>

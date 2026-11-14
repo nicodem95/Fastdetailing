@@ -1,8 +1,9 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
 import { loadBeforeAfterCards } from '@/lib/before-after-cards';
 import { phoneHref, whatsappHref, type SiteInfo } from '@/lib/site-content';
+import { sitePhoto } from '@/lib/site-photos';
 
-export async function AvantApresContent({ info }: { info: SiteInfo }) {
+export async function AvantApresContent({ info, photos }: { info: SiteInfo; photos: Record<string, string> }) {
   const cards = await loadBeforeAfterCards();
   return (
     <>
@@ -30,7 +31,7 @@ export async function AvantApresContent({ info }: { info: SiteInfo }) {
           </div>
           <div className="hero-visual">
             <figure className="hero-card">
-              <img src="assets/Avant_Apres/8/WhatsApp Image 2026-05-09 at 19.58.49.jpeg" alt="Exemple avant après Fast Detailing" loading="eager" decoding="async" data-fallback="exterieur" />
+              <img src={sitePhoto(photos, 'avantapres.hero')} alt="Exemple avant après Fast Detailing" loading="eager" decoding="async" data-fallback="exterieur" />
               <figcaption>
                 Slider interactif et lecture immédiate du résultat.
               </figcaption>

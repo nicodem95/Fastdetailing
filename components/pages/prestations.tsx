@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
 import { pageContentText, prestationsPage } from '@/lib/page-content';
 import { phoneHref, whatsappHref, type SiteInfo } from '@/lib/site-content';
+import { sitePhoto } from '@/lib/site-photos';
 
 const cardMeta = [
   { href: 'contact.html', highlight: false },
@@ -12,7 +13,7 @@ const cardMeta = [
   { href: 'contact.html', highlight: false },
 ];
 
-export function PrestationsContent({ info, content }: { info: SiteInfo; content: Record<string, string> }) {
+export function PrestationsContent({ info, content, photos }: { info: SiteInfo; content: Record<string, string>; photos: Record<string, string> }) {
   const t = (key: string) => pageContentText(prestationsPage, content, key);
   return (
     <>
@@ -31,7 +32,7 @@ export function PrestationsContent({ info, content }: { info: SiteInfo; content:
           </div>
           <div className="hero-visual">
             <figure className="hero-card">
-              <img src="assets/Avant_Apres/10/BMW.jpeg" alt="Prestations Fast Detailing" loading="eager" decoding="async" data-fallback="garage" />
+              <img src={sitePhoto(photos, 'prestations.hero')} alt="Prestations Fast Detailing" loading="eager" decoding="async" data-fallback="garage" />
               <figcaption>{t('hero.legende')}</figcaption>
             </figure>
           </div>

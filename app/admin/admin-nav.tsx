@@ -9,11 +9,8 @@ const links: { href: string; label: string; icon: IconName }[] = [
   { href: '/admin', label: 'Réalisations', icon: 'images' },
   { href: '/admin/tarifs', label: 'Tarifs', icon: 'tag' },
   { href: '/admin/infos', label: 'Infos du site', icon: 'info' },
-  { href: '/admin/prestations', label: 'Prestations', icon: 'sparkle' },
-  { href: '/admin/pare-brise', label: 'Pare-brise', icon: 'info' },
-  { href: '/admin/assurance', label: 'Assurance', icon: 'draft' },
   { href: '/admin/accueil', label: 'Accueil', icon: 'text' },
-  { href: '/admin/contact', label: 'Contact', icon: 'mail' },
+  { href: '/admin/photos', label: 'Photos du site', icon: 'images' },
 ];
 
 export function AdminNav() {

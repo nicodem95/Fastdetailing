@@ -1,8 +1,9 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
 import { assuranceText } from '@/lib/assurance-content';
 import { phoneDigits, whatsappHref, type SiteInfo } from '@/lib/site-content';
+import { sitePhoto } from '@/lib/site-photos';
 
-export function AdministratifAssuranceContent({ info, assurance }: { info: SiteInfo; assurance: Record<string, string> }) {
+export function AdministratifAssuranceContent({ info, assurance, photos }: { info: SiteInfo; assurance: Record<string, string>; photos: Record<string, string> }) {
   const t = (key: string) => assuranceText(assurance, key);
   const range = (n: number) => Array.from({ length: n }, (_, i) => i);
   return (
@@ -22,7 +23,7 @@ export function AdministratifAssuranceContent({ info, assurance }: { info: SiteI
           </div>
           <div className="hero-visual reveal reveal-delay-2">
             <figure className="hero-card admin-hero-media">
-              <img src="assets/bureau/bureau1.jpeg" alt="Espace accueil client Fast Detailing" loading="eager" decoding="async" data-fallback="garage" />
+              <img src={sitePhoto(photos, 'assurance.hero')} alt="Espace accueil client Fast Detailing" loading="eager" decoding="async" data-fallback="garage" />
               <figcaption>{t('hero.legende')}</figcaption>
             </figure>
           </div>
@@ -31,7 +32,7 @@ export function AdministratifAssuranceContent({ info, assurance }: { info: SiteI
       <section className="section-pad admin-welcome" id="accueil-client">
         <div className="container admin-split reveal">
           <figure className="admin-photo-card">
-            <img src="assets/bureau/bureau3.jpeg" alt="Salle d'attente avec canapé rouge" loading="lazy" decoding="async" data-fallback="garage" />
+            <img src={sitePhoto(photos, 'assurance.accueil')} alt="Salle d'attente avec canapé rouge" loading="lazy" decoding="async" data-fallback="garage" />
           </figure>
           <div className="admin-copy">
             <p className="eyebrow">Accueil client</p>
@@ -52,7 +53,7 @@ export function AdministratifAssuranceContent({ info, assurance }: { info: SiteI
           </div>
           <div className="admin-services-grid reveal reveal-delay-1">
             <figure className="admin-featured-photo">
-              <img src="assets/bureau/bureau2.jpeg" alt="Bureau administratif Fast Detailing" loading="lazy" decoding="async" data-fallback="garage" />
+              <img src={sitePhoto(photos, 'assurance.bureau')} alt="Bureau administratif Fast Detailing" loading="lazy" decoding="async" data-fallback="garage" />
             </figure>
             <div className="admin-cards-grid" aria-label="Accompagnement administratif et assurance">
               {range(6).map((i) => (

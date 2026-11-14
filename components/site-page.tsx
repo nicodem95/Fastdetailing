@@ -12,6 +12,7 @@ import { PrestationsContent, PrestationsExtras } from '@/components/pages/presta
 import { RealisationsContent, RealisationsExtras } from '@/components/pages/realisations';
 import { TarifsContent } from '@/components/pages/tarifs-content';
 import { TarifsLavageAutoExtras } from '@/components/pages/tarifs-lavage-auto';
+import { getSitePhotos } from '@/lib/site-photos';
 import { getAssurance } from '@/lib/assurance-content';
 import { getPageContent, pareBrisePage, prestationsPage } from '@/lib/page-content';
 import { pageData, type PageSlug } from '@/lib/page-data';
@@ -72,17 +73,17 @@ export function getPageMetadata(slug: PageSlug): Metadata {
 
 export async function SitePage({ slug }: { slug: PageSlug }) {
   const page: PageMeta = pageData[slug];
-  const [info, prices, texts, options, assurance] = await Promise.all([getSiteInfo(), getPrices(), getTexts(), getOptions(), getAssurance()]);
+  const [info, prices, texts, options, assurance, photos] = await Promise.all([getSiteInfo(), getPrices(), getTexts(), getOptions(), getAssurance(), getSitePhotos()]);
   const [pareBriseContent, prestationsContent] = await Promise.all([getPageContent(pareBrisePage), getPageContent(prestationsPage)]);
 
   const content = {
-    'index': <HomeContent info={info} texts={texts} />,
-    'prestations': <PrestationsContent info={info} content={prestationsContent} />,
-    'avant-apres': <AvantApresContent info={info} />,
-    'realisations': <RealisationsContent info={info} />,
-    'pare-brise': <PareBriseContent info={info} content={pareBriseContent} />,
-    'administratif-assurance': <AdministratifAssuranceContent info={info} assurance={assurance} />,
-    'contact': <ContactContent info={info} texts={texts} />,
+    'index': <HomeContent info={info} texts={texts} photos={photos} />,
+    'prestations': <PrestationsContent info={info} content={prestationsContent} photos={photos} />,
+    'avant-apres': <AvantApresContent info={info} photos={photos} />,
+    'realisations': <RealisationsContent info={info} photos={photos} />,
+    'pare-brise': <PareBriseContent info={info} content={pareBriseContent} photos={photos} />,
+    'administratif-assurance': <AdministratifAssuranceContent info={info} assurance={assurance} photos={photos} />,
+    'contact': <ContactContent info={info} texts={texts} photos={photos} />,
     'mentions-legales': <MentionsLegalesContent info={info} />,
     'tarifs-lavage-auto': <TarifsContent info={info} prices={prices} options={options} texts={texts} />,
   }[slug];

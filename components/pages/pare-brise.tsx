@@ -1,8 +1,9 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
 import { pageContentText, pareBrisePage } from '@/lib/page-content';
 import { phoneHref, whatsappHref, type SiteInfo } from '@/lib/site-content';
+import { sitePhoto } from '@/lib/site-photos';
 
-export function PareBriseContent({ info, content }: { info: SiteInfo; content: Record<string, string> }) {
+export function PareBriseContent({ info, content, photos }: { info: SiteInfo; content: Record<string, string>; photos: Record<string, string> }) {
   const t = (key: string) => pageContentText(pareBrisePage, content, key);
   return (
     <>
@@ -20,7 +21,7 @@ export function PareBriseContent({ info, content }: { info: SiteInfo; content: R
           </div>
           <div className="hero-visual">
             <figure className="hero-card">
-              <img src="assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.48.jpeg" alt="Pare-brise et services auto à Gisors" loading="eager" decoding="async" data-fallback="garage" />
+              <img src={sitePhoto(photos, 'parebrise.hero')} alt="Pare-brise et services auto à Gisors" loading="eager" decoding="async" data-fallback="garage" />
               <figcaption>{t('hero.legende')}</figcaption>
             </figure>
           </div>

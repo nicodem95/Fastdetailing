@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
 import { hoursGroups, phoneHref, textFields, whatsappHref, zonesText, type SiteInfo } from '@/lib/site-content';
+import { sitePhoto } from '@/lib/site-photos';
 
 const icon = { viewBox: '0 0 24 24', role: 'presentation', focusable: 'false' } as const;
 const line = { fill: 'none', stroke: 'currentColor', strokeWidth: 2 } as const;
@@ -8,7 +9,7 @@ function text(texts: Record<string, string>, key: string) {
   return texts[key] || textFields.find((field) => field.key === key)?.defaultValue || '';
 }
 
-export function HomeContent({ info, texts }: { info: SiteInfo; texts: Record<string, string> }) {
+export function HomeContent({ info, texts, photos }: { info: SiteInfo; texts: Record<string, string>; photos: Record<string, string> }) {
   const zones = zonesText(info);
   const whatsappRdv = whatsappHref(info, 'Bonjour Fast Detailing, je souhaite prendre rendez-vous pour mon pare-brise.');
 
@@ -29,7 +30,7 @@ export function HomeContent({ info, texts }: { info: SiteInfo; texts: Record<str
 
           <div className="hero-visual reveal reveal-delay-2">
             <figure className="hero-card">
-              <img src="assets/Pare-Brise/pare_brise.jpeg" alt="Remplacement pare-brise a Gisors" loading="eager" decoding="async" data-fallback="garage" />
+              <img src={sitePhoto(photos, 'accueil.hero')} alt="Remplacement pare-brise a Gisors" loading="eager" decoding="async" data-fallback="garage" />
               <figcaption>Intervention soignée, accompagnement assurance et suivi clair.</figcaption>
             </figure>
           </div>
@@ -207,11 +208,11 @@ export function HomeContent({ info, texts }: { info: SiteInfo; texts: Record<str
           </div>
 
           <div className="gallery-grid gallery-grid-featured reveal reveal-delay-1">
-            <figure className="gallery-card"><img src="assets/Garage_exterieur/reflet-apres-detailing.jpg" alt="Reflets sur carrosserie après detailing à Gisors" loading="lazy" decoding="async" data-fallback="garage" /><figcaption>Reflets après detailing</figcaption></figure>
-            <figure className="gallery-card"><img src="assets/Garage_exterieur/atelier-vehicule-premium.jpg" alt="Véhicule premium dans l'atelier Fast Detailing" loading="lazy" decoding="async" data-fallback="garage" /><figcaption>Atelier & véhicule premium</figcaption></figure>
-            <figure className="gallery-card"><img src="assets/Avant_Apres/7/voiture.jpeg" alt="Voiture rénovée avec finition brillante" loading="lazy" decoding="async" data-fallback="exterieur" /><figcaption>Voiture rénovée</figcaption></figure>
-            <figure className="gallery-card"><img src="assets/Avant_Apres/8/voiture.jpeg" alt="Detailing extérieur premium sur véhicule" loading="lazy" decoding="async" data-fallback="exterieur" /><figcaption>Detailing extérieur</figcaption></figure>
-            <figure className="gallery-card"><img src="assets/Avant_Apres/10/BMW.jpeg" alt="BMW préparée et sublimée par Fast Detailing" loading="lazy" decoding="async" data-fallback="garage" /><figcaption>BMW préparée</figcaption></figure>
+            <figure className="gallery-card"><img src={sitePhoto(photos, 'accueil.galerie.0')} alt="Reflets sur carrosserie après detailing à Gisors" loading="lazy" decoding="async" data-fallback="garage" /><figcaption>Reflets après detailing</figcaption></figure>
+            <figure className="gallery-card"><img src={sitePhoto(photos, 'accueil.galerie.1')} alt="Véhicule premium dans l'atelier Fast Detailing" loading="lazy" decoding="async" data-fallback="garage" /><figcaption>Atelier & véhicule premium</figcaption></figure>
+            <figure className="gallery-card"><img src={sitePhoto(photos, 'accueil.galerie.2')} alt="Voiture rénovée avec finition brillante" loading="lazy" decoding="async" data-fallback="exterieur" /><figcaption>Voiture rénovée</figcaption></figure>
+            <figure className="gallery-card"><img src={sitePhoto(photos, 'accueil.galerie.3')} alt="Detailing extérieur premium sur véhicule" loading="lazy" decoding="async" data-fallback="exterieur" /><figcaption>Detailing extérieur</figcaption></figure>
+            <figure className="gallery-card"><img src={sitePhoto(photos, 'accueil.galerie.4')} alt="BMW préparée et sublimée par Fast Detailing" loading="lazy" decoding="async" data-fallback="garage" /><figcaption>BMW préparée</figcaption></figure>
           </div>
         </div>
       </section>

@@ -102,3 +102,5 @@
 
 .admin-subgroup { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line, #e5e0d8); }
 .admin-subgroup h3 { margin: 0 0 10px; font-size: .95rem; color: var(--muted); }
+
+.admin-photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }

@@ -3,9 +3,9 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
-import { ASSURANCE_SETTING_KEY, assuranceFields } from '@/lib/assurance-content';
-import { editablePages } from '@/lib/page-content';
 import { getSetting, setSetting } from '@/lib/services/settings';
+import { PHOTOS_SETTING_KEY, getSitePhotos, photoSlots } from '@/lib/site-photos';
+import { deleteImageObjects, isStoredImageUrl } from '@/lib/storage/images';
 import { SETTINGS_KEYS, defaultOptions, defaultPrices, textFields, type OptionRow, type PriceRow, type SiteInfo } from '@/lib/site-content';
 
 async function requireAdmin() {
@@ -107,33 +107,20 @@ export async function saveTextGroupAction(formData: FormData) {
   redirect(`${back}?ok=1`);
 }
 
-export async function saveAssuranceAction(formData: FormData) {
+// A stored (uploaded) image becomes the override for its slot; anything else restores the original photo.
+export async function savePhotosAction(formData: FormData) {
   await requireAdmin();
 
+  const previous = await getSitePhotos();
   const saved: Record<string, string> = {};
-  for (const field of assuranceFields) {
-    const value = String(formData.get(field.key) ?? '').replace(/[<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, 800);
-    if (value && value !== field.defaultValue) saved[field.key] = value;
+  for (const slot of photoSlots) {
+    const url = String(formData.get(slot.key) ?? '');
+    if (isStoredImageUrl(url)) saved[slot.key] = url;
   }
 
-  await setSetting(ASSURANCE_SETTING_KEY, saved);
+  await setSetting(PHOTOS_SETTING_KEY, saved);
+  const kept = new Set(Object.values(saved));
+  await deleteImageObjects(Object.values(previous).filter((url) => !kept.has(url))).catch(() => undefined);
   refreshSite();
-  redirect('/admin/assurance?ok=1');
-}
-
-export async function savePageContentAction(formData: FormData) {
-  await requireAdmin();
-
-  const page = editablePages.find((item) => item.slug === formData.get('slug'));
-  if (!page) throw new Error('Unknown page');
-
-  const saved: Record<string, string> = {};
-  for (const field of page.fields) {
-    const value = String(formData.get(field.key) ?? '').replace(/[<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, 800);
-    if (value && value !== field.defaultValue) saved[field.key] = value;
-  }
-
-  await setSetting(page.settingKey, saved);
-  refreshSite();
-  redirect(`${page.adminPath}?ok=1`);
+  redirect('/admin/photos?ok=1');
 }

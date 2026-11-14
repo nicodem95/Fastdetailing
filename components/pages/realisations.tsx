@@ -1,7 +1,8 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
 import { phoneHref, whatsappHref, type SiteInfo } from '@/lib/site-content';
+import { sitePhoto } from '@/lib/site-photos';
 
-export function RealisationsContent({ info }: { info: SiteInfo }) {
+export function RealisationsContent({ info, photos }: { info: SiteInfo; photos: Record<string, string> }) {
   return (
     <>
       <section className="hero section-pad">
@@ -28,7 +29,7 @@ export function RealisationsContent({ info }: { info: SiteInfo }) {
           </div>
           <div className="hero-visual">
             <figure className="hero-card">
-              <img src="assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.49 (2).jpeg" alt="Réalisations Fast Detailing" loading="eager" decoding="async" data-fallback="garage" />
+              <img src={sitePhoto(photos, 'realisations.hero')} alt="Réalisations Fast Detailing" loading="eager" decoding="async" data-fallback="garage" />
               <figcaption>
                 Des résultats visibles, triés par type d’intervention.
               </figcaption>
