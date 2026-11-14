@@ -83,10 +83,6 @@ export function zonesText(info: SiteInfo) {
   return zoneVariants(info.zones.length ? info.zones : defaultSiteInfo.zones);
 }
 
-function escapeHtml(value: string) {
-  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-
 function phoneVariants(phone: string) {
   const digits = phone.replace(/\D/g, '');
   return { display: phone, national: digits, international: `33${digits.slice(1)}` };
@@ -102,30 +98,54 @@ function zoneVariants(zones: string[]) {
   };
 }
 
-// Replaces the static values with the configured ones (HTML or JSON-LD text).
-export function applySiteInfo(html: string, info: SiteInfo) {
-  const from = phoneVariants(defaultSiteInfo.telephone);
-  const to = phoneVariants(info.telephone);
-  const fromZones = zoneVariants(defaultSiteInfo.zones);
-  const toZones = zoneVariants(info.zones.length ? info.zones : defaultSiteInfo.zones);
+const WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const WEEK_FR = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 
-  const hoursChanged = info.joursOuverture !== defaultSiteInfo.joursOuverture;
-  const timeChanged = info.heures !== defaultSiteInfo.heures;
-
-  let result = html
-    .replaceAll(from.international, to.international)
-    .replaceAll(from.national, to.national)
-    .replaceAll(from.display, to.display)
-    .replaceAll(defaultSiteInfo.email, info.email)
-    .replaceAll(defaultSiteInfo.instagram, info.instagram)
-    .replaceAll(`${defaultSiteInfo.joursOuverture}<br>${defaultSiteInfo.heures}`, `${escapeHtml(info.joursOuverture)}<br>${escapeHtml(info.heures)}`)
-    .replaceAll(fromZones.comma, escapeHtml(toZones.comma))
-    .replaceAll(fromZones.slash, escapeHtml(toZones.slash))
-    .replaceAll(fromZones.and, escapeHtml(toZones.and))
-    .replaceAll(fromZones.json, toZones.json);
-
-  // The contact page words its hours differently: only touch them once they were edited.
-  if (timeChanged) result = result.replaceAll('<strong>09h00 – 19h00</strong>', `<strong>${escapeHtml(info.heures)}</strong>`);
-  if (hoursChanged) result = result.replaceAll('Lundi à dimanche', escapeHtml(info.joursOuverture));
-  return result;
+function parseDays(text: string) {
+  const lower = text.toLowerCase();
+  const range = lower.match(/(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+(?:au|à|a|-)\s+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)/);
+  if (range) {
+    const start = WEEK_FR.indexOf(range[1]);
+    const end = WEEK_FR.indexOf(range[2]);
+    const days: string[] = [];
+    for (let i = start; ; i = (i + 1) % 7) {
+      days.push(WEEK[i]);
+      if (i === end) break;
+    }
+    return days;
+  }
+  return WEEK.filter((_, index) => lower.includes(WEEK_FR[index]));
 }
+
+function parseHours(text: string) {
+  const match = text.match(/(\d{1,2})\s*h\s*(\d{2})?\D+(\d{1,2})\s*h\s*(\d{2})?/i);
+  if (!match) return null;
+  const format = (hour: string, minutes?: string) => `${hour.padStart(2, '0')}:${minutes ?? '00'}`;
+  return { opens: format(match[1], match[2]), closes: format(match[3], match[4]) };
+}
+
+// Fills the JSON-LD contact data (phone, e-mail, zones, social link, opening hours) from the site settings.
+export function applySiteInfo(jsonLd: string, info: SiteInfo) {
+  const days = parseDays(info.joursOuverture);
+  const hours = parseHours(info.heures);
+  const zones = info.zones.length ? info.zones : defaultSiteInfo.zones;
+
+  const fill = (node: unknown): unknown => {
+    if (Array.isArray(node)) return node.map(fill);
+    if (!node || typeof node !== 'object') return node;
+    const result: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(node)) {
+      if (key === 'telephone') result[key] = `+${phoneVariants(info.telephone).international}`;
+      else if (key === 'email') result[key] = info.email;
+      else if (key === 'areaServed') result[key] = zones;
+      else if (key === 'sameAs') result[key] = [info.instagram];
+      else if (key === 'openingHoursSpecification') {
+        if (days.length && hours) result[key] = [{ '@type': 'OpeningHoursSpecification', dayOfWeek: days, ...hours }];
+      } else result[key] = fill(value);
+    }
+    return result;
+  };
+
+  return JSON.stringify(fill(JSON.parse(jsonLd)));
+}
+
