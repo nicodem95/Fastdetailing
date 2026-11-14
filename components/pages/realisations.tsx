@@ -1,9 +1,7 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
-import { pageContentText, realisationsPage } from '@/lib/page-content';
 import { phoneHref, whatsappHref, type SiteInfo } from '@/lib/site-content';
 
-export function RealisationsContent({ info, content }: { info: SiteInfo; content: Record<string, string> }) {
-  const t = (key: string) => pageContentText(realisationsPage, content, key);
+export function RealisationsContent({ info }: { info: SiteInfo }) {
   return (
     <>
       <section className="hero section-pad">
@@ -13,8 +11,12 @@ export function RealisationsContent({ info, content }: { info: SiteInfo; content
             <p className="eyebrow">
               Réalisations
             </p>
-            <h1>{t('hero.titre')}</h1>
-            <p className="hero-text">{t('hero.texte')}</p>
+            <h1>
+              Résultats réels de detailing à Gisors
+            </h1>
+            <p className="hero-text">
+              Avant de demander un devis, regardez les finitions réelles sur intérieur, carrosserie, polish et rénovation phare. Chaque photo provient de l'atelier Fast Detailing.
+            </p>
             <div className="cta-row">
               <a className="btn btn-primary" href="contact.html">
                 Demander un devis
@@ -27,7 +29,9 @@ export function RealisationsContent({ info, content }: { info: SiteInfo; content
           <div className="hero-visual">
             <figure className="hero-card">
               <img src="assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.49 (2).jpeg" alt="Réalisations Fast Detailing" loading="eager" decoding="async" data-fallback="garage" />
-              <figcaption>{t('hero.legende')}</figcaption>
+              <figcaption>
+                Des résultats visibles, triés par type d’intervention.
+              </figcaption>
             </figure>
           </div>
         </div>
@@ -38,8 +42,12 @@ export function RealisationsContent({ info, content }: { info: SiteInfo; content
             <p className="eyebrow">
               Galerie
             </p>
-            <h2>{t('section.titre')}</h2>
-            <p>{t('section.texte')}</p>
+            <h2>
+              Photos classées par catégorie
+            </h2>
+            <p>
+              Filtrez rapidement les travaux qui vous intéressent pour évaluer le niveau de finition avant votre prise de contact.
+            </p>
           </div>
           <div className="filter-bar" role="tablist" aria-label="Filtres des réalisations">
             <button className="filter-btn is-active" type="button" data-filter="all">
