@@ -50,15 +50,15 @@ export const photoGroups: PhotoGroup[] = [
     slots: [{ key: 'parebrise.hero', label: 'Photo d’en-tête', defaultSrc: 'assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.48.jpeg' }],
   },
   {
-    page: 'avant-apres',
+    page: 'realisations',
     title: 'Page Réalisations',
-    hint: 'La grande photo affichée en haut de la page. Les cartes avant/après se gèrent dans « Réalisations ».',
+    hint: 'La grande photo affichée en haut de la page.',
     slots: [{ key: 'realisations.hero', label: 'Photo d’en-tête', defaultSrc: 'assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.49 (2).jpeg' }],
   },
   {
     page: 'avant-apres',
     title: 'Page Avant / Après',
-    hint: 'La grande photo affichée en haut de la page. Les cartes se gèrent dans « Réalisations ».',
+    hint: 'La grande photo affichée en haut de la page.',
     slots: [{ key: 'avantapres.hero', label: 'Photo d’en-tête', defaultSrc: 'assets/Avant_Apres/8/WhatsApp Image 2026-05-09 at 19.58.49.jpeg' }],
   },
   {
@@ -89,4 +89,16 @@ export async function getSitePhotos(): Promise<Record<string, string>> {
 
 export function sitePhoto(saved: Record<string, string>, key: string) {
   return saved[key] || photoSlots.find((slot) => slot.key === key)?.defaultSrc || '';
+}
+
+// Groups of one admin page, shaped for the photo upload form.
+export function buildPhotoGroups(page: string, saved: Record<string, string>) {
+  return photoGroups.filter((group) => group.page === page).map((group) => ({
+    title: group.title,
+    hint: group.hint,
+    slots: group.slots.map((slot) => {
+      const src = saved[slot.key] || slot.defaultSrc;
+      return { key: slot.key, label: slot.label, current: src.startsWith('http') ? src : `/${src}`, original: `/${slot.defaultSrc}` };
+    }),
+  }));
 }

@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { getAdminUser } from '@/lib/auth/server';
-import { listRealisations } from '@/lib/services/realisations';
 import { SignOutButton } from './sign-out-button';
-import { Icon, PageTitle } from './icons';
-import { deleteRealisationAction, moveRealisationAction, togglePublishAction } from './actions';
+import { PageTitle } from './icons';
+import { RealisationSection } from './realisation-section';
 import './admin.css';
 
 export const metadata: Metadata = {
@@ -30,78 +28,14 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     );
   }
 
-  const realisations = await listRealisations();
-  const published = realisations.filter((item) => item.publie).length;
-  const beforeAfter = realisations.filter((item) => item.type === 'avant_apres').length;
-
   return (
     <main className="section-pad">
       <div className="admin">
         <div className="admin-header">
-          <PageTitle icon="images" hint="Ce que vos clients voient sur le site">Réalisations</PageTitle>
+          <PageTitle icon="images" hint="Tout ce qui s’affiche sur la page Réalisations du site : la grande photo du haut, puis la galerie.">Page Réalisations</PageTitle>
           <div className="admin-user">{user.email} <SignOutButton /></div>
         </div>
-
-        <div className="admin-stats">
-          <div className="admin-stat"><span className="admin-stat-icon"><Icon name="images" /></span><strong>{realisations.length}</strong><span>Réalisations</span></div>
-          <div className="admin-stat"><span className="admin-stat-icon ok"><Icon name="eye" /></span><strong>{published}</strong><span>Publiées</span></div>
-          <div className="admin-stat"><span className="admin-stat-icon warn"><Icon name="draft" /></span><strong>{realisations.length - published}</strong><span>Brouillons</span></div>
-          <div className="admin-stat"><span className="admin-stat-icon"><Icon name="sparkle" /></span><strong>{beforeAfter}</strong><span>Avant / Après</span></div>
-        </div>
-
-        <div className="admin-toolbar">
-          <p>Les entrées <strong>publiées</strong> sont visibles sur le site, dans l’ordre de cette liste (flèches ↑ ↓ pour les déplacer).</p>
-          <Link className="btn btn-primary admin-btn-icon" href="/admin/nouvelle"><Icon name="plus" />Nouvelle réalisation</Link>
-        </div>
-
-        {ok === 'cree' || ok === 'modifie' ? <p className="admin-success" role="status">Réalisation {ok === 'cree' ? 'enregistrée' : 'modifiée'} ✓</p> : null}
-
-        {realisations.length === 0 ? (
-          <section className="admin-card admin-empty">
-            <p>Aucune réalisation pour le moment.</p>
-            <Link className="btn btn-primary" href="/admin/nouvelle">Ajouter la première</Link>
-          </section>
-        ) : (
-          <ul className="admin-list">
-            {realisations.map((item, position) => (
-              <li className="admin-item" key={item.id}>
-                <div className="admin-thumbs">
-                  {item.images.slice(0, 2).map((image) => (
-                    <figure key={image.url}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={image.url} alt="" />
-                      {item.type === 'avant_apres' ? <figcaption>{image.typeImage === 'avant' ? 'Avant' : 'Après'}</figcaption> : null}
-                    </figure>
-                  ))}
-                </div>
-                <div className="admin-item-info">
-                  <strong>{item.titre}</strong>
-                  <span>
-                    {item.type === 'avant_apres' ? 'Avant / Après' : 'Galerie'} · {item.categorie}
-                  </span>
-                  <span className={`admin-pill ${item.publie ? 'on' : 'off'}`}>{item.publie ? 'Publié' : 'Brouillon'}</span>
-                </div>
-                <div className="admin-actions">
-                  <form action={moveRealisationAction} className="admin-move">
-                    <input type="hidden" name="id" value={item.id} />
-                    <button className="admin-small-btn" type="submit" name="direction" value="up" disabled={position === 0} title="Monter" aria-label={`Monter ${item.titre}`}>↑</button>
-                    <button className="admin-small-btn" type="submit" name="direction" value="down" disabled={position === realisations.length - 1} title="Descendre" aria-label={`Descendre ${item.titre}`}>↓</button>
-                  </form>
-                  <Link className="admin-small-btn" href={`/admin/${item.id}/modifier`} title="Modifier"><Icon name="edit" size={15} />Modifier</Link>
-                  <form action={togglePublishAction}>
-                    <input type="hidden" name="id" value={item.id} />
-                    <input type="hidden" name="publie" value={String(item.publie)} />
-                    <button className="admin-small-btn" type="submit"><Icon name={item.publie ? 'eyeOff' : 'eye'} size={15} />{item.publie ? 'Dépublier' : 'Publier'}</button>
-                  </form>
-                  <form action={deleteRealisationAction}>
-                    <input type="hidden" name="id" value={item.id} />
-                    <button className="admin-small-btn danger" type="submit" title="Supprimer" aria-label={`Supprimer ${item.titre}`}><Icon name="trash" size={15} /></button>
-                  </form>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+        <RealisationSection type="galerie" ok={ok} />
       </div>
     </main>
   );

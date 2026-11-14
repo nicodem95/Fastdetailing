@@ -7,7 +7,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 const pages: { href: string; label: string }[] = [
   { href: '/admin/accueil', label: 'Accueil' },
   { href: '/admin/photos?page=prestations', label: 'Prestations' },
-  { href: '/admin/photos?page=avant-apres', label: 'Avant/Après' },
+  { href: '/admin/avant-apres', label: 'Avant/Après' },
   { href: '/admin', label: 'Réalisations' },
   { href: '/admin/photos?page=pare-brise', label: 'Pare-brise' },
   { href: '/admin/tarifs', label: 'Tarifs Lavage Auto' },
@@ -28,9 +28,11 @@ const settings: { href: string; label: string }[] = [
 export function AdminNav({ unread = 0, logo }: { unread?: number; logo: string }) {
   const pathname = usePathname();
   const page = useSearchParams().get('page');
+  const type = useSearchParams().get('type');
 
   function isActive(href: string) {
-    if (href === '/admin') return pathname === '/admin' || pathname.startsWith('/admin/nouvelle') || /^\/admin\/[0-9a-f-]{36}\//i.test(pathname);
+    if (href === '/admin/avant-apres') return pathname.startsWith(href) || (pathname.startsWith('/admin/nouvelle') && type === 'avant_apres');
+    if (href === '/admin') return pathname === '/admin' || (pathname.startsWith('/admin/nouvelle') && type !== 'avant_apres') || /^\/admin\/[0-9a-f-]{36}\//i.test(pathname);
     if (href.includes('?page=')) return pathname === '/admin/photos' && href.endsWith(`=${page}`);
     return pathname.startsWith(href);
   }

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
-import { getSitePhotos, photoGroups, photoPages } from '@/lib/site-photos';
+import { buildPhotoGroups, getSitePhotos, photoPages } from '@/lib/site-photos';
 import { PageTitle } from '../icons';
 import { PhotosForm } from '../photos-form';
 
@@ -14,14 +14,7 @@ export default async function PhotosPage({ searchParams }: { searchParams: Promi
   const saved = await getSitePhotos();
   const page = photoPages.includes(requested ?? '') ? (requested as string) : 'accueil';
 
-  const groups = photoGroups.filter((group) => group.page === page).map((group) => ({
-    title: group.title,
-    hint: group.hint,
-    slots: group.slots.map((slot) => {
-      const src = saved[slot.key] || slot.defaultSrc;
-      return { key: slot.key, label: slot.label, current: src.startsWith('http') ? src : `/${src}`, original: `/${slot.defaultSrc}` };
-    }),
-  }));
+  const groups = buildPhotoGroups(page, saved);
 
   return (
     <main className="section-pad">

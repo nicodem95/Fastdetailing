@@ -13,18 +13,19 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic';
 
-export default async function NewRealisationPage({ searchParams }: { searchParams: Promise<{ erreur?: string }> }) {
-  const { erreur } = await searchParams;
+export default async function NewRealisationPage({ searchParams }: { searchParams: Promise<{ erreur?: string; type?: string }> }) {
+  const { erreur, type } = await searchParams;
   if (!(await getAdminUser())) redirect('/admin');
+  const back = type === 'avant_apres' ? '/admin/avant-apres' : '/admin';
 
   return (
     <main className="section-pad">
       <div className="admin">
-        <Link className="admin-back" href="/admin">← Retour aux réalisations</Link>
+        <Link className="admin-back" href={back}>← Retour</Link>
         <section className="admin-card">
-          <h1>Nouvelle réalisation</h1>
+          <h1>{type === 'avant_apres' ? 'Nouveau comparatif avant / après' : 'Nouvelle photo de la galerie'}</h1>
           {erreur === 'champs' ? <p className="admin-alert" role="alert">Le titre et la catégorie sont obligatoires.</p> : null}
-          <RealisationForm action={createRealisationAction} />
+          <RealisationForm action={createRealisationAction} defaultType={type === 'avant_apres' ? 'avant_apres' : 'galerie'} />
         </section>
       </div>
     </main>

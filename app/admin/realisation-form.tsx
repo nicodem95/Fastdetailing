@@ -16,11 +16,13 @@ export interface RealisationFormInitial {
 export function RealisationForm({
   action,
   initial,
+  defaultType = 'avant_apres',
 }: {
   action: (formData: FormData) => Promise<void>;
   initial?: RealisationFormInitial;
+  defaultType?: 'avant_apres' | 'galerie';
 }) {
-  const [type, setType] = useState(initial?.type ?? 'avant_apres');
+  const [type, setType] = useState(initial?.type ?? defaultType);
   const [uploads, setUploads] = useState(0);
 
   const onBusyChange = (busy: boolean) => setUploads((count) => count + (busy ? 1 : -1));

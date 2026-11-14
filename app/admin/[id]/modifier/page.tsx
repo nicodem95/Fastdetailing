@@ -34,7 +34,7 @@ export default async function EditRealisationPage({
   return (
     <main className="section-pad">
       <div className="admin">
-        <Link className="admin-back" href="/admin">← Retour aux réalisations</Link>
+        <Link className="admin-back" href={item.type === 'avant_apres' ? '/admin/avant-apres' : '/admin'}>← Retour</Link>
         <section className="admin-card">
           <h1>Modifier la réalisation</h1>
           {erreur === 'champs' ? <p className="admin-alert" role="alert">Le titre et la catégorie sont obligatoires.</p> : null}

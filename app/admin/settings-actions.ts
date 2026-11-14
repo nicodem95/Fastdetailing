@@ -132,5 +132,5 @@ export async function savePhotosAction(formData: FormData) {
   const kept = new Set(Object.values(saved));
   await deleteImageObjects(Object.values(previous).filter((url) => !kept.has(url))).catch(() => undefined);
   refreshSite();
-  redirect(`/admin/photos?page=${page}&ok=1`);
+  redirect(page === 'realisations' ? '/admin?ok=photos' : page === 'avant-apres' ? '/admin/avant-apres?ok=photos' : `/admin/photos?page=${page}&ok=1`);
 }
