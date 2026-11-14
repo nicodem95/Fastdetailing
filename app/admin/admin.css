@@ -104,3 +104,11 @@
 .admin-subgroup h3 { margin: 0 0 10px; font-size: .95rem; color: var(--muted); }
 
 .admin-photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+
+.admin-move { display: flex; gap: 4px; }
+.admin-nav { align-items: flex-start; gap: 18px; }
+.admin-nav-group { display: flex; flex-direction: column; gap: 4px; }
+.admin-nav-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding-left: 14px; }
+.admin-nav-links { display: flex; flex-wrap: wrap; gap: 4px; }
+.admin-nav-badge { background: var(--accent); color: #fff; border-radius: 999px; padding: 0 7px; font-size: 0.75rem; }
+.admin-message .admin-item-info p { margin: 6px 0; white-space: pre-wrap; }

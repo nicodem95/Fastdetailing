@@ -6,7 +6,6 @@ const publicDirectory = join(root, 'public');
 
 mkdirSync(publicDirectory, { recursive: true });
 cpSync(join(root, 'assets'), join(publicDirectory, 'assets'), { recursive: true, force: true });
-cpSync(join(root, 'data'), join(publicDirectory, 'data'), { recursive: true, force: true });
 
 for (const filename of readdirSync(root)) {
   if (filename.endsWith('.html')) {

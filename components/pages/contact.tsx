@@ -173,7 +173,7 @@ export function ContactContent({ info, texts, photos }: { info: SiteInfo; texts:
                 Décrivez votre véhicule et la prestation souhaitée. Nous vous répondons rapidement.
               </p>
             </div>
-            <form className="contact-form" id="contactForm">
+            <form className="contact-form" id="contactForm" data-email={info.email}>
               <div className="form-row">
                 <label>
                   {' '}Nom{' '}

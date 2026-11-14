@@ -1,7 +1,8 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
+import type { LegalInfo } from '@/lib/extra-content';
 import { phoneHref, type SiteInfo } from '@/lib/site-content';
 
-export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
+export function MentionsLegalesContent({ info, legal }: { info: SiteInfo; legal: LegalInfo }) {
   return (
     <>
       <div className="container legal-container">
@@ -36,7 +37,7 @@ export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
                 Dénomination sociale
               </dt>
               <dd>
-                FAST DETAILLING
+                {legal.denomination}
               </dd>
             </div>
             <div>
@@ -44,7 +45,7 @@ export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
                 Forme juridique
               </dt>
               <dd>
-                Société par actions simplifiée (SAS)
+                {legal.forme}
               </dd>
             </div>
             <div>
@@ -60,7 +61,7 @@ export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
                 SIREN
               </dt>
               <dd>
-                944 278 068
+                {legal.siren}
               </dd>
             </div>
             <div>
@@ -68,7 +69,7 @@ export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
                 SIRET du siège
               </dt>
               <dd>
-                944 278 068 00019
+                {legal.siret}
               </dd>
             </div>
             <div>
@@ -76,7 +77,7 @@ export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
                 TVA intracommunautaire
               </dt>
               <dd>
-                FR44944278068
+                {legal.tva}
               </dd>
             </div>
             <div>
@@ -84,7 +85,7 @@ export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
                 Activité
               </dt>
               <dd>
-                Entretien et réparation de véhicules automobiles
+                {legal.activite}
               </dd>
             </div>
             <div>
@@ -92,7 +93,7 @@ export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
                 Dirigeant
               </dt>
               <dd>
-                Farid BENKHALED
+                {legal.dirigeant}
               </dd>
             </div>
             <div>
@@ -120,7 +121,7 @@ export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
                 Capital social
               </dt>
               <dd>
-                1 000 €
+                {legal.capital}
               </dd>
             </div>
             <div>
@@ -128,7 +129,7 @@ export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
                 Immatriculation au RCS
               </dt>
               <dd>
-                944 278 068 R.C.S. Évreux
+                {legal.rcs}
               </dd>
             </div>
           </dl>
@@ -154,7 +155,7 @@ export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
                   Directeur de la publication
                 </dt>
                 <dd>
-                  Nicolas Millon
+                  {legal.directeurPublication}
                 </dd>
               </div>
             </dl>

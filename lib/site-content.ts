@@ -11,6 +11,7 @@ export interface SiteInfo {
   telephone: string;
   email: string;
   instagram: string;
+  facebook: string;
   adresse: string;
   delaiReponse: string;
   horaires: DayHours[];
@@ -43,6 +44,7 @@ export const defaultSiteInfo: SiteInfo = {
   telephone: '06 66 08 44 67',
   email: 'fastdetailing27140@gmail.com',
   instagram: 'https://www.instagram.com/fastdetailing27140/',
+  facebook: '',
   adresse: '10 B route de Rouen, 27140 Gisors, France',
   delaiReponse: '24h',
   horaires: [
@@ -195,7 +197,7 @@ export function applySiteInfo(jsonLd: string, info: SiteInfo) {
       if (key === 'telephone') result[key] = `+${phoneVariants(info.telephone).international}`;
       else if (key === 'email') result[key] = info.email;
       else if (key === 'areaServed') result[key] = zones;
-      else if (key === 'sameAs') result[key] = [info.instagram];
+      else if (key === 'sameAs') result[key] = [info.instagram, info.facebook].filter(Boolean);
       else if (key === 'openingHoursSpecification') {
         if (specs.length) result[key] = specs;
       } else result[key] = fill(value);

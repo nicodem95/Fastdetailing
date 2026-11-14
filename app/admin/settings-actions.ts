@@ -27,6 +27,7 @@ export async function saveSiteInfoAction(formData: FormData) {
   const telephone = plain(formData.get('telephone'), 20);
   const email = plain(formData.get('email'), 120);
   const instagram = String(formData.get('instagram') ?? '').trim();
+  const facebook = String(formData.get('facebook') ?? '').trim();
   const adresse = plain(formData.get('adresse'), 160);
   const delaiReponse = plain(formData.get('delaiReponse'), 30);
   const timePattern = /^([01]\d|2[0-3]):[0-5]\d$/;
@@ -45,11 +46,12 @@ export async function saveSiteInfoAction(formData: FormData) {
     /^0\d( ?\d\d){4}$/.test(telephone) &&
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
     /^https:\/\/(www\.)?instagram\.com\/[\w./-]+$/.test(instagram) &&
+    (!facebook || /^https:\/\/(www\.|m\.)?facebook\.com\/[\w./?=&%-]+$/.test(facebook)) &&
     horaires.every((day) => timePattern.test(day.de) && timePattern.test(day.a) && (!day.ouvert || day.de < day.a)) &&
     horaires.some((day) => day.ouvert) && zones.length > 0 && adresse.length > 5 && delaiReponse.length > 0;
   if (!valid) redirect('/admin/infos?erreur=1');
 
-  const info: SiteInfo = { telephone: telephone.replace(/^(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)$/, '$1 $2 $3 $4 $5'), email, instagram, adresse, delaiReponse, horaires, zones };
+  const info: SiteInfo = { telephone: telephone.replace(/^(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)$/, '$1 $2 $3 $4 $5'), email, instagram, facebook, adresse, delaiReponse, horaires, zones };
   await setSetting(SETTINGS_KEYS.info, info);
   refreshSite();
   redirect('/admin/infos?ok=1');

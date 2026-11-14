@@ -8,7 +8,7 @@ import { savePhotosAction } from './settings-actions';
 interface Group {
   title: string;
   hint: string;
-  slots: { key: string; label: string; current: string }[];
+  slots: { key: string; label: string; current: string; original: string }[];
 }
 
 export function PhotosForm({ groups, page }: { groups: Group[]; page: string }) {
@@ -23,7 +23,7 @@ export function PhotosForm({ groups, page }: { groups: Group[]; page: string }) 
           <p className="admin-help">{group.hint}</p>
           <div className="admin-photo-grid">
             {group.slots.map((slot) => (
-              <ImageUpload key={slot.key} name={slot.key} label={slot.label} initialUrl={slot.current} onBusyChange={(value) => setBusy((count) => count + (value ? 1 : -1))} />
+              <ImageUpload key={slot.key} name={slot.key} label={slot.label} initialUrl={slot.current} original={slot.original} onBusyChange={(value) => setBusy((count) => count + (value ? 1 : -1))} />
             ))}
           </div>
         </section>

@@ -12,9 +12,8 @@ import { PrestationsContent, PrestationsExtras } from '@/components/pages/presta
 import { RealisationsContent, RealisationsExtras } from '@/components/pages/realisations';
 import { TarifsContent } from '@/components/pages/tarifs-content';
 import { TarifsLavageAutoExtras } from '@/components/pages/tarifs-lavage-auto';
-import { getSitePhotos } from '@/lib/site-photos';
-import { getAssurance } from '@/lib/assurance-content';
-import { getPageContent, pareBrisePage, prestationsPage } from '@/lib/page-content';
+import { getSitePhotos, sitePhoto } from '@/lib/site-photos';
+import { getBanner, getLegal, getSeo } from '@/lib/extra-content';
 import { pageData, type PageSlug } from '@/lib/page-data';
 import { applySiteInfo, getOptions, getPrices, getSiteInfo, getTexts } from '@/lib/site-content';
 import { LegacyPageRuntime } from './legacy-page-runtime';
@@ -44,28 +43,30 @@ export function isPageSlug(slug: string): slug is PageSlug {
   return slug !== 'index' && slug in pageData;
 }
 
-export function getPageMetadata(slug: PageSlug): Metadata {
+export async function getPageMetadata(slug: PageSlug): Promise<Metadata> {
   const page: PageMeta = pageData[slug];
+  const [seo, photos] = await Promise.all([getSeo(slug), getSitePhotos()]);
+  const ogImage = photos['site.share'] || page.ogImage;
 
   return {
-    title: page.title,
-    description: page.description,
+    title: seo.title,
+    description: seo.description,
     robots: page.robots,
     alternates: page.canonical ? { canonical: page.canonical } : undefined,
     openGraph: page.ogTitle || page.ogDescription || page.ogUrl
       ? {
-          title: page.ogTitle,
-          description: page.ogDescription,
+          title: page.ogTitle ? seo.title : undefined,
+          description: page.ogDescription ? seo.description : undefined,
           url: page.ogUrl,
           type: page.ogType === 'article' ? 'article' : 'website',
-          images: page.ogImage ? [page.ogImage] : undefined,
+          images: ogImage ? [ogImage] : undefined,
         }
       : undefined,
     twitter: page.twitterCard
       ? {
           card: page.twitterCard === 'summary' ? 'summary' : 'summary_large_image',
-          title: page.twitterTitle,
-          description: page.twitterDescription,
+          title: page.twitterTitle ? seo.title : undefined,
+          description: page.twitterDescription ? seo.description : undefined,
         }
       : undefined,
   };
@@ -73,18 +74,18 @@ export function getPageMetadata(slug: PageSlug): Metadata {
 
 export async function SitePage({ slug }: { slug: PageSlug }) {
   const page: PageMeta = pageData[slug];
-  const [info, prices, texts, options, assurance, photos] = await Promise.all([getSiteInfo(), getPrices(), getTexts(), getOptions(), getAssurance(), getSitePhotos()]);
-  const [pareBriseContent, prestationsContent] = await Promise.all([getPageContent(pareBrisePage), getPageContent(prestationsPage)]);
+  const [info, prices, texts, options, photos, banner, legal] = await Promise.all([getSiteInfo(), getPrices(), getTexts(), getOptions(), getSitePhotos(), getBanner(), getLegal()]);
+  const defaults = {};
 
   const content = {
     'index': <HomeContent info={info} texts={texts} photos={photos} />,
-    'prestations': <PrestationsContent info={info} content={prestationsContent} photos={photos} />,
+    'prestations': <PrestationsContent info={info} content={defaults} photos={photos} />,
     'avant-apres': <AvantApresContent info={info} photos={photos} />,
     'realisations': <RealisationsContent info={info} photos={photos} />,
-    'pare-brise': <PareBriseContent info={info} content={pareBriseContent} photos={photos} />,
-    'administratif-assurance': <AdministratifAssuranceContent info={info} assurance={assurance} photos={photos} />,
+    'pare-brise': <PareBriseContent info={info} content={defaults} photos={photos} />,
+    'administratif-assurance': <AdministratifAssuranceContent info={info} assurance={defaults} photos={photos} />,
     'contact': <ContactContent info={info} texts={texts} photos={photos} />,
-    'mentions-legales': <MentionsLegalesContent info={info} />,
+    'mentions-legales': <MentionsLegalesContent info={info} legal={legal} />,
     'tarifs-lavage-auto': <TarifsContent info={info} prices={prices} options={options} texts={texts} />,
   }[slug];
 
@@ -106,7 +107,7 @@ export async function SitePage({ slug }: { slug: PageSlug }) {
       {page.inlineStyles.map((css, index) => (
         <style key={index} dangerouslySetInnerHTML={{ __html: css }} />
       ))}
-      <SiteHeader info={info} />
+      <SiteHeader info={info} banner={banner} logo={sitePhoto(photos, 'site.logo')} />
       <main id="contenu">{content}</main>
       {extras}
       <SiteFooter info={info} />

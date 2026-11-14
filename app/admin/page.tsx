@@ -4,7 +4,7 @@ import { getAdminUser } from '@/lib/auth/server';
 import { listRealisations } from '@/lib/services/realisations';
 import { SignOutButton } from './sign-out-button';
 import { Icon, PageTitle } from './icons';
-import { deleteRealisationAction, togglePublishAction } from './actions';
+import { deleteRealisationAction, moveRealisationAction, togglePublishAction } from './actions';
 import './admin.css';
 
 export const metadata: Metadata = {
@@ -50,7 +50,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
         </div>
 
         <div className="admin-toolbar">
-          <p>Les entrées <strong>publiées</strong> sont visibles sur le site.</p>
+          <p>Les entrées <strong>publiées</strong> sont visibles sur le site, dans l’ordre de cette liste (flèches ↑ ↓ pour les déplacer).</p>
           <Link className="btn btn-primary admin-btn-icon" href="/admin/nouvelle"><Icon name="plus" />Nouvelle réalisation</Link>
         </div>
 
@@ -63,7 +63,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           </section>
         ) : (
           <ul className="admin-list">
-            {realisations.map((item) => (
+            {realisations.map((item, position) => (
               <li className="admin-item" key={item.id}>
                 <div className="admin-thumbs">
                   {item.images.slice(0, 2).map((image) => (
@@ -82,6 +82,11 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                   <span className={`admin-pill ${item.publie ? 'on' : 'off'}`}>{item.publie ? 'Publié' : 'Brouillon'}</span>
                 </div>
                 <div className="admin-actions">
+                  <form action={moveRealisationAction} className="admin-move">
+                    <input type="hidden" name="id" value={item.id} />
+                    <button className="admin-small-btn" type="submit" name="direction" value="up" disabled={position === 0} title="Monter" aria-label={`Monter ${item.titre}`}>↑</button>
+                    <button className="admin-small-btn" type="submit" name="direction" value="down" disabled={position === realisations.length - 1} title="Descendre" aria-label={`Descendre ${item.titre}`}>↓</button>
+                  </form>
                   <Link className="admin-small-btn" href={`/admin/${item.id}/modifier`} title="Modifier"><Icon name="edit" size={15} />Modifier</Link>
                   <form action={togglePublishAction}>
                     <input type="hidden" name="id" value={item.id} />

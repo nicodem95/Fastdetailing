@@ -93,6 +93,15 @@ textarea {
   top: 16px;
 }
 
+.site-announcement {
+  background: var(--accent, #ff2a2a);
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 10px 16px;
+}
+
 .site-header {
   position: sticky;
   top: 0;

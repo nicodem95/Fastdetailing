@@ -1,15 +1,17 @@
+import type { Banner } from '@/lib/extra-content';
 import type { SiteInfo } from '@/lib/site-content';
 
-export function SiteHeader({ info }: { info: SiteInfo }) {
+export function SiteHeader({ info, banner, logo }: { info: SiteInfo; banner: Banner; logo: string }) {
   const phone = info.telephone;
   const tel = `+33${phone.replace(/\D/g, '').slice(1)}`;
   return (
     <>
       <a className="skip-link" href="#contenu">Aller au contenu</a>
+      {banner.actif && banner.texte ? <p className="site-announcement" role="status">{banner.texte}</p> : null}
       <header className="site-header" id="top">
         <div className="container header-inner">
           <a className="brand" href="index.html" aria-label="Fast Detailing, accueil">
-            <img src="assets/Hero/hero.jpeg" alt="Logo Fast Detailing" className="brand-mark" />
+            <img src={logo} alt="Logo Fast Detailing" className="brand-mark" />
             <span className="brand-copy"><strong>Fast Detailing</strong><span>Gisors</span></span>
           </a>
           <button className="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-principal">Menu</button>

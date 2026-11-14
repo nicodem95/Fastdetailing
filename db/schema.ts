@@ -41,6 +41,19 @@ export const siteSettings = pgTable('site_settings', {
   updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'date' }).notNull().defaultNow(),
 });
 
+export const contactMessages = pgTable('contact_messages', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  nom: text('nom').notNull(),
+  telephone: text('telephone').notNull(),
+  email: text('email'),
+  codePostal: text('code_postal'),
+  vehicule: text('vehicule'),
+  prestation: text('prestation'),
+  message: text('message'),
+  lu: boolean('lu').notNull().default(false),
+  createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' }).notNull().defaultNow(),
+});
+
 export const realisationsRelations = relations(realisations, ({ many }) => ({
   images: many(realisationImages),
 }));

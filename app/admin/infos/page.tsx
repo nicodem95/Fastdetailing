@@ -41,6 +41,7 @@ export default async function InfosPage({ searchParams }: { searchParams: Promis
               <label className="admin-field">Téléphone<input name="telephone" defaultValue={info.telephone} placeholder="06 12 34 56 78" required /></label>
               <label className="admin-field">E-mail<input name="email" type="email" defaultValue={info.email} required /></label>
               <label className="admin-field">Lien Instagram<input name="instagram" defaultValue={info.instagram} required /></label>
+              <label className="admin-field">Lien Facebook (facultatif)<input name="facebook" defaultValue={info.facebook} placeholder="https://www.facebook.com/votre-page" /></label>
               <label className="admin-field">Adresse de l’atelier<input name="adresse" defaultValue={info.adresse} maxLength={160} required /></label>
               <label className="admin-field">Délai de réponse annoncé<input name="delaiReponse" defaultValue={info.delaiReponse} maxLength={30} placeholder="24h" required /></label>
             </div>

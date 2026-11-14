@@ -3,7 +3,7 @@
 import { upload } from '@vercel/blob/client';
 import { useState, type DragEvent } from 'react';
 
-export function ImageUpload({ name, label, initialUrl = '', onBusyChange }: { name: string; label: string; initialUrl?: string; onBusyChange?: (busy: boolean) => void }) {
+export function ImageUpload({ name, label, initialUrl = '', original, onBusyChange }: { name: string; label: string; initialUrl?: string; original?: string; onBusyChange?: (busy: boolean) => void }) {
   const [url, setUrl] = useState(initialUrl);
   const [status, setStatus] = useState('');
   const [preview, setPreview] = useState(initialUrl);
@@ -62,6 +62,9 @@ export function ImageUpload({ name, label, initialUrl = '', onBusyChange }: { na
         />
       </label>
       <input type="hidden" name={name} value={url} />
+      {original && preview !== original ? (
+        <button type="button" className="admin-small-btn" onClick={() => { setUrl(''); setPreview(original); setStatus('Photo d’origine rétablie : cliquez sur Enregistrer.'); }}>Restaurer la photo d’origine</button>
+      ) : null}
       {status ? <small>{status}</small> : null}
     </div>
   );

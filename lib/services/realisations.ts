@@ -188,3 +188,11 @@ export async function deleteRealisation(id: string) {
 
   return Boolean(deleted);
 }
+// Rewrites `ordre` as consecutive values following the given id order.
+export async function reorderRealisations(ids: string[]) {
+  await getDatabase().transaction(async (transaction) => {
+    for (const [index, id] of ids.entries()) {
+      await transaction.update(realisations).set({ ordre: index }).where(eq(realisations.id, id));
+    }
+  });
+}

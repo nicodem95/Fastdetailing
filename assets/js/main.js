@@ -346,8 +346,17 @@
 
       const subject = encodeURIComponent(`Demande de devis Fast Detailing - ${service}`);
       const body = encodeURIComponent(`Nom: ${name}\nTéléphone: ${phone}\nCode postal: ${postalCode}\nEmail: ${email}\nType de véhicule: ${vehicle}\nPrestation: ${service}\n\nMessage:\n${message}`);
+      const target = contactForm.dataset.email || 'fastdetailing27140@gmail.com';
 
-      window.location.href = `mailto:fastdetailing27140@gmail.com?subject=${subject}&body=${body}`;
+      // The request is also saved in the admin inbox; the e-mail draft stays as the visitor's own copy.
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(formData)),
+        keepalive: true,
+      }).catch(() => undefined);
+
+      window.location.href = `mailto:${target}?subject=${subject}&body=${body}`;
     });
   }
 

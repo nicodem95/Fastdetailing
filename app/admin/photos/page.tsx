@@ -19,7 +19,7 @@ export default async function PhotosPage({ searchParams }: { searchParams: Promi
     hint: group.hint,
     slots: group.slots.map((slot) => {
       const src = saved[slot.key] || slot.defaultSrc;
-      return { key: slot.key, label: slot.label, current: src.startsWith('http') ? src : `/${src}` };
+      return { key: slot.key, label: slot.label, current: src.startsWith('http') ? src : `/${src}`, original: `/${slot.defaultSrc}` };
     }),
   }));
 

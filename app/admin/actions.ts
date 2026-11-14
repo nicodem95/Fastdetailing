@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
-import { createRealisation, deleteRealisation, getRealisationById, updateRealisation } from '@/lib/services/realisations';
+import { createRealisation, deleteRealisation, getRealisationById, listRealisations, reorderRealisations, updateRealisation } from '@/lib/services/realisations';
 import { deleteImageObjects, isStoredImageUrl } from '@/lib/storage/images';
 import type { RealisationImageType, RealisationType } from '@/db/schema';
 
@@ -98,4 +98,20 @@ export async function deleteRealisationAction(formData: FormData) {
   await deleteRealisation(id);
   await deleteImageObjects(realisation.images.map((image) => image.url)).catch(() => undefined);
   refreshPublicPages();
+}
+
+export async function moveRealisationAction(formData: FormData) {
+  await requireAdmin();
+
+  const id = String(formData.get('id') ?? '');
+  const offset = formData.get('direction') === 'up' ? -1 : 1;
+  const ids = (await listRealisations()).map((item) => item.id);
+  const from = ids.indexOf(id);
+  const to = from + offset;
+  if (from !== -1 && to >= 0 && to < ids.length) {
+    [ids[from], ids[to]] = [ids[to], ids[from]];
+    await reorderRealisations(ids);
+    refreshPublicPages();
+  }
+  redirect('/admin');
 }

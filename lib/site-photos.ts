@@ -16,6 +16,15 @@ export interface PhotoGroup {
 
 export const photoGroups: PhotoGroup[] = [
   {
+    page: 'logo',
+    title: 'Logo et photo de partage',
+    hint: 'Le logo s’affiche en haut à gauche de toutes les pages. La photo de partage apparaît quand le lien du site est envoyé par message ou publié sur les réseaux (si vous n’en mettez pas, chaque page garde sa photo habituelle).',
+    slots: [
+      { key: 'site.logo', label: 'Logo', defaultSrc: 'assets/Hero/hero.jpeg' },
+      { key: 'site.share', label: 'Photo de partage', defaultSrc: 'assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.48.jpeg' },
+    ],
+  },
+  {
     page: 'accueil',
     title: 'Page d’accueil',
     hint: 'Photo d’en-tête puis galerie « Nos réalisations » en bas de la page.',

@@ -8,6 +8,13 @@
       "when": 1794564747935,
       "tag": "0000_initial_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794665629316,
+      "tag": "0001_wild_black_knight",
+      "breakpoints": true
     }
   ]
 }
