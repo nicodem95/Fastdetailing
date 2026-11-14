@@ -12,8 +12,6 @@ const groups: { title: string; icon: IconName; hint: string; keys: string[] }[] 
   { title: 'Bandeau d’accueil (hero)', icon: 'text', hint: 'Titre principal et accroche affichés en tête de la page d’accueil.', keys: ['accueil-titre', 'accueil-texte'] },
   { title: 'Bandeau « Offre client »', icon: 'sparkle', hint: 'Encadré promotionnel de l’accueil : offre franchise, mention légale, titre assurance et bouton.', keys: ['offre-etiquette', 'offre-ligne1', 'offre-ligne2', 'offre-note', 'offre-titre', 'offre-texte', 'offre-bouton'] },
   { title: 'Section « Contact rapide »', icon: 'phone', hint: 'Texte d’introduction de la section contact, en bas de l’accueil.', keys: ['accueil-contact'] },
-    { title: 'Page Prestations', icon: 'sparkle', hint: 'Titre et introduction en haut de la page Prestations.', keys: ['prestations-titre', 'prestations-texte'] },
-  { title: 'Page Pare-brise', icon: 'info', hint: 'Titre et introduction en haut de la page Pare-brise.', keys: ['parebrise-titre', 'parebrise-texte'] },
   { title: 'Page Tarifs lavage auto', icon: 'tag', hint: 'Titre et introduction en haut de la page Tarifs.', keys: ['tarifs-titre', 'tarifs-texte'] },
   { title: 'Page Contact', icon: 'mail', hint: 'Titre principal de la page Contact.', keys: ['contact-titre'] },
 ];

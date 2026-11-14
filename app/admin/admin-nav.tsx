@@ -9,6 +9,8 @@ const links: { href: string; label: string; icon: IconName }[] = [
   { href: '/admin', label: 'Réalisations', icon: 'images' },
   { href: '/admin/tarifs', label: 'Tarifs', icon: 'tag' },
   { href: '/admin/infos', label: 'Infos du site', icon: 'info' },
+  { href: '/admin/prestations', label: 'Prestations', icon: 'sparkle' },
+  { href: '/admin/pare-brise', label: 'Pare-brise', icon: 'info' },
   { href: '/admin/assurance', label: 'Assurance', icon: 'draft' },
   { href: '/admin/textes', label: 'Textes', icon: 'text' },
 ];

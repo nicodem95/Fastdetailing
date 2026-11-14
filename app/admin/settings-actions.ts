@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
 import { ASSURANCE_SETTING_KEY, assuranceFields } from '@/lib/assurance-content';
+import { editablePages } from '@/lib/page-content';
 import { setSetting } from '@/lib/services/settings';
 import { SETTINGS_KEYS, defaultOptions, defaultPrices, textFields, type OptionRow, type PriceRow, type SiteInfo } from '@/lib/site-content';
 
@@ -110,4 +111,21 @@ export async function saveAssuranceAction(formData: FormData) {
   await setSetting(ASSURANCE_SETTING_KEY, saved);
   refreshSite();
   redirect('/admin/assurance?ok=1');
+}
+
+export async function savePageContentAction(formData: FormData) {
+  await requireAdmin();
+
+  const page = editablePages.find((item) => item.slug === formData.get('slug'));
+  if (!page) throw new Error('Unknown page');
+
+  const saved: Record<string, string> = {};
+  for (const field of page.fields) {
+    const value = String(formData.get(field.key) ?? '').replace(/[<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, 800);
+    if (value && value !== field.defaultValue) saved[field.key] = value;
+  }
+
+  await setSetting(page.settingKey, saved);
+  refreshSite();
+  redirect(`${page.adminPath}?ok=1`);
 }
