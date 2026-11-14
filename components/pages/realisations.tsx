@@ -1,8 +1,31 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
+import { loadGalleryItems, type GalleryItem } from '@/lib/gallery';
 import { phoneHref, whatsappHref, type SiteInfo } from '@/lib/site-content';
 import { sitePhoto } from '@/lib/site-photos';
 
-export function RealisationsContent({ info, photos }: { info: SiteInfo; photos: Record<string, string> }) {
+const fallbackKind: Record<string, string> = { interieur: 'interieur', exterieur: 'exterieur', polish: 'exterieur', phares: 'phares', moto: 'moto' };
+
+const defaultGallery: GalleryItem[] = [
+  { category: 'interieur', src: 'assets/Interieur_Voiture/WhatsApp Image 2026-05-09 at 19.50.35.jpeg', alt: 'Nettoyage intérieur voiture à Gisors', caption: 'Intérieur' },
+  { category: 'interieur', src: 'assets/Sieges/apres.jpeg', alt: 'Rénovation des sièges véhicule', caption: 'Sièges' },
+  { category: 'exterieur', src: 'assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.49 (2).jpeg', alt: 'Nettoyage extérieur véhicule', caption: 'Extérieur' },
+  { category: 'polish', src: 'assets/Avant_Apres/10/WhatsApp Image 2026-05-09 at 19.42.21.jpeg', alt: 'Polish et lustrage de carrosserie', caption: 'Polish' },
+  { category: 'phares', src: 'assets/Phares/WhatsApp Image 2026-05-09 at 19.41.11.jpeg', alt: 'Rénovation optiques et phares', caption: 'Phares' },
+  { category: 'moto', src: 'assets/Moto/moto-renovee.jpg', alt: 'Nettoyage moto detailing', caption: 'Moto' },
+  { category: 'phares', src: 'assets/Phares/WhatsApp Image 2026-05-09 at 19.41.13.jpeg', alt: 'Phare rénové en détail', caption: 'Phares' },
+  { category: 'phares', src: 'assets/Phares/WhatsApp Image 2026-05-09 at 19.42.14.jpeg', alt: 'Rénovation optique avant après', caption: 'Optiques' },
+  { category: 'phares', src: 'assets/Phares/WhatsApp Image 2026-05-09 at 19.42.14 (1).jpeg', alt: 'Phares rénovés Fast Detailing', caption: 'Phares' },
+  { category: 'phares', src: 'assets/Phares/WhatsApp Image 2026-05-09 at 19.50.40 (1).jpeg', alt: 'Photo de phare rénové', caption: 'Phares' },
+  { category: 'phares', src: 'assets/Phares/WhatsApp Image 2026-05-09 at 19.50.40 (2).jpeg', alt: 'Rénovation phare voiture', caption: 'Phares' },
+  { category: 'phares', src: 'assets/Phares/WhatsApp Image 2026-05-09 at 19.50.40 (3).jpeg', alt: 'Phare rénové et brillant', caption: 'Phares' },
+  { category: 'phares', src: 'assets/Phares/WhatsApp Image 2026-05-09 at 19.50.40 (4).jpeg', alt: 'Rénovation optique finale', caption: 'Phares' },
+  { category: 'exterieur', src: 'assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.41.03.jpeg', alt: 'Préparation véhicule extérieur', caption: 'Préparation' },
+];
+
+export async function RealisationsContent({ info, photos }: { info: SiteInfo; photos: Record<string, string> }) {
+  const fromDatabase = await loadGalleryItems();
+  const gallery = fromDatabase.length ? fromDatabase : defaultGallery;
+
   return (
     <>
       <section className="hero section-pad">
@@ -71,90 +94,14 @@ export function RealisationsContent({ info, photos }: { info: SiteInfo; photos: 
             </button>
           </div>
           <div className="gallery-grid gallery-grid-premium gallery-masonry" id="galleryGrid">
-            <figure className="gallery-card" data-category="interieur">
-              <img src="assets/Interieur_Voiture/WhatsApp Image 2026-05-09 at 19.50.35.jpeg" alt="Nettoyage intérieur voiture à Gisors" loading="lazy" decoding="async" data-fallback="interieur" />
-              <figcaption>
-                Intérieur
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="interieur">
-              <img src="assets/Sieges/apres.jpeg" alt="Rénovation des sièges véhicule" loading="lazy" decoding="async" data-fallback="sieges" />
-              <figcaption>
-                Sièges
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="exterieur">
-              <img src="assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.49 (2).jpeg" alt="Nettoyage extérieur véhicule" loading="lazy" decoding="async" data-fallback="exterieur" />
-              <figcaption>
-                Extérieur
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="polish">
-              <img src="assets/Avant_Apres/10/WhatsApp Image 2026-05-09 at 19.42.21.jpeg" alt="Polish et lustrage de carrosserie" loading="lazy" decoding="async" data-fallback="exterieur" />
-              <figcaption>
-                Polish
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="phares">
-              <img src="assets/Phares/WhatsApp Image 2026-05-09 at 19.41.11.jpeg" alt="Rénovation optiques et phares" loading="lazy" decoding="async" data-fallback="phares" />
-              <figcaption>
-                Phares
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="moto">
-              <img src="assets/Moto/moto-renovee.jpg" alt="Nettoyage moto detailing" loading="lazy" decoding="async" data-fallback="moto" />
-              <figcaption>
-                Moto
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="phares">
-              <img src="assets/Phares/WhatsApp Image 2026-05-09 at 19.41.13.jpeg" alt="Phare rénové en détail" loading="lazy" decoding="async" data-fallback="phares" />
-              <figcaption>
-                Phares
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="phares">
-              <img src="assets/Phares/WhatsApp Image 2026-05-09 at 19.42.14.jpeg" alt="Rénovation optique avant après" loading="lazy" decoding="async" data-fallback="phares" />
-              <figcaption>
-                Optiques
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="phares">
-              <img src="assets/Phares/WhatsApp Image 2026-05-09 at 19.42.14 (1).jpeg" alt="Phares rénovés Fast Detailing" loading="lazy" decoding="async" data-fallback="phares" />
-              <figcaption>
-                Phares
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="phares">
-              <img src="assets/Phares/WhatsApp Image 2026-05-09 at 19.50.40 (1).jpeg" alt="Photo de phare rénové" loading="lazy" decoding="async" data-fallback="phares" />
-              <figcaption>
-                Phares
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="phares">
-              <img src="assets/Phares/WhatsApp Image 2026-05-09 at 19.50.40 (2).jpeg" alt="Rénovation phare voiture" loading="lazy" decoding="async" data-fallback="phares" />
-              <figcaption>
-                Phares
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="phares">
-              <img src="assets/Phares/WhatsApp Image 2026-05-09 at 19.50.40 (3).jpeg" alt="Phare rénové et brillant" loading="lazy" decoding="async" data-fallback="phares" />
-              <figcaption>
-                Phares
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="phares">
-              <img src="assets/Phares/WhatsApp Image 2026-05-09 at 19.50.40 (4).jpeg" alt="Rénovation optique finale" loading="lazy" decoding="async" data-fallback="phares" />
-              <figcaption>
-                Phares
-              </figcaption>
-            </figure>
-            <figure className="gallery-card" data-category="exterieur">
-              <img src="assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.41.03.jpeg" alt="Préparation véhicule extérieur" loading="lazy" decoding="async" data-fallback="exterieur" />
-              <figcaption>
-                Préparation
-              </figcaption>
-            </figure>
+            {gallery.map((item, index) => (
+              <figure className="gallery-card" data-category={item.category} key={`${item.src}-${index}`}>
+                <img src={item.src} alt={item.alt} loading="lazy" decoding="async" data-fallback={fallbackKind[item.category] ?? 'exterieur'} />
+                <figcaption>
+                  {item.caption}
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>

@@ -29,7 +29,14 @@ export function RealisationForm({
     <form className="admin-form" action={action}>
       {initial ? <input type="hidden" name="id" value={initial.id} /> : null}
       <input name="titre" placeholder="Titre" defaultValue={initial?.titre} required />
-      <input name="categorie" placeholder="Catégorie (ex. intérieur, phares…)" defaultValue={initial?.categorie} required />
+      <input name="categorie" list="categories-galerie" placeholder="Catégorie galerie : interieur, exterieur, polish, phares ou moto" defaultValue={initial?.categorie} required />
+      <datalist id="categories-galerie">
+        <option value="interieur" />
+        <option value="exterieur" />
+        <option value="polish" />
+        <option value="phares" />
+        <option value="moto" />
+      </datalist>
       <textarea name="description" placeholder="Description (facultatif)" rows={3} defaultValue={initial?.description ?? ''} />
       {initial ? (
         <input type="hidden" name="type" value={initial.type} />
