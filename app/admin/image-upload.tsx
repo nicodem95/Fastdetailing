@@ -3,18 +3,15 @@
 import { upload } from '@vercel/blob/client';
 import { useState, type DragEvent } from 'react';
 
-export function ImageUpload({ name, label, onBusyChange }: { name: string; label: string; onBusyChange?: (busy: boolean) => void }) {
-  const [url, setUrl] = useState('');
+export function ImageUpload({ name, label, initialUrl = '', onBusyChange }: { name: string; label: string; initialUrl?: string; onBusyChange?: (busy: boolean) => void }) {
+  const [url, setUrl] = useState(initialUrl);
   const [status, setStatus] = useState('');
-  const [preview, setPreview] = useState('');
+  const [preview, setPreview] = useState(initialUrl);
   const [dragging, setDragging] = useState(false);
 
   async function handleFile(file: File | undefined) {
+    if (!file) return;
     setUrl('');
-    if (!file) {
-      setPreview('');
-      return setStatus('');
-    }
     setPreview(URL.createObjectURL(file));
     setStatus('Envoi en cours…');
     onBusyChange?.(true);

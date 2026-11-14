@@ -44,7 +44,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           <Link className="btn btn-primary" href="/admin/nouvelle">+ Nouvelle réalisation</Link>
         </div>
 
-        {ok === 'cree' ? <p className="admin-success" role="status">Réalisation enregistrée ✓</p> : null}
+        {ok === 'cree' || ok === 'modifie' ? <p className="admin-success" role="status">Réalisation {ok === 'cree' ? 'enregistrée' : 'modifiée'} ✓</p> : null}
 
         {realisations.length === 0 ? (
           <section className="admin-card admin-empty">
@@ -69,6 +69,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                   <span className={item.publie ? 'badge-on' : 'badge-off'}>{item.publie ? 'Publié' : 'Brouillon'}</span>
                 </div>
                 <div className="admin-actions">
+                  <Link className="admin-small-btn" href={`/admin/${item.id}/modifier`}>Modifier</Link>
                   <form action={togglePublishAction}>
                     <input type="hidden" name="id" value={item.id} />
                     <input type="hidden" name="publie" value={String(item.publie)} />

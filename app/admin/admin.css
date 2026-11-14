@@ -17,7 +17,7 @@
 .admin-dropzone img { width: 100%; max-height: 260px; object-fit: contain; display: block; }
 .admin-dropzone-hint { color: var(--muted); text-align: center; line-height: 1.5; padding: 20px; }
 .admin-check { display: flex; align-items: center; gap: 8px; }
-.admin-small-btn { background: var(--bg-soft); color: var(--text); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; padding: 6px 12px; font: inherit; font-size: 0.85rem; cursor: pointer; }
+.admin-small-btn { display: inline-block; background: var(--bg-soft); color: var(--text); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 6px; padding: 6px 12px; font: inherit; font-size: 0.85rem; cursor: pointer; text-decoration: none; }
 .admin-small-btn:hover { border-color: var(--accent); }
 .admin-small-btn.danger { color: #ff7a7a; }
 .admin-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }

@@ -3,30 +3,51 @@
 import { useState } from 'react';
 import { ImageUpload } from './image-upload';
 
-export function RealisationForm({ action }: { action: (formData: FormData) => Promise<void> }) {
-  const [type, setType] = useState('avant_apres');
+export interface RealisationFormInitial {
+  id: string;
+  titre: string;
+  categorie: string;
+  description: string | null;
+  type: 'avant_apres' | 'galerie';
+  publie: boolean;
+  images: Partial<Record<'avant' | 'apres' | 'galerie', string>>;
+}
+
+export function RealisationForm({
+  action,
+  initial,
+}: {
+  action: (formData: FormData) => Promise<void>;
+  initial?: RealisationFormInitial;
+}) {
+  const [type, setType] = useState(initial?.type ?? 'avant_apres');
   const [uploads, setUploads] = useState(0);
 
   const onBusyChange = (busy: boolean) => setUploads((count) => count + (busy ? 1 : -1));
 
   return (
     <form className="admin-form" action={action}>
-      <input name="titre" placeholder="Titre" required />
-      <input name="categorie" placeholder="Catégorie (ex. intérieur, phares…)" required />
-      <textarea name="description" placeholder="Description (facultatif)" rows={3} />
-      <select name="type" value={type} onChange={(event) => setType(event.target.value)}>
-        <option value="avant_apres">Avant / Après</option>
-        <option value="galerie">Galerie</option>
-      </select>
+      {initial ? <input type="hidden" name="id" value={initial.id} /> : null}
+      <input name="titre" placeholder="Titre" defaultValue={initial?.titre} required />
+      <input name="categorie" placeholder="Catégorie (ex. intérieur, phares…)" defaultValue={initial?.categorie} required />
+      <textarea name="description" placeholder="Description (facultatif)" rows={3} defaultValue={initial?.description ?? ''} />
+      {initial ? (
+        <input type="hidden" name="type" value={initial.type} />
+      ) : (
+        <select name="type" value={type} onChange={(event) => setType(event.target.value as typeof type)}>
+          <option value="avant_apres">Avant / Après</option>
+          <option value="galerie">Galerie</option>
+        </select>
+      )}
       {type === 'avant_apres' ? (
         <div className="admin-grid-2">
-          <ImageUpload name="avant" label="Image avant" onBusyChange={onBusyChange} />
-          <ImageUpload name="apres" label="Image après" onBusyChange={onBusyChange} />
+          <ImageUpload name="avant" label="Image avant" initialUrl={initial?.images.avant} onBusyChange={onBusyChange} />
+          <ImageUpload name="apres" label="Image après" initialUrl={initial?.images.apres} onBusyChange={onBusyChange} />
         </div>
       ) : (
-        <ImageUpload name="galerie" label="Image" onBusyChange={onBusyChange} />
+        <ImageUpload name="galerie" label="Image" initialUrl={initial?.images.galerie} onBusyChange={onBusyChange} />
       )}
-      <label className="admin-check"><input name="publie" type="checkbox" /> Publier immédiatement</label>
+      {initial ? null : <label className="admin-check"><input name="publie" type="checkbox" /> Publier immédiatement</label>}
       <button className="btn btn-primary" type="submit" disabled={uploads > 0}>
         {uploads > 0 ? 'Envoi des images…' : 'Enregistrer'}
       </button>
