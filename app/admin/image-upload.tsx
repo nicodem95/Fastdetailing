@@ -61,6 +61,16 @@ export function ImageUpload({ name, label, initialUrl = '', original, onBusyChan
           onChange={(event) => handleFile(event.target.files?.[0])}
         />
       </label>
+      <div className="admin-file-choices">
+        <label className="admin-small-btn">
+          Choisir dans la bibliothèque
+          <input type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={(event) => { handleFile(event.target.files?.[0]); event.target.value = ''; }} />
+        </label>
+        <label className="admin-small-btn">
+          Prendre une photo
+          <input type="file" accept="image/*" capture="environment" hidden onChange={(event) => { handleFile(event.target.files?.[0]); event.target.value = ''; }} />
+        </label>
+      </div>
       <input type="hidden" name={name} value={url} />
       {original && preview !== original ? (
         <button type="button" className="admin-small-btn" onClick={() => { setUrl(''); setPreview(original); setStatus('Photo d’origine rétablie : cliquez sur Enregistrer.'); }}>Restaurer la photo d’origine</button>
