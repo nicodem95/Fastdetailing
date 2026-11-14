@@ -22,7 +22,7 @@ export function RealisationForm({
   initial?: RealisationFormInitial;
   defaultType?: 'avant_apres' | 'galerie';
 }) {
-  const [type, setType] = useState(initial?.type ?? defaultType);
+  const [type] = useState(initial?.type ?? defaultType);
   const [uploads, setUploads] = useState(0);
 
   const onBusyChange = (busy: boolean) => setUploads((count) => count + (busy ? 1 : -1));
@@ -31,23 +31,18 @@ export function RealisationForm({
     <form className="admin-form" action={action}>
       {initial ? <input type="hidden" name="id" value={initial.id} /> : null}
       <input name="titre" placeholder="Titre" defaultValue={initial?.titre} required />
-      <input name="categorie" list="categories-galerie" placeholder="Catégorie galerie : interieur, exterieur, polish, phares ou moto" defaultValue={initial?.categorie} required />
-      <datalist id="categories-galerie">
-        <option value="interieur" />
-        <option value="exterieur" />
-        <option value="polish" />
-        <option value="phares" />
-        <option value="moto" />
-      </datalist>
+      <input name="categorie" list={type === 'galerie' ? 'categories-galerie' : undefined} placeholder={type === 'galerie' ? 'Catégorie : interieur, exterieur, polish, phares ou moto' : 'Catégorie (ex. carrosserie)'} defaultValue={initial?.categorie} required />
+      {type === 'galerie' ? (
+        <datalist id="categories-galerie">
+          <option value="interieur" />
+          <option value="exterieur" />
+          <option value="polish" />
+          <option value="phares" />
+          <option value="moto" />
+        </datalist>
+      ) : null}
       <textarea name="description" placeholder="Description (facultatif)" rows={3} defaultValue={initial?.description ?? ''} />
-      {initial ? (
-        <input type="hidden" name="type" value={initial.type} />
-      ) : (
-        <select name="type" value={type} onChange={(event) => setType(event.target.value as typeof type)}>
-          <option value="avant_apres">Avant / Après</option>
-          <option value="galerie">Galerie</option>
-        </select>
-      )}
+      <input type="hidden" name="type" value={type} />
       {type === 'avant_apres' ? (
         <div className="admin-grid-2">
           <ImageUpload name="avant" label="Image avant" initialUrl={initial?.images.avant} onBusyChange={onBusyChange} />
