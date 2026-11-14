@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
-import { phoneHref, whatsappHref, type SiteInfo } from '@/lib/site-content';
+import { pageText, phoneHref, whatsappHref, type SiteInfo } from '@/lib/site-content';
 
-export function PrestationsContent({ info }: { info: SiteInfo }) {
+export function PrestationsContent({ info, texts }: { info: SiteInfo; texts: Record<string, string> }) {
   return (
     <>
       <section className="hero section-pad">
@@ -12,10 +12,10 @@ export function PrestationsContent({ info }: { info: SiteInfo }) {
               Prestations
             </p>
             <h1>
-              Prestations de detailing auto à Gisors
+              {pageText(texts, 'prestations-titre')}
             </h1>
             <p className="hero-text">
-              Prestations de detailing à Gisors conçues pour un résultat visuel immédiat: intérieur soigné, carrosserie brillante, phares rénovés et vitres teintées premium.
+              {pageText(texts, 'prestations-texte')}
             </p>
             <div className="cta-row">
               <a className="btn btn-primary" href="realisations.html">

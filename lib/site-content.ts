@@ -82,7 +82,20 @@ export const textFields: TextField[] = [
     { key: 'offre-titre', label: 'Bandeau offre : titre', page: 'index', defaultValue: 'Assurance & démarches simplifiées' },
     { key: 'offre-texte', label: 'Bandeau offre : texte', page: 'index', defaultValue: 'Nous vous accompagnons dans la gestion administrative liée à votre bris de glace.', multiline: true },
     { key: 'offre-bouton', label: 'Bandeau offre : bouton', page: 'index', defaultValue: 'Vérifier mon éligibilité' },
+    { key: 'prestations-titre', label: 'Titre principal', page: 'prestations', defaultValue: 'Prestations de detailing auto à Gisors' },
+    { key: 'prestations-texte', label: 'Texte d’introduction', page: 'prestations', defaultValue: 'Prestations de detailing à Gisors conçues pour un résultat visuel immédiat: intérieur soigné, carrosserie brillante, phares rénovés et vitres teintées premium.', multiline: true },
+    { key: 'parebrise-titre', label: 'Titre principal', page: 'pare-brise', defaultValue: 'Remplacement pare-brise à Gisors' },
+    { key: 'parebrise-texte', label: 'Texte d’introduction', page: 'pare-brise', defaultValue: 'Remplacement pare-brise rapide et efficace. Franchise possible selon votre assurance. Appelez-nous pour les tarifs et détails.', multiline: true },
+    { key: 'assurance-titre', label: 'Titre principal', page: 'administratif-assurance', defaultValue: 'Prise en charge administrative simplifiée' },
+    { key: 'assurance-texte', label: 'Texte d’introduction', page: 'administratif-assurance', defaultValue: 'Fast Detailing vous accompagne dans les démarches d\'assurance et la gestion de votre dossier bris de glace.', multiline: true },
+    { key: 'contact-titre', label: 'Titre principal', page: 'contact', defaultValue: 'Nous contacter rapidement' },
+    { key: 'tarifs-titre', label: 'Titre principal', page: 'tarifs-lavage-auto', defaultValue: 'Tarifs Lavage Auto à Gisors' },
+    { key: 'tarifs-texte', label: 'Texte d’introduction', page: 'tarifs-lavage-auto', defaultValue: 'Nettoyage intérieur, extérieur ou complet pour tous types de véhicules.', multiline: true },
 ];
+
+export function pageText(texts: Record<string, string>, key: string) {
+    return texts[key] || textFields.find((field) => field.key === key)?.defaultValue || '';
+}
 
 const SETTINGS_KEYS = { info: 'site-info', prices: 'tarifs', texts: 'textes', options: 'options' } as const;
 

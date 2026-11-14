@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
-import { phoneHref, whatsappHref, type SiteInfo } from '@/lib/site-content';
+import { pageText, phoneHref, whatsappHref, type SiteInfo } from '@/lib/site-content';
 
-export function PareBriseContent({ info }: { info: SiteInfo }) {
+export function PareBriseContent({ info, texts }: { info: SiteInfo; texts: Record<string, string> }) {
   return (
     <>
       <section className="hero section-pad">
@@ -12,10 +12,10 @@ export function PareBriseContent({ info }: { info: SiteInfo }) {
               Pare-brise
             </p>
             <h1>
-              Remplacement pare-brise à Gisors
+              {pageText(texts, 'parebrise-titre')}
             </h1>
             <p className="hero-text">
-              Remplacement pare-brise rapide et efficace. Franchise possible selon votre assurance. Appelez-nous pour les tarifs et détails.
+              {pageText(texts, 'parebrise-texte')}
             </p>
             <div className="cta-row">
               <a className="btn btn-primary" href={phoneHref(info)}>

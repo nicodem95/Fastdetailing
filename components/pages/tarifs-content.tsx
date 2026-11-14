@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { whatsappHref, type OptionRow, type PriceRow, type SiteInfo } from '@/lib/site-content';
+import { pageText, whatsappHref, type OptionRow, type PriceRow, type SiteInfo } from '@/lib/site-content';
 
 const svg = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.9 } as const;
 
@@ -25,15 +25,15 @@ const steps = [
   { title: 'Vous récupérez un véhicule propre et soigné', text: "Contrôle final puis restitution d'un véhicule net et valorisé." },
 ];
 
-export function TarifsContent({ info, prices, options }: { info: SiteInfo; prices: PriceRow[]; options: OptionRow[] }) {
+export function TarifsContent({ info, prices, options, texts }: { info: SiteInfo; prices: PriceRow[]; options: OptionRow[]; texts: Record<string, string> }) {
   return (
     <>
       <section className="hero">
         <div className="container">
           <span className="kicker">Lavage auto premium à Gisors</span>
 
-          <h1>Tarifs Lavage Auto à Gisors</h1>
-          <p>Nettoyage intérieur, extérieur ou complet pour tous types de véhicules.</p>
+          <h1>{pageText(texts, 'tarifs-titre')}</h1>
+          <p>{pageText(texts, 'tarifs-texte')}</p>
 
           <div className="hero-badges" aria-label="Formules de lavage auto">
             <span className="hero-badge">Intérieur</span>

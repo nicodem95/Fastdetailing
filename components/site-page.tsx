@@ -74,14 +74,14 @@ export async function SitePage({ slug }: { slug: PageSlug }) {
 
   const content = {
     'index': <HomeContent info={info} texts={texts} />,
-    'prestations': <PrestationsContent info={info} />,
+    'prestations': <PrestationsContent info={info} texts={texts} />,
     'avant-apres': <AvantApresContent info={info} />,
     'realisations': <RealisationsContent info={info} />,
-    'pare-brise': <PareBriseContent info={info} />,
-    'administratif-assurance': <AdministratifAssuranceContent info={info} />,
-    'contact': <ContactContent info={info} />,
+    'pare-brise': <PareBriseContent info={info} texts={texts} />,
+    'administratif-assurance': <AdministratifAssuranceContent info={info} texts={texts} />,
+    'contact': <ContactContent info={info} texts={texts} />,
     'mentions-legales': <MentionsLegalesContent info={info} />,
-    'tarifs-lavage-auto': <TarifsContent info={info} prices={prices} options={options} />,
+    'tarifs-lavage-auto': <TarifsContent info={info} prices={prices} options={options} texts={texts} />,
   }[slug];
 
   const extras = {

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
-import { phoneDigits, whatsappHref, type SiteInfo } from '@/lib/site-content';
+import { pageText, phoneDigits, whatsappHref, type SiteInfo } from '@/lib/site-content';
 
-export function AdministratifAssuranceContent({ info }: { info: SiteInfo }) {
+export function AdministratifAssuranceContent({ info, texts }: { info: SiteInfo; texts: Record<string, string> }) {
   return (
     <>
       <section className="hero section-pad admin-hero">
@@ -12,10 +12,10 @@ export function AdministratifAssuranceContent({ info }: { info: SiteInfo }) {
               Administratif & Assurance
             </p>
             <h1>
-              Prise en charge administrative simplifiée
+              {pageText(texts, 'assurance-titre')}
             </h1>
             <p className="hero-text">
-              Fast Detailing vous accompagne dans les démarches d'assurance et la gestion de votre dossier bris de glace.
+              {pageText(texts, 'assurance-texte')}
             </p>
             <div className="cta-row admin-hero-cta">
               <a className="btn btn-primary" href="contact.html#formulaire-devis">

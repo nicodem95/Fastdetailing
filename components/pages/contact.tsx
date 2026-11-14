@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
-import { hoursGroups, phoneDigits, whatsappHref, zonesText, type SiteInfo } from '@/lib/site-content';
+import { hoursGroups, pageText, phoneDigits, whatsappHref, zonesText, type SiteInfo } from '@/lib/site-content';
 
-export function ContactContent({ info }: { info: SiteInfo }) {
+export function ContactContent({ info, texts }: { info: SiteInfo; texts: Record<string, string> }) {
   const zones = zonesText(info);
   return (
     <>
@@ -13,7 +13,7 @@ export function ContactContent({ info }: { info: SiteInfo }) {
               Contact
             </p>
             <h1>
-              Nous contacter rapidement
+              {pageText(texts, 'contact-titre')}
             </h1>
             <p className="hero-text">
               Réponse immédiate par téléphone, WhatsApp ou formulaire. Devis sans engagement en {info.delaiReponse}.
