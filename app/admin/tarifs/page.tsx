@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
 import { getPrices } from '@/lib/site-content';
 import { savePricesAction } from '../settings-actions';
+import { Icon, PageTitle } from '../icons';
 
 export const metadata: Metadata = { title: 'Tarifs', robots: { index: false, follow: false } };
 export const dynamic = 'force-dynamic';
@@ -15,18 +16,17 @@ export default async function TarifsPage({ searchParams }: { searchParams: Promi
   return (
     <main className="section-pad">
       <div className="admin">
-        <div className="admin-header"><h1>Tarifs lavage auto</h1></div>
+        <div className="admin-header"><PageTitle icon="tag" hint="Prix en euros, affichés sur la page « Tarifs Lavage Auto »">Tarifs lavage auto</PageTitle></div>
         <section className="admin-card">
-          <p className="admin-help">Prix en euros, affichés sur la page « Tarifs Lavage Auto ».</p>
           {ok ? <p className="admin-success" role="status">Tarifs enregistrés ✓ (visibles sur le site sous environ 1 minute)</p> : null}
           {erreur ? <p className="admin-alert" role="alert">Chaque prix doit être un nombre entier.</p> : null}
           <form className="admin-form" action={savePricesAction}>
             <div className="admin-price-grid">
               <div className="admin-price-row admin-price-head">
                 <span />
-                <strong>Intérieur</strong>
-                <strong>Extérieur</strong>
-                <strong>Complet</strong>
+                <strong><Icon name="interior" size={16} />Intérieur</strong>
+                <strong><Icon name="exterior" size={16} />Extérieur</strong>
+                <strong><Icon name="sparkle" size={16} />Complet</strong>
               </div>
               {prices.map((price, index) => (
                 <div className="admin-price-row" key={price.vehicule}>
@@ -37,7 +37,7 @@ export default async function TarifsPage({ searchParams }: { searchParams: Promi
                 </div>
               ))}
             </div>
-            <button className="btn btn-primary" type="submit">Enregistrer les tarifs</button>
+            <button className="btn btn-primary admin-btn-icon" type="submit"><Icon name="save" />Enregistrer les tarifs</button>
           </form>
         </section>
       </div>

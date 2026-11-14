@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
 import { getTexts, textFields } from '@/lib/site-content';
 import { saveTextsAction } from '../settings-actions';
+import { Icon, PageTitle } from '../icons';
 
 export const metadata: Metadata = { title: 'Textes', robots: { index: false, follow: false } };
 export const dynamic = 'force-dynamic';
@@ -15,9 +16,8 @@ export default async function TextesPage({ searchParams }: { searchParams: Promi
   return (
     <main className="section-pad">
       <div className="admin">
-        <div className="admin-header"><h1>Textes de la page d’accueil</h1></div>
+        <div className="admin-header"><PageTitle icon="text" hint="Modifiez les textes principaux. Pour revenir au texte d’origine, remettez-le tel quel.">Textes de la page d’accueil</PageTitle></div>
         <section className="admin-card">
-          <p className="admin-help">Modifiez les textes principaux. Pour revenir au texte d’origine, remettez-le tel quel.</p>
           {ok ? <p className="admin-success" role="status">Textes enregistrés ✓ (visibles sur le site sous environ 1 minute)</p> : null}
           <form className="admin-form" action={saveTextsAction}>
             {textFields.map((field) => (
@@ -30,7 +30,7 @@ export default async function TextesPage({ searchParams }: { searchParams: Promi
                 )}
               </label>
             ))}
-            <button className="btn btn-primary" type="submit">Enregistrer</button>
+            <button className="btn btn-primary admin-btn-icon" type="submit"><Icon name="save" />Enregistrer</button>
           </form>
         </section>
       </div>
