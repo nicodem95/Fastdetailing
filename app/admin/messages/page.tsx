@@ -4,6 +4,7 @@ import { getAdminUser } from '@/lib/auth/server';
 import { listContactMessages } from '@/lib/services/messages';
 import { deleteMessageAction, toggleMessageReadAction } from '../content-actions';
 import { Icon, PageTitle } from '../icons';
+import { ConfirmForm } from '../confirm-form';
 
 export const metadata: Metadata = { title: 'Demandes de devis', robots: { index: false, follow: false } };
 export const dynamic = 'force-dynamic';
@@ -37,10 +38,10 @@ export default async function MessagesPage() {
                     <input type="hidden" name="lu" value={String(item.lu)} />
                     <button className="admin-small-btn" type="submit"><Icon name="check" size={15} />{item.lu ? 'Marquer nouvelle' : 'Marquer traitée'}</button>
                   </form>
-                  <form action={deleteMessageAction}>
+                  <ConfirmForm action={deleteMessageAction} message={`Supprimer définitivement la demande de ${item.nom} ?`}>
                     <input type="hidden" name="id" value={item.id} />
                     <button className="admin-small-btn danger" type="submit" title="Supprimer" aria-label={`Supprimer la demande de ${item.nom}`}><Icon name="trash" size={15} /></button>
-                  </form>
+                  </ConfirmForm>
                 </div>
               </li>
             ))}

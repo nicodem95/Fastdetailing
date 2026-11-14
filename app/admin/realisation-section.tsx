@@ -5,6 +5,7 @@ import { listRealisations } from '@/lib/services/realisations';
 import { deleteRealisationAction, moveRealisationAction, togglePublishAction } from './actions';
 import { Icon } from './icons';
 import { PhotosForm } from './photos-form';
+import { ConfirmForm } from './confirm-form';
 
 const labels = {
   avant_apres: { single: 'comparatif avant / après', add: 'Nouveau comparatif', list: 'Comparatifs avant / après', empty: 'Aucun comparatif pour le moment.', photoPage: 'avant-apres' },
@@ -58,15 +59,15 @@ export async function RealisationSection({ type, ok }: { type: RealisationType; 
                   <button className="admin-small-btn" type="submit" name="direction" value="down" disabled={position === items.length - 1} title="Descendre" aria-label={`Descendre ${item.titre}`}>↓</button>
                 </form>
                 <Link className="admin-small-btn" href={`/admin/${item.id}/modifier`} title="Modifier"><Icon name="edit" size={15} />Modifier</Link>
-                <form action={togglePublishAction}>
+                <ConfirmForm action={togglePublishAction} message={item.publie ? `Retirer « ${item.titre} » du site ?` : `Publier « ${item.titre} » sur le site ?`}>
                   <input type="hidden" name="id" value={item.id} />
                   <input type="hidden" name="publie" value={String(item.publie)} />
                   <button className="admin-small-btn" type="submit"><Icon name={item.publie ? 'eyeOff' : 'eye'} size={15} />{item.publie ? 'Dépublier' : 'Publier'}</button>
-                </form>
-                <form action={deleteRealisationAction}>
+                </ConfirmForm>
+                <ConfirmForm action={deleteRealisationAction} message={`Supprimer définitivement « ${item.titre} » et ses photos ? Cette action est irréversible.`}>
                   <input type="hidden" name="id" value={item.id} />
                   <button className="admin-small-btn danger" type="submit" title="Supprimer" aria-label={`Supprimer ${item.titre}`}><Icon name="trash" size={15} /></button>
-                </form>
+                </ConfirmForm>
               </div>
             </li>
           ))}
