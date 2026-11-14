@@ -24,8 +24,12 @@ export default async function ReviewsPage({ searchParams }: { searchParams: Prom
         <form className="admin-form" action={saveReviewsAction}>
           <input type="hidden" name="count" value={rows.length} />
           {rows.map((review, index) => (
-            <section className="admin-card" key={index}>
-              <h2 className="admin-section-title"><Icon name="text" />{review.name || 'Nouvel avis (laisser vide pour ignorer)'}</h2>
+            <details className="admin-card admin-review" key={index} open={index >= reviews.length}>
+              <summary>
+                <strong>{review.name || 'Nouvel avis (laisser vide pour ignorer)'}</strong>
+                {review.name ? <span className="admin-review-meta">{review.location} · {'★'.repeat(review.rating)}</span> : null}
+                {review.fullText ? <span className="admin-review-excerpt">{review.fullText}</span> : null}
+              </summary>
               <div className="admin-form">
                 <div className="admin-review-row">
                   <label className="admin-field">Prénom<input name={`name-${index}`} defaultValue={review.name} maxLength={60} /></label>
@@ -35,7 +39,7 @@ export default async function ReviewsPage({ searchParams }: { searchParams: Prom
                 <label className="admin-field">Avis<textarea name={`text-${index}`} rows={5} defaultValue={review.fullText} maxLength={1200} /></label>
                 {index < reviews.length ? <label><input type="checkbox" name={`delete-${index}`} /> Supprimer cet avis</label> : null}
               </div>
-            </section>
+            </details>
           ))}
           <button className="btn btn-primary admin-btn-icon" type="submit"><Icon name="save" />Enregistrer</button>
         </form>
