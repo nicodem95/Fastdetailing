@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
+import { ASSURANCE_SETTING_KEY, assuranceFields } from '@/lib/assurance-content';
 import { setSetting } from '@/lib/services/settings';
 import { SETTINGS_KEYS, defaultOptions, defaultPrices, textFields, type OptionRow, type PriceRow, type SiteInfo } from '@/lib/site-content';
 
@@ -95,4 +96,18 @@ export async function saveTextsAction(formData: FormData) {
   await setSetting(SETTINGS_KEYS.texts, texts);
   refreshSite();
   redirect('/admin/textes?ok=1');
+}
+
+export async function saveAssuranceAction(formData: FormData) {
+  await requireAdmin();
+
+  const saved: Record<string, string> = {};
+  for (const field of assuranceFields) {
+    const value = String(formData.get(field.key) ?? '').replace(/[<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, 800);
+    if (value && value !== field.defaultValue) saved[field.key] = value;
+  }
+
+  await setSetting(ASSURANCE_SETTING_KEY, saved);
+  refreshSite();
+  redirect('/admin/assurance?ok=1');
 }

@@ -99,3 +99,6 @@
   .admin-hours-row label { grid-column: 1 / -1; }
 }
 .admin-option { border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 14px; margin: 0; display: grid; gap: 12px; }
+
+.admin-subgroup { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line, #e5e0d8); }
+.admin-subgroup h3 { margin: 0 0 10px; font-size: .95rem; color: var(--muted); }

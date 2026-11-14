@@ -12,6 +12,7 @@ import { PrestationsContent, PrestationsExtras } from '@/components/pages/presta
 import { RealisationsContent, RealisationsExtras } from '@/components/pages/realisations';
 import { TarifsContent } from '@/components/pages/tarifs-content';
 import { TarifsLavageAutoExtras } from '@/components/pages/tarifs-lavage-auto';
+import { getAssurance } from '@/lib/assurance-content';
 import { pageData, type PageSlug } from '@/lib/page-data';
 import { applySiteInfo, getOptions, getPrices, getSiteInfo, getTexts } from '@/lib/site-content';
 import { LegacyPageRuntime } from './legacy-page-runtime';
@@ -70,7 +71,7 @@ export function getPageMetadata(slug: PageSlug): Metadata {
 
 export async function SitePage({ slug }: { slug: PageSlug }) {
   const page: PageMeta = pageData[slug];
-  const [info, prices, texts, options] = await Promise.all([getSiteInfo(), getPrices(), getTexts(), getOptions()]);
+  const [info, prices, texts, options, assurance] = await Promise.all([getSiteInfo(), getPrices(), getTexts(), getOptions(), getAssurance()]);
 
   const content = {
     'index': <HomeContent info={info} texts={texts} />,
@@ -78,7 +79,7 @@ export async function SitePage({ slug }: { slug: PageSlug }) {
     'avant-apres': <AvantApresContent info={info} />,
     'realisations': <RealisationsContent info={info} />,
     'pare-brise': <PareBriseContent info={info} texts={texts} />,
-    'administratif-assurance': <AdministratifAssuranceContent info={info} texts={texts} />,
+    'administratif-assurance': <AdministratifAssuranceContent info={info} assurance={assurance} />,
     'contact': <ContactContent info={info} texts={texts} />,
     'mentions-legales': <MentionsLegalesContent info={info} />,
     'tarifs-lavage-auto': <TarifsContent info={info} prices={prices} options={options} texts={texts} />,
