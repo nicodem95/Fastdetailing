@@ -30,7 +30,7 @@ export const defaultSiteInfo: SiteInfo = {
   telephone: '06 66 08 44 67',
   email: 'fastdetailing27140@gmail.com',
   instagram: 'https://www.instagram.com/fastdetailing27140/',
-  joursOuverture: 'Lundi au samedi',
+  joursOuverture: 'Mardi au samedi',
   heures: '09h00 - 19h00',
   zones: ['Gisors', 'Étrépagny', 'Trie-Château', 'Magny-en-Vexin'],
 };

@@ -79,7 +79,7 @@ export function ContactContent({ info }: { info: SiteInfo }) {
                 {info.telephone}
               </p>
               <p className="contact-card-desc">
-                Rapide et direct. Disponible 09h00–19h00.
+                Rapide et direct. Disponible {info.heures}.
               </p>
               <a href={`tel:${phoneDigits(info)}`} className="btn btn-primary btn-small">
                 Appeler
@@ -275,11 +275,11 @@ export function ContactContent({ info }: { info: SiteInfo }) {
             </h3>
             <p>
               <strong>
-                09h00 – 19h00
+                {info.heures}
               </strong>
             </p>
             <p className="text-small">
-              Lundi à dimanche
+              {info.joursOuverture}
             </p>
           </div>
           <div className="contact-info-block">
