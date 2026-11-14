@@ -24,17 +24,16 @@ export default async function InfosPage({ searchParams }: { searchParams: Promis
             <label className="admin-field">Téléphone<input name="telephone" defaultValue={info.telephone} placeholder="06 12 34 56 78" required /></label>
             <label className="admin-field">E-mail<input name="email" type="email" defaultValue={info.email} required /></label>
             <label className="admin-field">Lien Instagram<input name="instagram" defaultValue={info.instagram} required /></label>
-            <fieldset className="admin-field">
-              Horaires d’ouverture
+            <fieldset className="admin-hours">
+              <legend>Horaires d’ouverture</legend>
               {dayNames.map((name, index) => (
-                <div key={name} className="admin-grid-2" style={{ alignItems: 'center', marginTop: 8 }}>
+                <div key={name} className={`admin-hours-row${info.horaires[index].ouvert ? '' : ' is-closed'}`}>
                   <label>
                     <input type="checkbox" name={`ouvert-${index}`} defaultChecked={info.horaires[index].ouvert} /> {name}
                   </label>
-                  <span>
-                    <input type="time" name={`de-${index}`} defaultValue={info.horaires[index].de} required /> à{' '}
-                    <input type="time" name={`a-${index}`} defaultValue={info.horaires[index].a} required />
-                  </span>
+                  <input type="time" name={`de-${index}`} defaultValue={info.horaires[index].de} required aria-label={`${name} : ouverture`} />
+                  <span>à</span>
+                  <input type="time" name={`a-${index}`} defaultValue={info.horaires[index].a} required aria-label={`${name} : fermeture`} />
                 </div>
               ))}
             </fieldset>

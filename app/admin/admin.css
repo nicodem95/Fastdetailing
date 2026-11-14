@@ -52,3 +52,10 @@
 .admin-price-head strong { color: var(--muted); font-size: 0.85rem; }
 .admin-price-row span { color: var(--text); }
 .admin-price-row input { width: 100%; background: var(--bg-soft); color: var(--text); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px; padding: 10px; font: inherit; }
+.admin-hours { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; color: var(--muted); font-size: 0.9rem; }
+.admin-hours legend { padding: 0; margin-bottom: 8px; }
+.admin-hours-row { display: grid; grid-template-columns: 150px 130px auto 130px; gap: 10px; align-items: center; }
+.admin-hours-row label { display: flex; align-items: center; gap: 8px; color: var(--text); }
+.admin-hours-row input[type="time"] { width: 100%; background: var(--bg-soft); color: var(--text); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px; padding: 8px 10px; font: inherit; }
+.admin-hours-row.is-closed input[type="time"] { opacity: 0.4; }
+@media (max-width: 600px) { .admin-hours-row { grid-template-columns: 120px 1fr auto 1fr; } }
