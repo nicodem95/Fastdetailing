@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
 import { ASSURANCE_SETTING_KEY, assuranceFields } from '@/lib/assurance-content';
 import { editablePages } from '@/lib/page-content';
-import { setSetting } from '@/lib/services/settings';
+import { getSetting, setSetting } from '@/lib/services/settings';
 import { SETTINGS_KEYS, defaultOptions, defaultPrices, textFields, type OptionRow, type PriceRow, type SiteInfo } from '@/lib/site-content';
 
 async function requireAdmin() {
@@ -85,18 +85,26 @@ export async function savePricesAction(formData: FormData) {
   redirect('/admin/tarifs?ok=1');
 }
 
-export async function saveTextsAction(formData: FormData) {
+const textBackPaths = ['/admin/accueil', '/admin/contact', '/admin/tarifs'];
+
+// Saves only the fields shown on the submitting page, keeping the texts of the other pages.
+export async function saveTextGroupAction(formData: FormData) {
   await requireAdmin();
 
-  const texts: Record<string, string> = {};
-  for (const field of textFields) {
+  const back = String(formData.get('back'));
+  if (!textBackPaths.includes(back)) throw new Error('Invalid page');
+  const submitted = formData.getAll('keys').map(String);
+  const texts = { ...((await getSetting<Record<string, string>>(SETTINGS_KEYS.texts)) ?? {}) };
+
+  for (const field of textFields.filter((item) => submitted.includes(item.key))) {
     const value = String(formData.get(field.key) ?? '').replace(/\s+/g, ' ').trim().slice(0, 400);
     if (value && value !== field.defaultValue) texts[field.key] = value;
+    else delete texts[field.key];
   }
 
   await setSetting(SETTINGS_KEYS.texts, texts);
   refreshSite();
-  redirect('/admin/textes?ok=1');
+  redirect(`${back}?ok=1`);
 }
 
 export async function saveAssuranceAction(formData: FormData) {

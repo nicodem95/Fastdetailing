@@ -12,7 +12,8 @@ const links: { href: string; label: string; icon: IconName }[] = [
   { href: '/admin/prestations', label: 'Prestations', icon: 'sparkle' },
   { href: '/admin/pare-brise', label: 'Pare-brise', icon: 'info' },
   { href: '/admin/assurance', label: 'Assurance', icon: 'draft' },
-  { href: '/admin/textes', label: 'Textes', icon: 'text' },
+  { href: '/admin/accueil', label: 'Accueil', icon: 'text' },
+  { href: '/admin/contact', label: 'Contact', icon: 'mail' },
 ];
 
 export function AdminNav() {

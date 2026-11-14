@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
 import { getOptions, getPrices } from '@/lib/site-content';
 import { savePricesAction } from '../settings-actions';
+import { TextBlocks } from '../text-blocks';
 import { Icon, PageTitle } from '../icons';
 
 export const metadata: Metadata = { title: 'Tarifs', robots: { index: false, follow: false } };
@@ -18,6 +19,8 @@ export default async function TarifsPage({ searchParams }: { searchParams: Promi
     <main className="section-pad">
       <div className="admin">
         <div className="admin-header"><PageTitle icon="tag" hint="Prix en euros, affichés sur la page « Tarifs Lavage Auto »">Tarifs lavage auto</PageTitle></div>
+        <TextBlocks back="/admin/tarifs" blocks={[{ title: 'Titre et introduction de la page', icon: 'text', hint: 'Texte affiché en haut de la page Tarifs Lavage Auto.', keys: ['tarifs-titre', 'tarifs-texte'] }]} />
+        <h2 className="admin-section-title"><Icon name="tag" />Grille de prix</h2>
         <section className="admin-card">
           {ok ? <p className="admin-success" role="status">Tarifs enregistrés ✓ (visibles sur le site sous environ 1 minute)</p> : null}
           {erreur ? <p className="admin-alert" role="alert">Chaque prix doit être un nombre entier.</p> : null}
