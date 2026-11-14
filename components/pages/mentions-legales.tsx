@@ -52,7 +52,7 @@ export function MentionsLegalesContent({ info }: { info: SiteInfo }) {
                 Siège social
               </dt>
               <dd>
-                10 B route de Rouen, 27140 Gisors, France
+                {info.adresse}
               </dd>
             </div>
             <div>

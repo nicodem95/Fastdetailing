@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
 import { setSetting } from '@/lib/services/settings';
-import { SETTINGS_KEYS, defaultPrices, textFields, type PriceRow, type SiteInfo } from '@/lib/site-content';
+import { SETTINGS_KEYS, defaultOptions, defaultPrices, textFields, type OptionRow, type PriceRow, type SiteInfo } from '@/lib/site-content';
 
 async function requireAdmin() {
   if (!(await getAdminUser())) throw new Error('Unauthorized');
@@ -25,6 +25,8 @@ export async function saveSiteInfoAction(formData: FormData) {
   const telephone = plain(formData.get('telephone'), 20);
   const email = plain(formData.get('email'), 120);
   const instagram = String(formData.get('instagram') ?? '').trim();
+  const adresse = plain(formData.get('adresse'), 160);
+  const delaiReponse = plain(formData.get('delaiReponse'), 30);
   const timePattern = /^([01]\d|2[0-3]):[0-5]\d$/;
   const horaires = Array.from({ length: 7 }, (_, index) => ({
     ouvert: formData.get(`ouvert-${index}`) === 'on',
@@ -42,10 +44,10 @@ export async function saveSiteInfoAction(formData: FormData) {
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
     /^https:\/\/(www\.)?instagram\.com\/[\w./-]+$/.test(instagram) &&
     horaires.every((day) => timePattern.test(day.de) && timePattern.test(day.a) && (!day.ouvert || day.de < day.a)) &&
-    horaires.some((day) => day.ouvert) && zones.length > 0;
+    horaires.some((day) => day.ouvert) && zones.length > 0 && adresse.length > 5 && delaiReponse.length > 0;
   if (!valid) redirect('/admin/infos?erreur=1');
 
-  const info: SiteInfo = { telephone: telephone.replace(/^(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)$/, '$1 $2 $3 $4 $5'), email, instagram, horaires, zones };
+  const info: SiteInfo = { telephone: telephone.replace(/^(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)\s?(\d\d)$/, '$1 $2 $3 $4 $5'), email, instagram, adresse, delaiReponse, horaires, zones };
   await setSetting(SETTINGS_KEYS.info, info);
   refreshSite();
   redirect('/admin/infos?ok=1');
@@ -69,6 +71,14 @@ export async function savePricesAction(formData: FormData) {
   }
 
   await setSetting(SETTINGS_KEYS.prices, prices);
+
+  const options: OptionRow[] = defaultOptions.map((_, index) => ({
+    titre: plain(formData.get(`option-titre-${index}`), 60),
+    prix: plain(formData.get(`option-prix-${index}`), 30),
+    texte: plain(formData.get(`option-texte-${index}`), 240),
+  }));
+  if (options.some((option) => !option.titre || !option.prix || !option.texte)) redirect('/admin/tarifs?erreur=1');
+  await setSetting(SETTINGS_KEYS.options, options);
   refreshSite();
   redirect('/admin/tarifs?ok=1');
 }

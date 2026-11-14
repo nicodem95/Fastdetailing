@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { whatsappHref, type PriceRow, type SiteInfo } from '@/lib/site-content';
+import { whatsappHref, type OptionRow, type PriceRow, type SiteInfo } from '@/lib/site-content';
 
 const svg = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.9 } as const;
 
@@ -16,11 +16,7 @@ const formulas = [
   { icon: icons.bin, title: 'Lavage complet', text: 'Intérieur + extérieur en une seule prestation pour repartir avec un véhicule propre, soigné et prêt à rouler.' },
 ];
 
-const options = [
-  { icon: icons.wash, title: 'Shampoing siège : 20€', text: 'Détache, assainit et ravive les tissus en profondeur pour retrouver une assise propre et plus agréable.' },
-  { icon: icons.light, title: 'Rénovation optique : 50€', text: 'Redonnez de la clarté à vos phares pour un rendu visuel plus propre et une meilleure visibilité la nuit.' },
-  { icon: icons.bin, title: 'Vitres teintées : sur devis', text: 'Améliorez le confort thermique et le style du véhicule avec une teinte propre, homogène et durable.' },
-];
+const optionIcons = [icons.wash, icons.light, icons.bin];
 
 const steps = [
   { title: 'Vous choisissez votre formule', text: "Intérieur, extérieur ou complet selon l'état de votre véhicule." },
@@ -29,7 +25,7 @@ const steps = [
   { title: 'Vous récupérez un véhicule propre et soigné', text: "Contrôle final puis restitution d'un véhicule net et valorisé." },
 ];
 
-export function TarifsContent({ info, prices }: { info: SiteInfo; prices: PriceRow[] }) {
+export function TarifsContent({ info, prices, options }: { info: SiteInfo; prices: PriceRow[]; options: OptionRow[] }) {
   return (
     <>
       <section className="hero">
@@ -123,11 +119,11 @@ export function TarifsContent({ info, prices }: { info: SiteInfo; prices: PriceR
           <p className="section-subtitle">Ajoutez uniquement les options utiles pour entretenir votre véhicule plus durablement.</p>
 
           <div className="grid-3">
-            {options.map((item) => (
-              <article className="card" key={item.title}>
-                <div className="icon-bubble" aria-hidden="true">{item.icon}</div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
+            {options.map((item, index) => (
+              <article className="card" key={item.titre}>
+                <div className="icon-bubble" aria-hidden="true">{optionIcons[index]}</div>
+                <h3>{item.titre} : {item.prix}</h3>
+                <p>{item.texte}</p>
               </article>
             ))}
           </div>

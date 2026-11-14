@@ -13,7 +13,7 @@ import { RealisationsContent, RealisationsExtras } from '@/components/pages/real
 import { TarifsContent } from '@/components/pages/tarifs-content';
 import { TarifsLavageAutoExtras } from '@/components/pages/tarifs-lavage-auto';
 import { pageData, type PageSlug } from '@/lib/page-data';
-import { applySiteInfo, getPrices, getSiteInfo, getTexts } from '@/lib/site-content';
+import { applySiteInfo, getOptions, getPrices, getSiteInfo, getTexts } from '@/lib/site-content';
 import { LegacyPageRuntime } from './legacy-page-runtime';
 
 interface PageMeta {
@@ -70,7 +70,7 @@ export function getPageMetadata(slug: PageSlug): Metadata {
 
 export async function SitePage({ slug }: { slug: PageSlug }) {
   const page: PageMeta = pageData[slug];
-  const [info, prices, texts] = await Promise.all([getSiteInfo(), getPrices(), getTexts()]);
+  const [info, prices, texts, options] = await Promise.all([getSiteInfo(), getPrices(), getTexts(), getOptions()]);
 
   const content = {
     'index': <HomeContent info={info} texts={texts} />,
@@ -81,7 +81,7 @@ export async function SitePage({ slug }: { slug: PageSlug }) {
     'administratif-assurance': <AdministratifAssuranceContent info={info} />,
     'contact': <ContactContent info={info} />,
     'mentions-legales': <MentionsLegalesContent info={info} />,
-    'tarifs-lavage-auto': <TarifsContent info={info} prices={prices} />,
+    'tarifs-lavage-auto': <TarifsContent info={info} prices={prices} options={options} />,
   }[slug];
 
   const extras = {

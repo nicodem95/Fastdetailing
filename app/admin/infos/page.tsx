@@ -25,6 +25,7 @@ export default async function InfosPage({ searchParams }: { searchParams: Promis
           <div className="admin-preview-grid">
             <div><Icon name="phone" /><span>{info.telephone}</span></div>
             <div><Icon name="mail" /><span>{info.email}</span></div>
+            <div><Icon name="pin" /><span>{info.adresse}</span></div>
             <div><Icon name="pin" /><span>{info.zones.join(' · ')}</span></div>
             <div className="admin-preview-hours">
               <Icon name="clock" />
@@ -40,6 +41,8 @@ export default async function InfosPage({ searchParams }: { searchParams: Promis
               <label className="admin-field">Téléphone<input name="telephone" defaultValue={info.telephone} placeholder="06 12 34 56 78" required /></label>
               <label className="admin-field">E-mail<input name="email" type="email" defaultValue={info.email} required /></label>
               <label className="admin-field">Lien Instagram<input name="instagram" defaultValue={info.instagram} required /></label>
+              <label className="admin-field">Adresse de l’atelier<input name="adresse" defaultValue={info.adresse} maxLength={160} required /></label>
+              <label className="admin-field">Délai de réponse annoncé<input name="delaiReponse" defaultValue={info.delaiReponse} maxLength={30} placeholder="24h" required /></label>
             </div>
           </section>
 

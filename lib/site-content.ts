@@ -11,8 +11,16 @@ export interface SiteInfo {
   telephone: string;
   email: string;
   instagram: string;
+  adresse: string;
+  delaiReponse: string;
   horaires: DayHours[];
   zones: string[];
+}
+
+export interface OptionRow {
+  titre: string;
+  prix: string;
+  texte: string;
 }
 
 export interface PriceRow {
@@ -35,6 +43,8 @@ export const defaultSiteInfo: SiteInfo = {
   telephone: '06 66 08 44 67',
   email: 'fastdetailing27140@gmail.com',
   instagram: 'https://www.instagram.com/fastdetailing27140/',
+  adresse: '10 B route de Rouen, 27140 Gisors, France',
+  delaiReponse: '24h',
   horaires: [
     { ouvert: false, de: '09:00', a: '19:00' },
     { ouvert: true, de: '09:00', a: '19:00' },
@@ -55,6 +65,12 @@ export const defaultPrices: PriceRow[] = [
   { vehicule: 'Van / Utilitaire', interieur: 55, exterieur: 55, complet: 100 },
 ];
 
+export const defaultOptions: OptionRow[] = [
+  { titre: 'Shampoing siège', prix: '20€', texte: 'Détache, assainit et ravive les tissus en profondeur pour retrouver une assise propre et plus agréable.' },
+  { titre: 'Rénovation optique', prix: '50€', texte: 'Redonnez de la clarté à vos phares pour un rendu visuel plus propre et une meilleure visibilité la nuit.' },
+  { titre: 'Vitres teintées', prix: 'sur devis', texte: 'Améliorez le confort thermique et le style du véhicule avec une teinte propre, homogène et durable.' },
+];
+
 export const textFields: TextField[] = [
   { key: 'accueil-titre', label: 'Titre principal', page: 'index', defaultValue: 'Remplacement & réparation de pare-brise à Gisors' },
   { key: 'accueil-texte', label: 'Texte sous le titre', page: 'index', defaultValue: 'Fast Detailing vous accompagne également dans les démarches assurance et bris de glace.', multiline: true },
@@ -68,7 +84,7 @@ export const textFields: TextField[] = [
     { key: 'offre-bouton', label: 'Bandeau offre : bouton', page: 'index', defaultValue: 'Vérifier mon éligibilité' },
 ];
 
-const SETTINGS_KEYS = { info: 'site-info', prices: 'tarifs', texts: 'textes' } as const;
+const SETTINGS_KEYS = { info: 'site-info', prices: 'tarifs', texts: 'textes', options: 'options' } as const;
 
 export async function getSiteInfo(): Promise<SiteInfo> {
   const saved = await getSetting<Partial<SiteInfo>>(SETTINGS_KEYS.info);
@@ -80,6 +96,11 @@ export async function getSiteInfo(): Promise<SiteInfo> {
 export async function getPrices(): Promise<PriceRow[]> {
   const saved = await getSetting<PriceRow[]>(SETTINGS_KEYS.prices);
   return Array.isArray(saved) && saved.length === defaultPrices.length ? saved : defaultPrices;
+}
+
+export async function getOptions(): Promise<OptionRow[]> {
+  const saved = await getSetting<OptionRow[]>(SETTINGS_KEYS.options);
+  return Array.isArray(saved) && saved.length === defaultOptions.length ? saved : defaultOptions;
 }
 
 export async function getTexts(): Promise<Record<string, string>> {

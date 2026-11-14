@@ -16,7 +16,7 @@ export function ContactContent({ info }: { info: SiteInfo }) {
               Nous contacter rapidement
             </h1>
             <p className="hero-text">
-              Réponse immédiate par téléphone, WhatsApp ou formulaire. Devis sans engagement en 24h.
+              Réponse immédiate par téléphone, WhatsApp ou formulaire. Devis sans engagement en {info.delaiReponse}.
             </p>
             <div className="cta-row cta-row-large">
               <a className="btn btn-primary btn-large" href={`tel:${phoneDigits(info)}`} aria-label={`Appeler Fast Detailing au ${info.telephone}`}>
@@ -118,7 +118,7 @@ export function ContactContent({ info }: { info: SiteInfo }) {
                 {info.email}
               </p>
               <p className="contact-card-desc">
-                Envoyez vos photos et détails. Réponse sous 24h.
+                Envoyez vos photos et détails. Réponse sous {info.delaiReponse}.
               </p>
               <a href={`mailto:${info.email}`} className="btn btn-outline btn-small">
                 Envoyer un email
@@ -309,7 +309,7 @@ export function ContactContent({ info }: { info: SiteInfo }) {
             <p>
               Retrouvez-nous facilement sur Google Maps pour localiser notre atelier et découvrir nos avis clients.
             </p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2620.8946968696433!2d1.7396!3d49.1753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e2e4e4e4e4e4e5%3A0x0!2sGisors!5e0!3m2!1sfr!2sfr!4v1234567890" width="100%" height="400" style={{ border: "0" }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            <iframe title="Carte de localisation" src={`https://www.google.com/maps?q=${encodeURIComponent(info.adresse)}&output=embed`} width="100%" height="400" style={{ border: "0" }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </section>
