@@ -1,8 +1,10 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
 import { loadBeforeAfterCards } from '@/lib/before-after-cards';
+import { avantApresPage, pageContentText } from '@/lib/page-content';
 import { phoneHref, whatsappHref, type SiteInfo } from '@/lib/site-content';
 
-export async function AvantApresContent({ info }: { info: SiteInfo }) {
+export async function AvantApresContent({ info, content }: { info: SiteInfo; content: Record<string, string> }) {
+  const t = (key: string) => pageContentText(avantApresPage, content, key);
   const cards = await loadBeforeAfterCards();
   return (
     <>
@@ -13,12 +15,8 @@ export async function AvantApresContent({ info }: { info: SiteInfo }) {
             <p className="eyebrow">
               Avant / Après
             </p>
-            <h1>
-              Des transformations visibles, sans flou ni distraction
-            </h1>
-            <p className="hero-text">
-              Le comparatif avant/après est la meilleure preuve de qualité pour le detailing. Cette page sert à montrer les résultats sur l’intérieur, les phares, l’extérieur et la moto.
-            </p>
+            <h1>{t('hero.titre')}</h1>
+            <p className="hero-text">{t('hero.texte')}</p>
             <div className="cta-row">
               <a className="btn btn-primary" href="contact.html">
                 Demander un devis
@@ -31,9 +29,7 @@ export async function AvantApresContent({ info }: { info: SiteInfo }) {
           <div className="hero-visual">
             <figure className="hero-card">
               <img src="assets/Avant_Apres/8/WhatsApp Image 2026-05-09 at 19.58.49.jpeg" alt="Exemple avant après Fast Detailing" loading="eager" decoding="async" data-fallback="exterieur" />
-              <figcaption>
-                Slider interactif et lecture immédiate du résultat.
-              </figcaption>
+              <figcaption>{t('hero.legende')}</figcaption>
             </figure>
           </div>
         </div>
@@ -44,12 +40,8 @@ export async function AvantApresContent({ info }: { info: SiteInfo }) {
             <p className="eyebrow">
               Comparatifs
             </p>
-            <h2>
-              Exemples de transformations
-            </h2>
-            <p>
-              Affichage avant/après en côte à côte pour lire clairement le résultat, même quand les cadrages ne sont pas strictement identiques.
-            </p>
+            <h2>{t('section.titre')}</h2>
+            <p>{t('section.texte')}</p>
           </div>
           <div className="before-after-grid" id="beforeAfterGrid">
             {cards.length ? cards.map(({ item, before, after }) => (

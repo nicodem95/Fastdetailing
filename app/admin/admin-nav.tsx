@@ -11,6 +11,8 @@ const links: { href: string; label: string; icon: IconName }[] = [
   { href: '/admin/infos', label: 'Infos du site', icon: 'info' },
   { href: '/admin/prestations', label: 'Prestations', icon: 'sparkle' },
   { href: '/admin/pare-brise', label: 'Pare-brise', icon: 'info' },
+  { href: '/admin/realisations', label: 'Page Réalisations', icon: 'images' },
+  { href: '/admin/avant-apres', label: 'Page Avant/Après', icon: 'images' },
   { href: '/admin/assurance', label: 'Assurance', icon: 'draft' },
   { href: '/admin/accueil', label: 'Accueil', icon: 'text' },
   { href: '/admin/contact', label: 'Contact', icon: 'mail' },
