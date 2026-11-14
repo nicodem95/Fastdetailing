@@ -8,6 +8,7 @@ export interface PhotoSlot {
 }
 
 export interface PhotoGroup {
+  page: string;
   title: string;
   hint: string;
   slots: PhotoSlot[];
@@ -15,6 +16,7 @@ export interface PhotoGroup {
 
 export const photoGroups: PhotoGroup[] = [
   {
+    page: 'accueil',
     title: 'Page d’accueil',
     hint: 'Photo d’en-tête puis galerie « Nos réalisations » en bas de la page.',
     slots: [
@@ -27,17 +29,37 @@ export const photoGroups: PhotoGroup[] = [
     ],
   },
   {
-    title: 'Photos d’en-tête des autres pages',
-    hint: 'La grande photo affichée à droite du titre, en haut de chaque page.',
-    slots: [
-      { key: 'prestations.hero', label: 'Page Prestations', defaultSrc: 'assets/Avant_Apres/10/BMW.jpeg' },
-      { key: 'parebrise.hero', label: 'Page Pare-brise', defaultSrc: 'assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.48.jpeg' },
-      { key: 'realisations.hero', label: 'Page Réalisations', defaultSrc: 'assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.49 (2).jpeg' },
-      { key: 'avantapres.hero', label: 'Page Avant / Après', defaultSrc: 'assets/Avant_Apres/8/WhatsApp Image 2026-05-09 at 19.58.49.jpeg' },
-      { key: 'contact.hero', label: 'Page Contact', defaultSrc: 'assets/Garage_Interieur/WhatsApp Image 2026-05-09 at 19.58.41.jpeg' },
-    ],
+    page: 'prestations',
+    title: 'Page Prestations',
+    hint: 'La grande photo affichée à droite du titre, en haut de la page.',
+    slots: [{ key: 'prestations.hero', label: 'Photo d’en-tête', defaultSrc: 'assets/Avant_Apres/10/BMW.jpeg' }],
   },
   {
+    page: 'pare-brise',
+    title: 'Page Pare-brise',
+    hint: 'La grande photo affichée à droite du titre, en haut de la page.',
+    slots: [{ key: 'parebrise.hero', label: 'Photo d’en-tête', defaultSrc: 'assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.48.jpeg' }],
+  },
+  {
+    page: 'avant-apres',
+    title: 'Page Réalisations',
+    hint: 'La grande photo affichée en haut de la page. Les cartes avant/après se gèrent dans « Réalisations ».',
+    slots: [{ key: 'realisations.hero', label: 'Photo d’en-tête', defaultSrc: 'assets/Garage_exterieur/WhatsApp Image 2026-05-09 at 19.58.49 (2).jpeg' }],
+  },
+  {
+    page: 'avant-apres',
+    title: 'Page Avant / Après',
+    hint: 'La grande photo affichée en haut de la page. Les cartes se gèrent dans « Réalisations ».',
+    slots: [{ key: 'avantapres.hero', label: 'Photo d’en-tête', defaultSrc: 'assets/Avant_Apres/8/WhatsApp Image 2026-05-09 at 19.58.49.jpeg' }],
+  },
+  {
+    page: 'contact',
+    title: 'Page Contact',
+    hint: 'La grande photo affichée à droite du titre, en haut de la page.',
+    slots: [{ key: 'contact.hero', label: 'Photo d’en-tête', defaultSrc: 'assets/Garage_Interieur/WhatsApp Image 2026-05-09 at 19.58.41.jpeg' }],
+  },
+  {
+    page: 'assurance',
     title: 'Page Administratif & Assurance',
     hint: 'Les trois photos du bureau et de l’accueil client.',
     slots: [
@@ -49,6 +71,7 @@ export const photoGroups: PhotoGroup[] = [
 ];
 
 export const photoSlots = photoGroups.flatMap((group) => group.slots);
+export const photoPages = [...new Set(photoGroups.map((group) => group.page))];
 export const PHOTOS_SETTING_KEY = 'photos';
 
 export async function getSitePhotos(): Promise<Record<string, string>> {

@@ -11,11 +11,12 @@ interface Group {
   slots: { key: string; label: string; current: string }[];
 }
 
-export function PhotosForm({ groups }: { groups: Group[] }) {
+export function PhotosForm({ groups, page }: { groups: Group[]; page: string }) {
   const [busy, setBusy] = useState(0);
 
   return (
     <form className="admin-form" action={savePhotosAction}>
+      <input type="hidden" name="page" value={page} />
       {groups.map((group) => (
         <section className="admin-card" key={group.title}>
           <h2 className="admin-section-title"><Icon name="images" />{group.title}</h2>

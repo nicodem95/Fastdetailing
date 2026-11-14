@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
 import { getSetting, setSetting } from '@/lib/services/settings';
-import { PHOTOS_SETTING_KEY, getSitePhotos, photoSlots } from '@/lib/site-photos';
+import { PHOTOS_SETTING_KEY, getSitePhotos, photoGroups, photoSlots } from '@/lib/site-photos';
 import { deleteImageObjects, isStoredImageUrl } from '@/lib/storage/images';
 import { SETTINGS_KEYS, defaultOptions, defaultPrices, textFields, type OptionRow, type PriceRow, type SiteInfo } from '@/lib/site-content';
 
@@ -111,9 +111,17 @@ export async function saveTextGroupAction(formData: FormData) {
 export async function savePhotosAction(formData: FormData) {
   await requireAdmin();
 
+  const page = String(formData.get('page') ?? '');
+  const pageKeys = new Set(photoGroups.filter((group) => group.page === page).flatMap((group) => group.slots.map((slot) => slot.key)));
+  if (!pageKeys.size) redirect('/admin/photos');
+
   const previous = await getSitePhotos();
   const saved: Record<string, string> = {};
   for (const slot of photoSlots) {
+    if (!pageKeys.has(slot.key)) {
+      if (previous[slot.key]) saved[slot.key] = previous[slot.key];
+      continue;
+    }
     const url = String(formData.get(slot.key) ?? '');
     if (isStoredImageUrl(url)) saved[slot.key] = url;
   }
@@ -122,5 +130,5 @@ export async function savePhotosAction(formData: FormData) {
   const kept = new Set(Object.values(saved));
   await deleteImageObjects(Object.values(previous).filter((url) => !kept.has(url))).catch(() => undefined);
   refreshSite();
-  redirect('/admin/photos?ok=1');
+  redirect(`/admin/photos?page=${page}&ok=1`);
 }
