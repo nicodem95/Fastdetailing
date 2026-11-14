@@ -9,9 +9,9 @@ export const metadata: Metadata = { title: 'Textes', robots: { index: false, fol
 export const dynamic = 'force-dynamic';
 
 const groups: { title: string; icon: IconName; hint: string; keys: string[] }[] = [
-  { title: 'En haut de la page d’accueil', icon: 'text', hint: 'Le grand titre et la phrase juste en dessous, au tout début de la page.', keys: ['accueil-titre', 'accueil-texte'] },
-  { title: 'Bandeau « Offre client »', icon: 'sparkle', hint: 'Le grand encadré orange sous l’en-tête : l’offre franchise, la mention, le titre assurance et le bouton.', keys: ['offre-etiquette', 'offre-ligne1', 'offre-ligne2', 'offre-note', 'offre-titre', 'offre-texte', 'offre-bouton'] },
-  { title: 'Section « Contact rapide »', icon: 'phone', hint: 'Le texte d’introduction de la section contact, en bas de la page d’accueil.', keys: ['accueil-contact'] },
+  { title: 'Bandeau d’accueil (hero)', icon: 'text', hint: 'Titre principal et accroche affichés en tête de la page d’accueil.', keys: ['accueil-titre', 'accueil-texte'] },
+  { title: 'Bandeau « Offre client »', icon: 'sparkle', hint: 'Encadré promotionnel de l’accueil : offre franchise, mention légale, titre assurance et bouton.', keys: ['offre-etiquette', 'offre-ligne1', 'offre-ligne2', 'offre-note', 'offre-titre', 'offre-texte', 'offre-bouton'] },
+  { title: 'Section « Contact rapide »', icon: 'phone', hint: 'Texte d’introduction de la section contact, en bas de l’accueil.', keys: ['accueil-contact'] },
   ];
 
 export default async function TextesPage({ searchParams }: { searchParams: Promise<{ ok?: string }> }) {
