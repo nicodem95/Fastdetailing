@@ -27,7 +27,7 @@ async function loadCards() {
   }
 }
 
-// Replaces the static comparison cards with published database entries, keeping the static ones when there are none.
+// Puts published database entries before the static comparison cards, which are always kept.
 export async function injectBeforeAfterCards(mainHtml: string) {
   const cards = await loadCards();
   if (!cards.length) return mainHtml;
@@ -39,6 +39,6 @@ export async function injectBeforeAfterCards(mainHtml: string) {
   }).join('');
 
   const $ = cheerio.load(mainHtml, null, false);
-  $('#beforeAfterGrid').html(html);
+  $('#beforeAfterGrid').prepend(html);
   return $.html();
 }
