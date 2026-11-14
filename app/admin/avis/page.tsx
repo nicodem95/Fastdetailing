@@ -8,7 +8,7 @@ import { Icon, PageTitle } from '../icons';
 export const metadata: Metadata = { title: 'Avis clients', robots: { index: false, follow: false } };
 export const dynamic = 'force-dynamic';
 
-const emptyRows = 2;
+const emptyRows = 1;
 
 export default async function ReviewsPage({ searchParams }: { searchParams: Promise<{ ok?: string }> }) {
   const { ok } = await searchParams;
@@ -26,7 +26,7 @@ export default async function ReviewsPage({ searchParams }: { searchParams: Prom
           {rows.map((review, index) => (
             <details className="admin-card admin-review" key={index} open={index >= reviews.length}>
               <summary>
-                <strong>{review.name || 'Nouvel avis (laisser vide pour ignorer)'}</strong>
+                <strong>{review.name || 'Ajouter un avis (laisser vide pour ignorer)'}</strong>
                 {review.name ? <span className="admin-review-meta">{review.location} · {'★'.repeat(review.rating)}</span> : null}
                 {review.fullText ? <span className="admin-review-excerpt">{review.fullText}</span> : null}
               </summary>
