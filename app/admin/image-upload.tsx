@@ -3,7 +3,7 @@
 import { upload } from '@vercel/blob/client';
 import { useState, type DragEvent } from 'react';
 
-export function ImageUpload({ name, label }: { name: string; label: string }) {
+export function ImageUpload({ name, label, onBusyChange }: { name: string; label: string; onBusyChange?: (busy: boolean) => void }) {
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState('');
   const [preview, setPreview] = useState('');
@@ -17,6 +17,7 @@ export function ImageUpload({ name, label }: { name: string; label: string }) {
     }
     setPreview(URL.createObjectURL(file));
     setStatus('Envoi en cours…');
+    onBusyChange?.(true);
     try {
       const extension = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg';
       const blob = await upload(`realisations/${crypto.randomUUID()}.${extension}`, file, {
@@ -27,6 +28,8 @@ export function ImageUpload({ name, label }: { name: string; label: string }) {
       setStatus('Image envoyée ✓');
     } catch {
       setStatus('Échec de l’envoi (JPEG, PNG ou WebP, 8 Mo maximum).');
+    } finally {
+      onBusyChange?.(false);
     }
   }
 

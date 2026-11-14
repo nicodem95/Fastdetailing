@@ -28,7 +28,7 @@ export async function createRealisationAction(formData: FormData) {
   const titre = String(formData.get('titre') ?? '').trim();
   const categorie = String(formData.get('categorie') ?? '').trim();
   const type: RealisationType = formData.get('type') === 'avant_apres' ? 'avant_apres' : 'galerie';
-  if (!titre || !categorie) redirect('/admin?erreur=champs');
+  if (!titre || !categorie) redirect('/admin/nouvelle?erreur=champs');
 
   const images = (type === 'avant_apres'
     ? [imageFromField(formData, 'avant', 'avant'), imageFromField(formData, 'apres', 'apres')]
@@ -45,7 +45,7 @@ export async function createRealisationAction(formData: FormData) {
   });
 
   refreshPublicPages();
-  redirect('/admin');
+  redirect('/admin?ok=cree');
 }
 
 export async function togglePublishAction(formData: FormData) {
