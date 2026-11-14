@@ -12,13 +12,15 @@
 .admin-form input:focus, .admin-form textarea:focus, .admin-form select:focus, .admin-login input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
 .admin-file { display: grid; gap: 6px; font-size: 0.9rem; color: var(--muted); }
 .admin-file small { color: var(--text); }
-.admin-review summary { display: flex; align-items: center; gap: 12px; cursor: pointer; list-style: none; }
+.admin-review { min-width: 0; max-width: 100%; overflow: hidden; }
+.admin-review summary { display: flex; align-items: center; gap: 12px; cursor: pointer; list-style: none; min-width: 0; }
 .admin-review summary::-webkit-details-marker { display: none; }
 .admin-review summary::after { content: 'Modifier ▾'; margin-left: auto; font-size: 0.8rem; color: var(--muted, #9aa); white-space: nowrap; }
 .admin-review[open] summary::after { content: 'Fermer ▴'; }
 .admin-review[open] summary { margin-bottom: 14px; }
 .admin-review-meta { color: var(--muted, #9aa); font-size: 0.85rem; white-space: nowrap; }
-.admin-review-excerpt { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted, #9aa); font-size: 0.85rem; }
+.admin-review-excerpt { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted, #9aa); font-size: 0.85rem; }
+.admin-review-row > * { min-width: 0; }
 .admin-review-row { display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 12px; }
 @media (max-width: 560px) { .admin-review-row { grid-template-columns: 1fr 1fr; } .admin-review-row label:first-child { grid-column: 1 / -1; } }
 .admin-file-choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
