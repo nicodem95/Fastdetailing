@@ -106,9 +106,19 @@
 .admin-photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
 
 .admin-move { display: flex; gap: 4px; }
-.admin-nav { align-items: flex-start; gap: 18px; }
-.admin-nav-group { display: flex; flex-direction: column; gap: 4px; }
-.admin-nav-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding-left: 14px; }
-.admin-nav-links { display: flex; flex-wrap: wrap; gap: 4px; }
 .admin-nav-badge { background: var(--accent); color: #fff; border-radius: 999px; padding: 0 7px; font-size: 0.75rem; }
 .admin-message .admin-item-info p { margin: 6px 0; white-space: pre-wrap; }
+
+.admin-top-nav { display: flex; align-items: center; gap: 12px; margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
+.admin-top-nav > a, .admin-top-more > summary { color: #f0dde4; font-size: 0.84rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 10px; white-space: nowrap; border-radius: 999px; border: 1px solid transparent; cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+.admin-top-more > summary::-webkit-details-marker { display: none; }
+.admin-top-more > summary::after { content: '▾'; font-size: 0.8em; }
+.admin-top-nav > a:hover, .admin-top-more > summary:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(255, 255, 255, 0.18); }
+.admin-top-nav > a[aria-current="page"], .admin-top-more > summary.active { color: #fff; background: linear-gradient(135deg, rgba(255, 42, 42, 0.25), rgba(255, 122, 26, 0.25)); border-color: rgba(255, 122, 26, 0.65); }
+.admin-top-more { position: relative; }
+.admin-top-menu { position: absolute; right: 0; top: calc(100% + 8px); min-width: 230px; display: flex; flex-direction: column; gap: 2px; padding: 8px; border-radius: 10px; border: 1px solid var(--line); background: rgba(13, 9, 15, 0.97); box-shadow: 0 22px 40px rgba(0, 0, 0, 0.45); z-index: 30; }
+.admin-top-menu a { display: flex; align-items: center; gap: 8px; color: #f0dde4; padding: 9px 12px; border-radius: 8px; font-size: 0.92rem; }
+.admin-top-menu a:hover { background: rgba(255, 255, 255, 0.07); }
+.admin-top-menu a[aria-current="page"] { background: var(--accent); color: #fff; }
+.admin-top .header-call { display: inline-flex; }
+@media (max-width: 1100px) { .admin-top .header-inner { flex-wrap: wrap; padding-block: 10px; } .admin-top-nav { margin-left: 0; justify-content: flex-start; } }
