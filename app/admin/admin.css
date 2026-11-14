@@ -110,6 +110,13 @@
 .admin-message .admin-item-info p { margin: 6px 0; white-space: pre-wrap; }
 
 .admin-top-nav { display: flex; align-items: center; gap: 12px; margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
+.admin-subbar { background: rgba(8, 6, 10, 0.9); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.admin-subbar-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; padding-block: 8px; font-size: 0.85rem; }
+.admin-subbar-inner > span { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem; }
+.admin-subbar-inner a { color: #f0dde4; padding: 4px 8px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; }
+.admin-subbar-inner a:hover { background: rgba(255, 255, 255, 0.07); }
+.admin-subbar-inner a[aria-current="page"] { background: var(--accent); color: #fff; }
+.admin-subbar-inner a:last-child { margin-left: auto; color: var(--muted); }
 .admin-top-nav > a, .admin-top-more > summary { color: #f0dde4; font-size: 0.84rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 10px; white-space: nowrap; border-radius: 999px; border: 1px solid transparent; cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
 .admin-top-more > summary::-webkit-details-marker { display: none; }
 .admin-top-more > summary::after { content: '▾'; font-size: 0.8em; }

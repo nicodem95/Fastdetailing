@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-import { Icon, type IconName } from './icons';
 
 const pages: { href: string; label: string }[] = [
   { href: '/admin/accueil', label: 'Accueil' },
@@ -16,14 +15,14 @@ const pages: { href: string; label: string }[] = [
   { href: '/admin/photos?page=contact', label: 'Contact' },
 ];
 
-const settings: { href: string; label: string; icon: IconName }[] = [
-  { href: '/admin/messages', label: 'Demandes de devis', icon: 'mail' },
-  { href: '/admin/annonce', label: 'Annonce', icon: 'info' },
-  { href: '/admin/avis', label: 'Avis clients', icon: 'text' },
-  { href: '/admin/infos', label: 'Infos du site', icon: 'info' },
-  { href: '/admin/photos?page=logo', label: 'Logo & partage', icon: 'images' },
-  { href: '/admin/google', label: 'Google (SEO)', icon: 'text' },
-  { href: '/admin/mentions-legales', label: 'Mentions légales', icon: 'text' },
+const settings: { href: string; label: string }[] = [
+  { href: '/admin/messages', label: 'Demandes de devis' },
+  { href: '/admin/annonce', label: 'Annonce' },
+  { href: '/admin/avis', label: 'Avis clients' },
+  { href: '/admin/infos', label: 'Infos du site' },
+  { href: '/admin/photos?page=logo', label: 'Logo & partage' },
+  { href: '/admin/google', label: 'Google (SEO)' },
+  { href: '/admin/mentions-legales', label: 'Mentions légales' },
 ];
 
 export function AdminNav({ unread = 0, logo }: { unread?: number; logo: string }) {
@@ -36,33 +35,33 @@ export function AdminNav({ unread = 0, logo }: { unread?: number; logo: string }
     return pathname.startsWith(href);
   }
 
-  const settingsActive = settings.some((link) => isActive(link.href));
-
   return (
-    <header className="site-header admin-top">
-      <div className="container header-inner">
-        <Link className="brand" href="/admin" aria-label="Administration Fast Detailing">
-          <img src={logo} alt="" className="brand-mark" />
-          <span className="brand-copy"><strong>Fast Detailing</strong><span>Administration</span></span>
-        </Link>
-        <nav className="admin-top-nav" aria-label="Pages du site">
-          {pages.map((link) => (
-            <Link key={link.href} href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>{link.label}</Link>
+    <>
+      <header className="site-header admin-top">
+        <div className="container header-inner">
+          <Link className="brand" href="/admin" aria-label="Administration Fast Detailing">
+            <img src={logo} alt="" className="brand-mark" />
+            <span className="brand-copy"><strong>Fast Detailing</strong><span>Gisors</span></span>
+          </Link>
+          <nav className="admin-top-nav" aria-label="Pages du site">
+            {pages.map((link) => (
+              <Link key={link.href} href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>{link.label}</Link>
+            ))}
+          </nav>
+        </div>
+      </header>
+      <div className="admin-subbar">
+        <div className="container admin-subbar-inner">
+          <span>Réglages</span>
+          {settings.map((link) => (
+            <Link key={link.href} href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
+              {link.label}
+              {link.href === '/admin/messages' && unread > 0 ? <b className="admin-nav-badge">{unread}</b> : null}
+            </Link>
           ))}
-          <details className="admin-top-more">
-            <summary className={settingsActive ? 'active' : undefined}>Réglages{unread > 0 ? <b className="admin-nav-badge">{unread}</b> : null}</summary>
-            <div className="admin-top-menu">
-              {settings.map((link) => (
-                <Link key={link.href} href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
-                  <Icon name={link.icon} size={16} />{link.label}
-                  {link.href === '/admin/messages' && unread > 0 ? <b className="admin-nav-badge">{unread}</b> : null}
-                </Link>
-              ))}
-            </div>
-          </details>
-        </nav>
-        <a className="header-call" href="/" target="_blank" rel="noopener noreferrer">Voir le site</a>
+          <a href="/" target="_blank" rel="noopener noreferrer">Voir le site ↗</a>
+        </div>
       </div>
-    </header>
+    </>
   );
 }
