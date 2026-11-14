@@ -67,6 +67,10 @@ export async function getTexts(): Promise<Record<string, string>> {
 
 export { SETTINGS_KEYS };
 
+export function phoneDigits(info: SiteInfo) {
+  return phoneVariants(info.telephone).national;
+}
+
 export function phoneHref(info: SiteInfo) {
   return `tel:+${phoneVariants(info.telephone).international}`;
 }

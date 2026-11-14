@@ -1,7 +1,7 @@
-import { LegacyPage } from '@/components/legacy-page';
+import { SitePage, getPageMetadata } from '@/components/site-page';
 
-export { metadata } from '@/lib/home-metadata';
+export const metadata = getPageMetadata('index');
 
 export default function HomePage() {
-  return <LegacyPage slug="index" />;
+  return <SitePage slug="index" />;
 }

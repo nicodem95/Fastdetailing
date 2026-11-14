@@ -1,22 +1,21 @@
 import { notFound } from 'next/navigation';
-import { LegacyPage, getLegacyMetadata } from '@/components/legacy-page';
-import { isLegacyPageSlug, legacyPageSlugs } from '@/lib/legacy-pages';
+import { SitePage, getPageMetadata, isPageSlug, pageSlugs } from '@/components/site-page';
 
 export const dynamicParams = false;
 export const revalidate = 60;
 
 export function generateStaticParams() {
-  return legacyPageSlugs.map((slug) => ({ slug }));
+  return pageSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  if (!isLegacyPageSlug(slug)) return {};
-  return getLegacyMetadata(slug);
+  if (!isPageSlug(slug)) return {};
+  return getPageMetadata(slug);
 }
 
-export default async function LegacyRoute({ params }: { params: Promise<{ slug: string }> }) {
+export default async function PageRoute({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  if (!isLegacyPageSlug(slug)) notFound();
-  return <LegacyPage slug={slug} />;
+  if (!isPageSlug(slug)) notFound();
+  return <SitePage slug={slug} />;
 }
