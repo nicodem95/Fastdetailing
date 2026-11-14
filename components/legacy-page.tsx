@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { injectBeforeAfterCards } from '@/lib/before-after-cards';
-import { applyPrices, applySiteInfo, applyTexts, getPrices, getSiteInfo, getTexts } from '@/lib/site-content';
+import { applySiteInfo, getPrices, getSiteInfo, getTexts } from '@/lib/site-content';
+import { HomeContent } from '@/components/pages/home-content';
+import { TarifsContent } from '@/components/pages/tarifs-content';
 import { getLegacyPage, type LegacyPageSlug } from '@/lib/legacy-pages';
 import { LegacyPageRuntime } from './legacy-page-runtime';
 
@@ -37,9 +39,8 @@ export function getLegacyMetadata(slug: LegacyPageSlug): Metadata {
 export async function LegacyPage({ slug }: { slug: LegacyPageSlug }) {
   const page = getLegacyPage(slug);
   const [info, prices, texts] = await Promise.all([getSiteInfo(), getPrices(), getTexts()]);
+  const content = slug === 'index' ? <HomeContent info={info} texts={texts} /> : slug === 'tarifs-lavage-auto' ? <TarifsContent info={info} prices={prices} /> : null;
   if (slug === 'avant-apres') page.mainHtml = await injectBeforeAfterCards(page.mainHtml);
-  if (slug === 'tarifs-lavage-auto') page.mainHtml = applyPrices(page.mainHtml, prices);
-  page.mainHtml = applyTexts(page.mainHtml, slug, texts);
   page.mainHtml = applySiteInfo(page.mainHtml, info);
   page.extrasHtml = applySiteInfo(page.extrasHtml, info);
   page.structuredData = page.structuredData.map((jsonLd) => applySiteInfo(jsonLd, info));
@@ -51,7 +52,7 @@ export async function LegacyPage({ slug }: { slug: LegacyPageSlug }) {
         <style key={index} dangerouslySetInnerHTML={{ __html: css }} />
       ))}
       <SiteHeader info={info} />
-      <main id="contenu" dangerouslySetInnerHTML={{ __html: page.mainHtml }} />
+      {content ? <main id="contenu">{content}</main> : <main id="contenu" dangerouslySetInnerHTML={{ __html: page.mainHtml }} />}
       <div dangerouslySetInnerHTML={{ __html: page.extrasHtml }} />
       <SiteFooter info={info} />
       {page.structuredData.map((jsonLd, index) => (

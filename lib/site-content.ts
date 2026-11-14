@@ -1,5 +1,4 @@
 import 'server-only';
-import * as cheerio from 'cheerio';
 import { getSetting } from '@/lib/services/settings';
 
 export interface SiteInfo {
@@ -22,7 +21,6 @@ export interface TextField {
   key: string;
   label: string;
   page: string;
-  selector: string;
   defaultValue: string;
   multiline?: boolean;
 }
@@ -46,9 +44,9 @@ export const defaultPrices: PriceRow[] = [
 ];
 
 export const textFields: TextField[] = [
-  { key: 'accueil-titre', label: 'Titre principal', page: 'index', selector: '.hero-copy h1', defaultValue: 'Remplacement & réparation de pare-brise à Gisors' },
-  { key: 'accueil-texte', label: 'Texte sous le titre', page: 'index', selector: '.hero-copy .hero-text', defaultValue: 'Fast Detailing vous accompagne également dans les démarches assurance et bris de glace.', multiline: true },
-  { key: 'accueil-contact', label: 'Texte de la section « Contact rapide »', page: 'index', selector: '.section-heading:has(h2:contains("Contact rapide")) p', defaultValue: 'Une fois votre besoin défini, choisissez le canal de contact adapté. Réponse claire, locale et sur rendez-vous.', multiline: true },
+  { key: 'accueil-titre', label: 'Titre principal', page: 'index', defaultValue: 'Remplacement & réparation de pare-brise à Gisors' },
+  { key: 'accueil-texte', label: 'Texte sous le titre', page: 'index', defaultValue: 'Fast Detailing vous accompagne également dans les démarches assurance et bris de glace.', multiline: true },
+  { key: 'accueil-contact', label: 'Texte de la section « Contact rapide »', page: 'index', defaultValue: 'Une fois votre besoin défini, choisissez le canal de contact adapté. Réponse claire, locale et sur rendez-vous.', multiline: true },
 ];
 
 const SETTINGS_KEYS = { info: 'site-info', prices: 'tarifs', texts: 'textes' } as const;
@@ -68,6 +66,18 @@ export async function getTexts(): Promise<Record<string, string>> {
 }
 
 export { SETTINGS_KEYS };
+
+export function phoneHref(info: SiteInfo) {
+  return `tel:+${phoneVariants(info.telephone).international}`;
+}
+
+export function whatsappHref(info: SiteInfo, message: string) {
+  return `https://wa.me/${phoneVariants(info.telephone).international}?text=${encodeURIComponent(message)}`;
+}
+
+export function zonesText(info: SiteInfo) {
+  return zoneVariants(info.zones.length ? info.zones : defaultSiteInfo.zones);
+}
 
 function escapeHtml(value: string) {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -114,40 +124,4 @@ export function applySiteInfo(html: string, info: SiteInfo) {
   if (timeChanged) result = result.replaceAll('<strong>09h00 – 19h00</strong>', `<strong>${escapeHtml(info.heures)}</strong>`);
   if (hoursChanged) result = result.replaceAll('Lundi à dimanche', escapeHtml(info.joursOuverture));
   return result;
-}
-
-export function applyPrices(mainHtml: string, prices: PriceRow[]) {
-  const $ = cheerio.load(mainHtml, null, false);
-  const money = (value: number) => `${value}€`;
-
-  $('.pricing-table tbody tr').each((index, row) => {
-    const price = prices[index];
-    if (!price) return;
-    const cells = $(row).find('td');
-    cells.eq(0).text(price.vehicule);
-    cells.eq(1).text(money(price.interieur));
-    cells.eq(2).text(money(price.exterieur));
-    cells.eq(3).text(money(price.complet));
-  });
-
-  $('.pricing-card').each((index, card) => {
-    const price = prices[index];
-    if (!price) return;
-    $(card).find('h3').text(price.vehicule);
-    const lines = $(card).find('.price-line strong');
-    lines.eq(0).text(money(price.interieur));
-    lines.eq(1).text(money(price.exterieur));
-    lines.eq(2).text(money(price.complet));
-  });
-
-  return $.html();
-}
-
-export function applyTexts(mainHtml: string, page: string, texts: Record<string, string>) {
-  const fields = textFields.filter((field) => field.page === page && texts[field.key]);
-  if (!fields.length) return mainHtml;
-
-  const $ = cheerio.load(mainHtml, null, false);
-  for (const field of fields) $(field.selector).first().text(texts[field.key]);
-  return $.html();
 }
