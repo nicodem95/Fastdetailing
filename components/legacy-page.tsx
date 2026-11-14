@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { injectBeforeAfterCards } from '@/lib/before-after-cards';
+import { applyPrices, applySiteInfo, applyTexts, getPrices, getSiteInfo, getTexts } from '@/lib/site-content';
 import { getLegacyPage, type LegacyPageSlug } from '@/lib/legacy-pages';
 import { LegacyPageRuntime } from './legacy-page-runtime';
 
@@ -35,7 +36,13 @@ export function getLegacyMetadata(slug: LegacyPageSlug): Metadata {
 
 export async function LegacyPage({ slug }: { slug: LegacyPageSlug }) {
   const page = getLegacyPage(slug);
+  const [info, prices, texts] = await Promise.all([getSiteInfo(), getPrices(), getTexts()]);
   if (slug === 'avant-apres') page.mainHtml = await injectBeforeAfterCards(page.mainHtml);
+  if (slug === 'tarifs-lavage-auto') page.mainHtml = applyPrices(page.mainHtml, prices);
+  page.mainHtml = applyTexts(page.mainHtml, slug, texts);
+  page.mainHtml = applySiteInfo(page.mainHtml, info);
+  page.extrasHtml = applySiteInfo(page.extrasHtml, info);
+  page.structuredData = page.structuredData.map((jsonLd) => applySiteInfo(jsonLd, info));
 
   return (
     <>
@@ -43,10 +50,10 @@ export async function LegacyPage({ slug }: { slug: LegacyPageSlug }) {
       {page.inlineStyles.map((css, index) => (
         <style key={index} dangerouslySetInnerHTML={{ __html: css }} />
       ))}
-      <SiteHeader />
+      <SiteHeader info={info} />
       <main id="contenu" dangerouslySetInnerHTML={{ __html: page.mainHtml }} />
       <div dangerouslySetInnerHTML={{ __html: page.extrasHtml }} />
-      <SiteFooter />
+      <SiteFooter info={info} />
       {page.structuredData.map((jsonLd, index) => (
         <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
       ))}

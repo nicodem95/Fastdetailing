@@ -1,4 +1,8 @@
-export function SiteHeader() {
+import type { SiteInfo } from '@/lib/site-content';
+
+export function SiteHeader({ info }: { info: SiteInfo }) {
+  const phone = info.telephone;
+  const tel = `+33${phone.replace(/\D/g, '').slice(1)}`;
   return (
     <>
       <a className="skip-link" href="#contenu">Aller au contenu</a>
@@ -19,7 +23,7 @@ export function SiteHeader() {
             <a href="administratif-assurance.html">Assurance</a>
             <a href="contact.html">Contact</a>
           </nav>
-          <a className="header-call" href="tel:+33666084467">06 66 08 44 67</a>
+          <a className="header-call" href={`tel:${tel}`}>{phone}</a>
         </div>
       </header>
     </>
