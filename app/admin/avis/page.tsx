@@ -27,10 +27,12 @@ export default async function ReviewsPage({ searchParams }: { searchParams: Prom
             <section className="admin-card" key={index}>
               <h2 className="admin-section-title"><Icon name="text" />{review.name || 'Nouvel avis (laisser vide pour ignorer)'}</h2>
               <div className="admin-form">
-                <label className="admin-field">Prénom du client<input name={`name-${index}`} defaultValue={review.name} maxLength={60} /></label>
-                <label className="admin-field">Ville<input name={`location-${index}`} defaultValue={review.location} maxLength={60} placeholder="Gisors" /></label>
-                <label className="admin-field">Note (1 à 5)<input name={`rating-${index}`} type="number" min={1} max={5} defaultValue={review.rating} /></label>
-                <label className="admin-field">Avis<textarea name={`text-${index}`} rows={4} defaultValue={review.fullText} maxLength={1200} /></label>
+                <div className="admin-review-row">
+                  <label className="admin-field">Prénom<input name={`name-${index}`} defaultValue={review.name} maxLength={60} /></label>
+                  <label className="admin-field">Ville<input name={`location-${index}`} defaultValue={review.location} maxLength={60} placeholder="Gisors" /></label>
+                  <label className="admin-field">Note /5<input name={`rating-${index}`} type="number" min={1} max={5} defaultValue={review.rating} /></label>
+                </div>
+                <label className="admin-field">Avis<textarea name={`text-${index}`} rows={5} defaultValue={review.fullText} maxLength={1200} /></label>
                 {index < reviews.length ? <label><input type="checkbox" name={`delete-${index}`} /> Supprimer cet avis</label> : null}
               </div>
             </section>
