@@ -7,30 +7,24 @@ import { Icon, type IconName } from './icons';
 
 const groups: { title: string; links: { href: string; label: string; icon: IconName }[] }[] = [
   {
-    title: 'Au quotidien',
+    title: 'Pages du site (même ordre que le site)',
     links: [
+      { href: '/admin/accueil', label: 'Accueil', icon: 'text' },
+      { href: '/admin/photos?page=prestations', label: 'Prestations', icon: 'images' },
+      { href: '/admin/photos?page=avant-apres', label: 'Avant/Après', icon: 'images' },
       { href: '/admin', label: 'Réalisations', icon: 'images' },
-      { href: '/admin/tarifs', label: 'Tarifs', icon: 'tag' },
+      { href: '/admin/photos?page=pare-brise', label: 'Pare-brise', icon: 'images' },
+      { href: '/admin/tarifs', label: 'Tarifs lavage auto', icon: 'tag' },
+      { href: '/admin/photos?page=assurance', label: 'Assurance', icon: 'images' },
+      { href: '/admin/photos?page=contact', label: 'Contact', icon: 'images' },
+    ],
+  },
+  {
+    title: 'Autres réglages',
+    links: [
       { href: '/admin/messages', label: 'Demandes de devis', icon: 'mail' },
       { href: '/admin/annonce', label: 'Annonce', icon: 'info' },
       { href: '/admin/avis', label: 'Avis clients', icon: 'text' },
-    ],
-  },
-  {
-    title: 'Pages du site',
-    links: [
-      { href: '/admin/accueil', label: 'Accueil', icon: 'text' },
-      { href: '/admin/photos?page=accueil', label: 'Photos accueil', icon: 'images' },
-      { href: '/admin/photos?page=prestations', label: 'Prestations', icon: 'images' },
-      { href: '/admin/photos?page=pare-brise', label: 'Pare-brise', icon: 'images' },
-      { href: '/admin/photos?page=avant-apres', label: 'Avant / Après', icon: 'images' },
-      { href: '/admin/photos?page=contact', label: 'Contact', icon: 'images' },
-      { href: '/admin/photos?page=assurance', label: 'Assurance', icon: 'images' },
-    ],
-  },
-  {
-    title: 'Réglages',
-    links: [
       { href: '/admin/infos', label: 'Infos du site', icon: 'info' },
       { href: '/admin/photos?page=logo', label: 'Logo & partage', icon: 'images' },
       { href: '/admin/google', label: 'Google (SEO)', icon: 'text' },
@@ -38,7 +32,6 @@ const groups: { title: string; links: { href: string; label: string; icon: IconN
     ],
   },
 ];
-
 export function AdminNav({ unread = 0 }: { unread?: number }) {
   const pathname = usePathname();
   const page = useSearchParams().get('page');

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
 import { PageTitle } from '../icons';
@@ -20,7 +21,7 @@ export default async function AccueilAdminPage({ searchParams }: { searchParams:
   return (
     <main className="section-pad">
       <div className="admin">
-        <div className="admin-header"><PageTitle icon="text" hint="Les blocs suivent l’ordre de la page d’accueil. Pour revenir au texte d’origine, remettez-le tel quel.">Page Accueil</PageTitle></div>
+        <div className="admin-header"><PageTitle icon="text" hint="Les blocs suivent l’ordre de la page d’accueil. Pour revenir au texte d’origine, remettez-le tel quel.">Page Accueil</PageTitle><Link className="admin-small-btn" href="/admin/photos?page=accueil">Photos de l’accueil →</Link></div>
         <TextBlocks blocks={blocks} back="/admin/accueil" ok={ok} />
       </div>
     </main>
