@@ -40,17 +40,17 @@ export function HomeContent({ info, texts }: { info: SiteInfo; texts: Record<str
         <div className="container reveal">
           <article className="home-assurance-panel">
             <div className="home-assurance-content">
-              <p className="home-assurance-kicker">Offre client</p>
-              <p className="home-assurance-offer" aria-label="Franchise offerte, plus 100 euros à 350 euros offerts">
-                <span className="home-assurance-offer-line">FRANCHISE OFFERTE</span>
+              <p className="home-assurance-kicker">{text(texts, 'offre-etiquette')}</p>
+              <p className="home-assurance-offer">
+                <span className="home-assurance-offer-line">{text(texts, 'offre-ligne1')}</span>
                 <span className="home-assurance-offer-plus" aria-hidden="true">+</span>
-                <span className="home-assurance-offer-line home-assurance-offer-line-plus">100 € À 350 € OFFERTS*</span>
+                <span className="home-assurance-offer-line home-assurance-offer-line-plus">{text(texts, 'offre-ligne2')}</span>
               </p>
-              <p className="home-assurance-note">Selon contrat d'assurance et éligibilité du dossier.</p>
-              <h2>Assurance & démarches simplifiées</h2>
-              <p className="home-assurance-support">Nous vous accompagnons dans la gestion administrative liée à votre bris de glace.</p>
+              <p className="home-assurance-note">{text(texts, 'offre-note')}</p>
+              <h2>{text(texts, 'offre-titre')}</h2>
+              <p className="home-assurance-support">{text(texts, 'offre-texte')}</p>
             </div>
-            <a className="btn btn-secondary home-assurance-cta" href="administratif.html">Vérifier mon éligibilité</a>
+            <a className="btn btn-secondary home-assurance-cta" href="administratif.html">{text(texts, 'offre-bouton')}</a>
           </article>
         </div>
       </section>

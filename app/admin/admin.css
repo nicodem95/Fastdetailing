@@ -1,4 +1,4 @@
-.admin { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+﻿.admin { max-width: 760px; margin: 0 auto; padding: 0 20px; }
 .admin-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
 .admin-header h1 { margin: 0; }
 .admin-user { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 0.9rem; }
@@ -61,7 +61,7 @@
 @media (max-width: 600px) { .admin-hours-row { grid-template-columns: 120px 1fr auto 1fr; } }
 
 /* Icons, titles, stats, pills, previews */
-.admin-icon { flex-shrink: 0; vertical-align: -3px; }
+.adm-icon { flex-shrink: 0; vertical-align: -3px; }
 .admin-title { display: flex; align-items: center; gap: 14px; }
 .admin-title h1 { margin: 0; font-size: 1.7rem; }
 .admin-title p { margin: 2px 0 0; color: var(--muted); font-size: 0.9rem; }
@@ -82,13 +82,13 @@
 .admin-item .admin-pill.on { background: rgba(94, 224, 138, 0.15); color: #5ee08a; }
 .admin-item .admin-pill.off { background: rgba(242, 185, 75, 0.15); color: #f2b94b; }
 .admin-section-title { display: flex; align-items: center; gap: 10px; }
-.admin-section-title .admin-icon { color: var(--accent); }
+.admin-section-title .adm-icon { color: var(--accent); }
 .admin-form > .admin-card { margin-bottom: 0; }
 .admin-preview { border-left: 3px solid var(--accent); }
 .admin-preview h2 { font-size: 1rem; color: var(--muted); }
 .admin-preview-grid { display: grid; gap: 10px; }
 .admin-preview-grid > div { display: flex; align-items: flex-start; gap: 12px; }
-.admin-preview-grid .admin-icon { color: var(--accent); margin-top: 3px; }
+.admin-preview-grid .adm-icon { color: var(--accent); margin-top: 3px; }
 .admin-preview-hours > span { display: grid; gap: 2px; }
 .admin-preview-hours b { color: var(--muted); font-weight: 500; margin-left: 6px; }
 .admin-price-row strong { display: inline-flex; align-items: center; gap: 6px; }

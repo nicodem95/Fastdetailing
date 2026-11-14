@@ -59,6 +59,13 @@ export const textFields: TextField[] = [
   { key: 'accueil-titre', label: 'Titre principal', page: 'index', defaultValue: 'Remplacement & réparation de pare-brise à Gisors' },
   { key: 'accueil-texte', label: 'Texte sous le titre', page: 'index', defaultValue: 'Fast Detailing vous accompagne également dans les démarches assurance et bris de glace.', multiline: true },
   { key: 'accueil-contact', label: 'Texte de la section « Contact rapide »', page: 'index', defaultValue: 'Une fois votre besoin défini, choisissez le canal de contact adapté. Réponse claire, locale et sur rendez-vous.', multiline: true },
+    { key: 'offre-etiquette', label: 'Bandeau offre : étiquette', page: 'index', defaultValue: 'Offre client' },
+    { key: 'offre-ligne1', label: 'Bandeau offre : première ligne', page: 'index', defaultValue: 'FRANCHISE OFFERTE' },
+    { key: 'offre-ligne2', label: 'Bandeau offre : deuxième ligne', page: 'index', defaultValue: '100 € À 350 € OFFERTS*' },
+    { key: 'offre-note', label: 'Bandeau offre : mention sous l’offre', page: 'index', defaultValue: 'Selon contrat d\'assurance et éligibilité du dossier.' },
+    { key: 'offre-titre', label: 'Bandeau offre : titre', page: 'index', defaultValue: 'Assurance & démarches simplifiées' },
+    { key: 'offre-texte', label: 'Bandeau offre : texte', page: 'index', defaultValue: 'Nous vous accompagnons dans la gestion administrative liée à votre bris de glace.', multiline: true },
+    { key: 'offre-bouton', label: 'Bandeau offre : bouton', page: 'index', defaultValue: 'Vérifier mon éligibilité' },
 ];
 
 const SETTINGS_KEYS = { info: 'site-info', prices: 'tarifs', texts: 'textes' } as const;
