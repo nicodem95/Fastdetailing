@@ -1,7 +1,7 @@
 import 'server-only';
 import { pageData, type PageSlug } from '@/lib/page-data';
 import { getSetting } from '@/lib/services/settings';
-import defaultReviews from './default-reviews.json';
+import { listReviews } from '@/lib/services/reviews';
 
 export interface LegalInfo {
   denomination: string;
@@ -100,9 +100,16 @@ export interface Review {
   fullText: string;
 }
 
-export const defaultReviewList = defaultReviews as Review[];
-
 export async function getReviews(): Promise<Review[]> {
-  const saved = await getSetting<Review[]>('reviews');
-  return Array.isArray(saved) ? saved : defaultReviewList;
+  const rows = await listReviews();
+  return rows
+    .filter((row) => row.publie)
+    .map((row) => ({
+      name: row.nom,
+      rating: row.note,
+      source: row.source,
+      location: row.ville,
+      shortText: row.texte.length > 120 ? `${row.texte.slice(0, 117)}…` : row.texte,
+      fullText: row.texte,
+    }));
 }

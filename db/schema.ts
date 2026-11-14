@@ -54,6 +54,18 @@ export const contactMessages = pgTable('contact_messages', {
   createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' }).notNull().defaultNow(),
 });
 
+export const reviews = pgTable('reviews', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  nom: text('nom').notNull(),
+  ville: text('ville').notNull().default('Gisors'),
+  note: integer('note').notNull().default(5),
+  source: text('source').notNull().default('Google'),
+  texte: text('texte').notNull(),
+  publie: boolean('publie').notNull().default(true),
+  ordre: integer('ordre').notNull().default(0),
+  createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' }).notNull().defaultNow(),
+});
+
 export const realisationsRelations = relations(realisations, ({ many }) => ({
   images: many(realisationImages),
 }));
@@ -71,3 +83,4 @@ export type RealisationImage = typeof realisationImages.$inferSelect;
 export type NewRealisationImage = typeof realisationImages.$inferInsert;
 export type RealisationType = (typeof realisationTypeEnum.enumValues)[number];
 export type RealisationImageType = (typeof realisationImageTypeEnum.enumValues)[number];
+export type NewReview = typeof reviews.$inferInsert;

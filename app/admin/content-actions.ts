@@ -3,7 +3,9 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
-import { defaultLegal, defaultSeo, legalFields, seoPages, type Review, type SeoEntry } from '@/lib/extra-content';
+import { defaultLegal, defaultSeo, legalFields, seoPages, type SeoEntry } from '@/lib/extra-content';
+import type { NewReview } from '@/db/schema';
+import { replaceReviews } from '@/lib/services/reviews';
 import { deleteContactMessage, setMessageRead } from '@/lib/services/messages';
 import { setSetting } from '@/lib/services/settings';
 
@@ -64,23 +66,20 @@ export async function saveReviewsAction(formData: FormData) {
   await requireAdmin();
 
   const count = Math.min(Number(formData.get('count')) || 0, 60);
-  const reviews: Review[] = [];
+  const items: Omit<NewReview, 'ordre'>[] = [];
   for (let index = 0; index < count; index += 1) {
     if (formData.get(`delete-${index}`) === 'on') continue;
-    const name = text(formData.get(`name-${index}`), 60);
-    const fullText = text(formData.get(`text-${index}`), 1200);
-    if (!name || !fullText) continue;
-    const rating = Math.min(5, Math.max(1, Number(formData.get(`rating-${index}`)) || 5));
-    reviews.push({
-      name,
-      rating,
-      source: 'Google',
-      location: text(formData.get(`location-${index}`), 60) || 'Gisors',
-      shortText: fullText.length > 120 ? `${fullText.slice(0, 117)}…` : fullText,
-      fullText,
+    const nom = text(formData.get(`name-${index}`), 60);
+    const texte = text(formData.get(`text-${index}`), 1200);
+    if (!nom || !texte) continue;
+    items.push({
+      nom,
+      texte,
+      note: Math.min(5, Math.max(1, Number(formData.get(`rating-${index}`)) || 5)),
+      ville: text(formData.get(`location-${index}`), 60) || 'Gisors',
     });
   }
-  await setSetting('reviews', reviews);
+  await replaceReviews(items);
   refreshSite();
   redirect('/admin/avis?ok=1');
 }
