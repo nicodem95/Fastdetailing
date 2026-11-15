@@ -111,10 +111,14 @@ textarea {
   border-bottom: 1px solid rgba(255, 42, 42, 0.32);
 }
 
+.site-header:not(.admin-top) .header-inner {
+  --container: 1500px;
+}
+
 .header-inner {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 12px;
   min-height: 78px;
   position: relative;
 }
@@ -166,7 +170,7 @@ textarea {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
   margin-left: auto;
 }
 
@@ -176,7 +180,7 @@ textarea {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 8px 10px;
+  padding: 8px 6px;
   white-space: nowrap;
   border-radius: 999px;
   border: 1px solid transparent;
@@ -230,6 +234,58 @@ textarea {
   letter-spacing: 0.01em;
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+@media (max-width: 1480px) {
+  body.nav-open {
+    overflow: hidden;
+  }
+
+  .site-nav {
+    display: flex;
+    position: absolute;
+    z-index: 24;
+    top: calc(100% + 8px);
+    left: 16px;
+    right: 16px;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: rgba(13, 9, 15, 0.96);
+    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.45);
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transform-origin: top center;
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+  }
+
+  .site-nav a {
+    width: 100%;
+    text-align: center;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .site-nav.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .header-call {
+    display: none;
+  }
 }
 
 .hero {
@@ -3435,10 +3491,6 @@ textarea {
 }
 
 @media (max-width: 1080px) {
-  body.nav-open {
-    overflow: hidden;
-  }
-
   .hero-grid,
   .trust-grid,
   .contact-grid,
@@ -3557,55 +3609,9 @@ textarea {
     grid-column: span 1;
   }
 
-  .site-nav {
-    display: flex;
-    position: absolute;
-    z-index: 24;
-    top: calc(100% + 8px);
-    left: 16px;
-    right: 16px;
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid var(--line);
-    background: rgba(13, 9, 15, 0.96);
-    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.45);
-    flex-direction: column;
-    gap: 12px;
-    margin: 0;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateY(-8px);
-    transform-origin: top center;
-    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
-  }
-
-  .site-nav a {
-    width: 100%;
-    text-align: center;
-    padding: 12px 14px;
-    background: rgba(255, 255, 255, 0.03);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
   .site-nav a[aria-current="page"] {
     background: linear-gradient(135deg, rgba(255, 42, 42, 0.34), rgba(255, 122, 26, 0.34));
     border-color: rgba(255, 122, 26, 0.8);
-  }
-
-  .site-nav.is-open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateY(0);
-  }
-
-  .menu-toggle {
-    display: inline-flex;
-  }
-
-  .header-call {
-    display: none;
   }
 
   /* Contact page responsive tablet */

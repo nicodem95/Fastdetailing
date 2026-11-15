@@ -103,7 +103,7 @@ export async function SitePage({ slug }: { slug: PageSlug }) {
 
   return (
     <>
-      <LegacyPageRuntime bodyClass={page.bodyClass} externalScripts={['assets/js/main.js']} inlineScripts={[...page.inlineScripts]} />
+      <LegacyPageRuntime bodyClass={page.bodyClass} inlineScripts={[...page.inlineScripts]} />
       {page.inlineStyles.map((css, index) => (
         <style key={index} dangerouslySetInnerHTML={{ __html: css }} />
       ))}

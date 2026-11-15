@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-export function LegacyPageRuntime({ bodyClass, externalScripts, inlineScripts }: { bodyClass: string; externalScripts: string[]; inlineScripts: string[] }) {
+export function LegacyPageRuntime({ bodyClass, inlineScripts }: { bodyClass: string; inlineScripts: string[] }) {
   useEffect(() => {
     const classes = bodyClass.split(/\s+/).filter(Boolean);
     document.body.classList.add(...classes);
@@ -14,17 +14,8 @@ export function LegacyPageRuntime({ bodyClass, externalScripts, inlineScripts }:
       return script;
     });
 
-    const scripts = externalScripts.map((source) => {
-      const script = document.createElement('script');
-      script.src = source;
-      script.async = false;
-      document.body.append(script);
-      return script;
-    });
-
     return () => {
       document.body.classList.remove(...classes);
-      scripts.forEach((script) => script.remove());
       inlineScriptElements.forEach((script) => script.remove());
     };
   }, [bodyClass, inlineScripts]);

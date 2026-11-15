@@ -40,9 +40,9 @@
 
   if (menuToggle && nav) {
     const syncNavAria = () => {
-      const isMobile = window.innerWidth <= 1080;
+      const usesCompactNav = window.innerWidth <= 1480;
       const isOpen = nav.classList.contains('is-open');
-      nav.setAttribute('aria-hidden', isMobile ? String(!isOpen) : 'false');
+      nav.setAttribute('aria-hidden', usesCompactNav ? String(!isOpen) : 'false');
     };
 
     syncNavAria();
@@ -93,7 +93,7 @@
     });
 
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 1080 && nav.classList.contains('is-open')) {
+      if (window.innerWidth > 1480 && nav.classList.contains('is-open')) {
         closeMenu();
         return;
       }
