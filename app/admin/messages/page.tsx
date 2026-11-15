@@ -38,7 +38,13 @@ export default async function MessagesPage() {
                     <input type="hidden" name="lu" value={String(item.lu)} />
                     <button className="admin-small-btn" type="submit"><Icon name="check" size={15} />{item.lu ? 'Marquer nouvelle' : 'Marquer traitée'}</button>
                   </form>
-                  <ConfirmForm action={deleteMessageAction} message={`Supprimer définitivement la demande de ${item.nom} ?`}>
+                  <ConfirmForm
+                    action={deleteMessageAction}
+                    title="Supprimer cette demande ?"
+                    message={`La demande de ${item.nom} sera supprimée définitivement.`}
+                    confirmLabel="Supprimer"
+                    destructive
+                  >
                     <input type="hidden" name="id" value={item.id} />
                     <button className="admin-small-btn danger" type="submit" title="Supprimer" aria-label={`Supprimer la demande de ${item.nom}`}><Icon name="trash" size={15} /></button>
                   </ConfirmForm>

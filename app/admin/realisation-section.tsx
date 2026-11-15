@@ -59,12 +59,23 @@ export async function RealisationSection({ type, ok }: { type: RealisationType; 
                   <button className="admin-small-btn" type="submit" name="direction" value="down" disabled={position === items.length - 1} title="Descendre" aria-label={`Descendre ${item.titre}`}>↓</button>
                 </form>
                 <Link className="admin-small-btn" href={`/admin/${item.id}/modifier`} title="Modifier"><Icon name="edit" size={15} />Modifier</Link>
-                <ConfirmForm action={togglePublishAction} message={item.publie ? `Retirer « ${item.titre} » du site ?` : `Publier « ${item.titre} » sur le site ?`}>
+                <ConfirmForm
+                  action={togglePublishAction}
+                  title={item.publie ? 'Retirer cette réalisation du site ?' : 'Publier cette réalisation ?'}
+                  message={item.publie ? `La réalisation « ${item.titre} » ne sera plus visible sur le site.` : `La réalisation « ${item.titre} » sera visible sur le site.`}
+                  confirmLabel={item.publie ? 'Dépublier' : 'Publier'}
+                >
                   <input type="hidden" name="id" value={item.id} />
                   <input type="hidden" name="publie" value={String(item.publie)} />
                   <button className="admin-small-btn" type="submit"><Icon name={item.publie ? 'eyeOff' : 'eye'} size={15} />{item.publie ? 'Dépublier' : 'Publier'}</button>
                 </ConfirmForm>
-                <ConfirmForm action={deleteRealisationAction} message={`Supprimer définitivement « ${item.titre} » et ses photos ? Cette action est irréversible.`}>
+                <ConfirmForm
+                  action={deleteRealisationAction}
+                  title="Supprimer cette réalisation ?"
+                  message={`« ${item.titre} » et ses photos seront supprimés définitivement. Cette action est irréversible.`}
+                  confirmLabel="Supprimer définitivement"
+                  destructive
+                >
                   <input type="hidden" name="id" value={item.id} />
                   <button className="admin-small-btn danger" type="submit" title="Supprimer" aria-label={`Supprimer ${item.titre}`}><Icon name="trash" size={15} /></button>
                 </ConfirmForm>
