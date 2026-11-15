@@ -135,6 +135,8 @@
 .admin-message .admin-item-info p { margin: 6px 0; white-space: pre-wrap; }
 
 .admin-top-nav { display: flex; align-items: center; gap: 12px; margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
+.admin-sticky-nav { position: sticky; top: 0; z-index: 30; }
+.admin-sticky-nav .admin-top { position: static; }
 .admin-subbar { background: rgba(8, 6, 10, 0.9); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
 .admin-subbar-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; padding-block: 8px; font-size: 0.85rem; }
 .admin-subbar-inner > span { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem; }

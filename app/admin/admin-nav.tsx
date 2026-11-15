@@ -39,7 +39,7 @@ export function AdminNav({ unread = 0, logo }: { unread?: number; logo: string }
   }
 
   return (
-    <>
+    <div className="admin-sticky-nav">
       <header className="site-header admin-top">
         <div className="container header-inner">
           <Link className="brand" href="/admin" aria-label="Administration Fast Detailing">
@@ -66,6 +66,6 @@ export function AdminNav({ unread = 0, logo }: { unread?: number; logo: string }
           <a href="/" target="_blank" rel="noopener noreferrer">Voir le site ↗</a>
         </div>
       </div>
-    </>
+    </div>
   );
 }
