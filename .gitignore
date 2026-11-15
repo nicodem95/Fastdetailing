@@ -7,6 +7,7 @@ backups/
 public/assets/
 public/data/
 public/*.html
+!public/google715bb0b7bd0053da.html
 public/favicon.svg
 public/robots.txt
 public/sitemap.xml
