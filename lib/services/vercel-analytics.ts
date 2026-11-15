@@ -105,11 +105,11 @@ function endpoint(
   url.searchParams.set('until', until);
   url.searchParams.set(
     'filter',
-    "not startswith(requestPath, '/admin') and not startswith(requestPath, '/auth') and not startswith(requestPath, '/api')",
+    "not (startswith(requestPath, '/admin') or startswith(requestPath, '/auth') or startswith(requestPath, '/api'))",
   );
   if (teamId) url.searchParams.set('teamId', teamId);
   if (by) {
-    url.searchParams.set('by', JSON.stringify([by]));
+    url.searchParams.set('by', by);
     url.searchParams.set('limit', by === 'day' ? '100' : '10');
   }
   return url;

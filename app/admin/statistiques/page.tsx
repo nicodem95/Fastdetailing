@@ -67,7 +67,10 @@ function AnalyticsUnavailable({
           <p>Impossible de récupérer les données de Vercel Web Analytics.</p>
           {status === 'error' && (
             <p>
-              {reason === 'api' && `L’API Vercel a répondu avec le statut HTTP ${httpStatus}. Vérifie l’accès au projet et les droits du jeton.`}
+              {reason === 'api' && httpStatus === 400 && 'Paramètres refusés par Vercel. Vérifie VERCEL_ANALYTICS_PROJECT_ID et, si le projet appartient à une équipe, VERCEL_ANALYTICS_TEAM_ID.'}
+              {reason === 'api' && httpStatus === 401 && 'Le jeton Vercel est invalide ou expiré.'}
+              {reason === 'api' && httpStatus === 403 && 'Le jeton Vercel n’a pas accès aux données Analytics de ce projet.'}
+              {reason === 'api' && httpStatus !== 400 && httpStatus !== 401 && httpStatus !== 403 && `L’API Vercel a répondu avec le statut HTTP ${httpStatus}. Vérifie l’accès au projet et les droits du jeton.`}
               {reason === 'network' && 'La connexion à l’API Vercel a échoué. Réessaie plus tard.'}
               {reason === 'invalid-response' && 'La réponse de l’API Vercel n’a pas le format attendu.'}
             </p>

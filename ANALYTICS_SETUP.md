@@ -9,7 +9,7 @@ L’administration affiche les visites dans `/admin/statistiques` sur les pério
 3. Copier le jeton une seule fois dans **Project → Settings → Environment Variables** :
    - `VERCEL_ANALYTICS_TOKEN` : le jeton créé à l’étape précédente.
    - `VERCEL_ANALYTICS_PROJECT_ID` : l’identifiant du projet, dans **Settings → General**.
-   - `VERCEL_ANALYTICS_TEAM_ID` : facultatif. À renseigner si nécessaire pour un jeton d’équipe ; un jeton scoped au projet permet normalement à Vercel d’inférer l’équipe.
+   - `VERCEL_ANALYTICS_TEAM_ID` : l’identifiant de l’équipe, obligatoire pour un projet d’équipe. Pour un projet personnel, laisser cette variable vide.
 4. Cibler **Production** et, si souhaité, **Preview**, puis sauvegarder et redéployer.
 
 Ne pas préfixer ces variables par `NEXT_PUBLIC_`, ne pas les écrire dans `.env.example` et ne pas committer leur valeur. Pour le développement local, utiliser `.env.local`, qui doit rester privé.
