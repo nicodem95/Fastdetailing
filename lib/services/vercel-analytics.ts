@@ -80,7 +80,7 @@ function parseBreakdown(value: unknown, dimension: 'requestPath' | 'referrerHost
     const rawDimension = row[dimension];
     const dimensionValue = typeof rawDimension === 'string' && rawDimension
       ? rawDimension
-      : dimension === 'referrerHostname' ? 'Accès direct / non renseigné' : null;
+      : dimension === 'referrerHostname' ? 'Accès direct ou source inconnue' : null;
     if (!dimensionValue) return null;
 
     points.push({

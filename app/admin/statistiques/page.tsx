@@ -58,14 +58,16 @@ function allPageStats(pages: { dimension: string; pageviews: number }[]) {
     viewsByPath.set(page.dimension, (viewsByPath.get(page.dimension) ?? 0) + page.pageviews);
   }
 
-  return Object.entries(pageData).map(([slug, page]) => {
-    const canonicalPath = new URL(page.canonical).pathname;
-    const routePath = slug === 'index' ? '/' : `/${slug}`;
-    const paths = new Set([canonicalPath, routePath]);
-    const pageviews = [...paths].reduce((sum, path) => sum + (viewsByPath.get(path) ?? 0), 0);
+  return Object.entries(pageData)
+    .map(([slug, page]) => {
+      const canonicalPath = new URL(page.canonical).pathname;
+      const routePath = slug === 'index' ? '/' : `/${slug}`;
+      const paths = new Set([canonicalPath, routePath]);
+      const pageviews = [...paths].reduce((sum, path) => sum + (viewsByPath.get(path) ?? 0), 0);
 
-    return { dimension: canonicalPath, pageviews };
-  });
+      return { dimension: canonicalPath, pageviews };
+    })
+    .sort((a, b) => b.pageviews - a.pageviews || a.dimension.localeCompare(b.dimension, 'fr'));
 }
 
 function AnalyticsUnavailable({
@@ -181,37 +183,47 @@ export default async function StatistiquesPage({ searchParams }: PageProps) {
             <section className="admin-card analytics-panel">
               <div className="analytics-panel-heading">
                 <div>
-                  <h2>Évolution quotidienne</h2>
-                  <p>Pages consultées chaque jour</p>
+                  <h2>Pages vues par jour</h2>
+                  <p>Évolution sur la période choisie</p>
                 </div>
                 <span className="analytics-panel-total">{formatNumber(result.total.pageviews)} vues</span>
               </div>
-              <ol className="analytics-daily" aria-label="Pages vues par jour">
-                {series.map((point) => (
-                  <li key={point.date}>
-                    <time dateTime={point.date}>{formatDate(`${point.date}T00:00:00.000Z`)}</time>
-                    <span className="analytics-track" aria-hidden="true">
-                      <span style={{ width: `${(point.pageviews / maxPageviews) * 100}%` }} />
-                    </span>
-                    <strong>{formatNumber(point.pageviews)}</strong>
-                  </li>
-                ))}
-              </ol>
+              <div className="analytics-chart-scroll" role="region" aria-label="Graphique des pages vues par jour" tabIndex={0}>
+                <ol className={`analytics-chart${series.length > 10 ? ' analytics-chart-month' : ''}`}>
+                  {series.map((point, index) => {
+                    const showDate = index === 0 || index === series.length - 1 || index % Math.ceil(series.length / 5) === 0;
+                    return (
+                      <li
+                        key={point.date}
+                        aria-label={`${formatDate(`${point.date}T00:00:00.000Z`)} : ${formatNumber(point.pageviews)} pages vues`}
+                      >
+                        <span className="analytics-chart-value">{formatNumber(point.pageviews)}</span>
+                        <span className="analytics-chart-bar" aria-hidden="true">
+                          <span className={point.pageviews > 0 ? 'has-views' : undefined} style={{ height: `${(point.pageviews / maxPageviews) * 100}%` }} />
+                        </span>
+                        <time dateTime={point.date} aria-hidden={!showDate}>
+                          {showDate ? formatDate(`${point.date}T00:00:00.000Z`) : ''}
+                        </time>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
             </section>
 
             <div className="analytics-breakdowns">
               <section className="admin-card analytics-panel">
                 <div className="analytics-panel-heading">
                   <div>
-                    <h2>Pages du site</h2>
-                    <p>Toutes les pages publiques, y compris celles sans visite</p>
+                    <h2>Ce que regardent vos visiteurs</h2>
+                    <p>Toutes les pages du site, même sans visite</p>
                   </div>
                 </div>
                 <ol className="analytics-ranking">
                   {pageStats.map((page) => (
                     <li key={page.dimension}>
                       <span>{page.dimension}</span>
-                      <strong>{formatNumber(page.pageviews)}</strong>
+                      <strong>{formatNumber(page.pageviews)} vues</strong>
                     </li>
                   ))}
                 </ol>
@@ -219,8 +231,8 @@ export default async function StatistiquesPage({ searchParams }: PageProps) {
               <section className="admin-card analytics-panel">
                 <div className="analytics-panel-heading">
                   <div>
-                    <h2>Origine des visites</h2>
-                    <p>Sites ayant dirigé des visiteurs ici</p>
+                    <h2>D’où viennent les visiteurs ?</h2>
+                    <p>Sites ou applications qui les ont dirigés ici</p>
                   </div>
                 </div>
                 {result.referrers.length ? (
@@ -228,7 +240,7 @@ export default async function StatistiquesPage({ searchParams }: PageProps) {
                     {result.referrers.map((referrer) => (
                       <li key={referrer.dimension}>
                         <span>{referrer.dimension || 'Référent inconnu'}</span>
-                        <strong>{formatNumber(referrer.pageviews)}</strong>
+                        <strong>{formatNumber(referrer.visitors)} visiteurs · {formatNumber(referrer.pageviews)} vues</strong>
                       </li>
                     ))}
                   </ol>
