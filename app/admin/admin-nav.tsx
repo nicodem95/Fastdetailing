@@ -18,6 +18,7 @@ const pages: { href: string; label: string }[] = [
 
 const settings: { href: string; label: string }[] = [
   { href: '/admin/messages', label: 'Demandes de devis' },
+  { href: '/admin/statistiques', label: 'Statistiques' },
   { href: '/admin/annonce', label: 'Annonce' },
   { href: '/admin/avis', label: 'Avis clients' },
   { href: '/admin/infos', label: 'Infos du site' },

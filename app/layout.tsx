@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { VercelAnalytics } from '@/components/vercel-analytics';
 import '../assets/css/style.css';
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         {children}
+        <VercelAnalytics />
         <Script src="/assets/js/main.js" strategy="afterInteractive" />
       </body>
     </html>
