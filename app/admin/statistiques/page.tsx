@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
+import { pageData } from '@/lib/page-data';
 import { getVercelAnalytics } from '@/lib/services/vercel-analytics';
 
 export const metadata: Metadata = {
@@ -49,6 +50,22 @@ function dailySeries(from: string, until: string, points: { timestamp: string; p
   }
 
   return series;
+}
+
+function allPageStats(pages: { dimension: string; pageviews: number }[]) {
+  const viewsByPath = new Map<string, number>();
+  for (const page of pages) {
+    viewsByPath.set(page.dimension, (viewsByPath.get(page.dimension) ?? 0) + page.pageviews);
+  }
+
+  return Object.entries(pageData).map(([slug, page]) => {
+    const canonicalPath = new URL(page.canonical).pathname;
+    const routePath = slug === 'index' ? '/' : `/${slug}`;
+    const paths = new Set([canonicalPath, routePath]);
+    const pageviews = [...paths].reduce((sum, path) => sum + (viewsByPath.get(path) ?? 0), 0);
+
+    return { dimension: canonicalPath, pageviews };
+  });
 }
 
 function AnalyticsUnavailable({
@@ -99,6 +116,7 @@ export default async function StatistiquesPage({ searchParams }: PageProps) {
   const series = result.status === 'ready'
     ? dailySeries(result.from, result.until, result.daily)
     : [];
+  const pageStats = result.status === 'ready' ? allPageStats(result.pages) : [];
   const maxPageviews = Math.max(1, ...series.map((point) => point.pageviews));
 
   return (
@@ -143,17 +161,6 @@ export default async function StatistiquesPage({ searchParams }: PageProps) {
               Période du <strong>{formatDate(result.from)}</strong> au <strong>{formatDate(result.until)}</strong>
             </p>
 
-            {result.pageviewsReconciled && (
-              <p className="analytics-notice" role="status">
-                Le total des pages vues est aligné sur le détail quotidien, car le récapitulatif Vercel était incohérent.
-              </p>
-            )}
-            {result.visitorsUnavailable && (
-              <p className="analytics-notice" role="status">
-                Vercel n’a pas fourni de total fiable pour les visiteurs uniques ; cette valeur est masquée plutôt qu’affichée à 0.
-              </p>
-            )}
-
             <div className="analytics-summary" aria-label="Totaux sur la période">
               <section className="analytics-metric analytics-metric-primary">
                 <div>
@@ -165,7 +172,7 @@ export default async function StatistiquesPage({ searchParams }: PageProps) {
               <section className="analytics-metric">
                 <div>
                   <h2>Visiteurs uniques</h2>
-                  <p>{result.visitorsUnavailable ? 'Donnée indisponible' : 'Sur la période'}</p>
+                  <p>{result.visitorsUnavailable ? 'Indisponible pour le moment' : 'Sur la période'}</p>
                 </div>
                 <strong>{result.total.visitors === null ? '—' : formatNumber(result.total.visitors)}</strong>
               </section>
@@ -196,20 +203,18 @@ export default async function StatistiquesPage({ searchParams }: PageProps) {
               <section className="admin-card analytics-panel">
                 <div className="analytics-panel-heading">
                   <div>
-                    <h2>Pages les plus vues</h2>
-                    <p>Les pages publiques les plus consultées</p>
+                    <h2>Pages du site</h2>
+                    <p>Toutes les pages publiques, y compris celles sans visite</p>
                   </div>
                 </div>
-                {result.pages.length ? (
-                  <ol className="analytics-ranking">
-                    {result.pages.map((page) => (
-                      <li key={page.dimension}>
-                        <span>{page.dimension}</span>
-                        <strong>{formatNumber(page.pageviews)}</strong>
-                      </li>
-                    ))}
-                  </ol>
-                ) : <p>Aucune page vue sur cette période.</p>}
+                <ol className="analytics-ranking">
+                  {pageStats.map((page) => (
+                    <li key={page.dimension}>
+                      <span>{page.dimension}</span>
+                      <strong>{formatNumber(page.pageviews)}</strong>
+                    </li>
+                  ))}
+                </ol>
               </section>
               <section className="admin-card analytics-panel">
                 <div className="analytics-panel-heading">

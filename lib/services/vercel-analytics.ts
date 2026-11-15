@@ -27,7 +27,6 @@ export type VercelAnalyticsResult =
       until: string;
       updatedAt: string;
       total: { pageviews: number; visitors: number | null };
-      pageviewsReconciled: boolean;
       visitorsUnavailable: boolean;
       daily: DailyPoint[];
       pages: BreakdownPoint[];
@@ -113,7 +112,7 @@ function endpoint(
   if (teamId) url.searchParams.set('teamId', teamId);
   if (by) {
     url.searchParams.set('by', by);
-    url.searchParams.set('limit', by === 'day' ? '100' : '10');
+    url.searchParams.set('limit', '100');
   }
   return url;
 }
@@ -179,7 +178,6 @@ export async function getVercelAnalytics(days: 7 | 30): Promise<VercelAnalyticsR
       pageviews: dailyPageviews,
       visitors: visitorsUnavailable ? null : total.visitors,
     },
-    pageviewsReconciled: total.pageviews !== dailyPageviews,
     visitorsUnavailable,
     daily,
     pages,
