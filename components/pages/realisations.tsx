@@ -93,7 +93,7 @@ export async function RealisationsContent({ info, photos }: { info: SiteInfo; ph
               Moto
             </button>
           </div>
-          <div className="gallery-grid gallery-grid-premium gallery-masonry" id="galleryGrid">
+          <div className="gallery-grid gallery-grid-premium" id="galleryGrid">
             {gallery.map((item, index) => (
               <figure className="gallery-card" data-category={item.category} key={`${item.src}-${index}`}>
                 <img src={item.src} alt={item.alt} loading="lazy" decoding="async" data-fallback={fallbackKind[item.category] ?? 'exterieur'} />
