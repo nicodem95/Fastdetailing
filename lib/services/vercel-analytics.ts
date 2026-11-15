@@ -25,7 +25,10 @@ export type VercelAnalyticsResult =
       status: 'ready';
       from: string;
       until: string;
-      total: AnalyticsCount;
+      updatedAt: string;
+      total: { pageviews: number; visitors: number | null };
+      pageviewsReconciled: boolean;
+      visitorsUnavailable: boolean;
       daily: DailyPoint[];
       pages: BreakdownPoint[];
       referrers: BreakdownPoint[];
@@ -164,11 +167,20 @@ export async function getVercelAnalytics(days: 7 | 30): Promise<VercelAnalyticsR
   const referrers = parseBreakdown(payloads[3], 'referrerHostname');
   if (!total || !daily || !pages || !referrers) return { status: 'error', reason: 'invalid-response' };
 
+  const dailyPageviews = daily.reduce((sum, point) => sum + point.pageviews, 0);
+  const visitorsUnavailable = dailyPageviews > 0 && total.visitors === 0;
+
   return {
     status: 'ready',
     from: sinceValue,
     until: untilValue,
-    total,
+    updatedAt: new Date().toISOString(),
+    total: {
+      pageviews: dailyPageviews,
+      visitors: visitorsUnavailable ? null : total.visitors,
+    },
+    pageviewsReconciled: total.pageviews !== dailyPageviews,
+    visitorsUnavailable,
     daily,
     pages,
     referrers,

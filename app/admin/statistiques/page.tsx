@@ -23,6 +23,16 @@ function formatDate(value: string) {
     .format(new Date(value));
 }
 
+function formatDateTime(value: string) {
+  return new Intl.DateTimeFormat('fr-FR', {
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Europe/Paris',
+  }).format(new Date(value));
+}
+
 function dailySeries(from: string, until: string, points: { timestamp: string; pageviews: number }[]) {
   const firstDay = new Date(from);
   const lastDay = new Date(until);
@@ -86,27 +96,39 @@ export default async function StatistiquesPage({ searchParams }: PageProps) {
   const { period } = await searchParams;
   const days = period === '30' ? 30 : 7;
   const result = await getVercelAnalytics(days);
+  const series = result.status === 'ready'
+    ? dailySeries(result.from, result.until, result.daily)
+    : [];
+  const maxPageviews = Math.max(1, ...series.map((point) => point.pageviews));
 
   return (
     <main className="section-pad">
       <div className="admin analytics-page">
-        <header className="admin-header">
+        <header className="analytics-header">
           <div>
-            <h1>Statistiques de fréquentation</h1>
-            <p className="admin-help">Données de production, agrégées par Vercel Web Analytics.</p>
+            <p className="analytics-eyebrow">Vue d’ensemble</p>
+            <h1>Fréquentation du site</h1>
+            <p className="analytics-intro">Suivi des visites de tes pages publiques.</p>
           </div>
-          <nav className="analytics-period" aria-label="Période des statistiques">
-            {[7, 30].map((option) => (
-              <Link
-                key={option}
-                className="admin-small-btn"
-                href={`/admin/statistiques?period=${option}`}
-                aria-current={days === option ? 'page' : undefined}
-              >
-                {option} jours
-              </Link>
-            ))}
-          </nav>
+          <div className="analytics-header-tools">
+            {result.status === 'ready' && (
+              <p className="analytics-updated">
+                Mis à jour le <time dateTime={result.updatedAt}>{formatDateTime(result.updatedAt)}</time>
+              </p>
+            )}
+            <nav className="analytics-period" aria-label="Période des statistiques">
+              {[7, 30].map((option) => (
+                <Link
+                  key={option}
+                  className="analytics-period-link"
+                  href={`/admin/statistiques?period=${option}`}
+                  aria-current={days === option ? 'page' : undefined}
+                >
+                  {option} jours
+                </Link>
+              ))}
+            </nav>
+          </div>
         </header>
 
         {result.status !== 'ready' ? (
@@ -117,41 +139,67 @@ export default async function StatistiquesPage({ searchParams }: PageProps) {
           />
         ) : (
           <>
+            <p className="analytics-range">
+              Période du <strong>{formatDate(result.from)}</strong> au <strong>{formatDate(result.until)}</strong>
+            </p>
+
+            {result.pageviewsReconciled && (
+              <p className="analytics-notice" role="status">
+                Le total des pages vues est aligné sur le détail quotidien, car le récapitulatif Vercel était incohérent.
+              </p>
+            )}
+            {result.visitorsUnavailable && (
+              <p className="analytics-notice" role="status">
+                Vercel n’a pas fourni de total fiable pour les visiteurs uniques ; cette valeur est masquée plutôt qu’affichée à 0.
+              </p>
+            )}
+
             <div className="analytics-summary" aria-label="Totaux sur la période">
-              <section className="admin-stat">
-                <strong>{formatNumber(result.total.visitors)}</strong>
-                <span>Visiteurs</span>
-              </section>
-              <section className="admin-stat">
+              <section className="analytics-metric analytics-metric-primary">
+                <div>
+                  <h2>Pages vues</h2>
+                  <p>Total sur la période</p>
+                </div>
                 <strong>{formatNumber(result.total.pageviews)}</strong>
-                <span>Pages vues</span>
+              </section>
+              <section className="analytics-metric">
+                <div>
+                  <h2>Visiteurs uniques</h2>
+                  <p>{result.visitorsUnavailable ? 'Donnée indisponible' : 'Sur la période'}</p>
+                </div>
+                <strong>{result.total.visitors === null ? '—' : formatNumber(result.total.visitors)}</strong>
               </section>
             </div>
 
-            <section className="admin-card">
-              <h2>Pages vues par jour</h2>
-              {(() => {
-                const series = dailySeries(result.from, result.until, result.daily);
-                const maxPageviews = Math.max(1, ...series.map((point) => point.pageviews));
-                return (
-                  <ol className="analytics-daily">
-                    {series.map((point) => (
-                      <li key={point.date}>
-                        <time dateTime={point.date}>{formatDate(`${point.date}T00:00:00.000Z`)}</time>
-                        <span className="analytics-track" aria-hidden="true">
-                          <span style={{ width: `${(point.pageviews / maxPageviews) * 100}%` }} />
-                        </span>
-                        <strong>{formatNumber(point.pageviews)}</strong>
-                      </li>
-                    ))}
-                  </ol>
-                );
-              })()}
+            <section className="admin-card analytics-panel">
+              <div className="analytics-panel-heading">
+                <div>
+                  <h2>Évolution quotidienne</h2>
+                  <p>Pages consultées chaque jour</p>
+                </div>
+                <span className="analytics-panel-total">{formatNumber(result.total.pageviews)} vues</span>
+              </div>
+              <ol className="analytics-daily" aria-label="Pages vues par jour">
+                {series.map((point) => (
+                  <li key={point.date}>
+                    <time dateTime={point.date}>{formatDate(`${point.date}T00:00:00.000Z`)}</time>
+                    <span className="analytics-track" aria-hidden="true">
+                      <span style={{ width: `${(point.pageviews / maxPageviews) * 100}%` }} />
+                    </span>
+                    <strong>{formatNumber(point.pageviews)}</strong>
+                  </li>
+                ))}
+              </ol>
             </section>
 
             <div className="analytics-breakdowns">
-              <section className="admin-card">
-                <h2>Pages les plus vues</h2>
+              <section className="admin-card analytics-panel">
+                <div className="analytics-panel-heading">
+                  <div>
+                    <h2>Pages les plus vues</h2>
+                    <p>Les pages publiques les plus consultées</p>
+                  </div>
+                </div>
                 {result.pages.length ? (
                   <ol className="analytics-ranking">
                     {result.pages.map((page) => (
@@ -163,8 +211,13 @@ export default async function StatistiquesPage({ searchParams }: PageProps) {
                   </ol>
                 ) : <p>Aucune page vue sur cette période.</p>}
               </section>
-              <section className="admin-card">
-                <h2>Principaux référents</h2>
+              <section className="admin-card analytics-panel">
+                <div className="analytics-panel-heading">
+                  <div>
+                    <h2>Origine des visites</h2>
+                    <p>Sites ayant dirigé des visiteurs ici</p>
+                  </div>
+                </div>
                 {result.referrers.length ? (
                   <ol className="analytics-ranking">
                     {result.referrers.map((referrer) => (
