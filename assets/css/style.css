@@ -4089,6 +4089,11 @@ textarea {
     aspect-ratio: 4 / 3.2;
   }
 
+  .before-after-side-by-side .after-label {
+    top: auto;
+    bottom: 16px;
+  }
+
   .reviews-grid {
     grid-template-columns: none;
     grid-auto-flow: column;
