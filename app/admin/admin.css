@@ -22,7 +22,10 @@
 .admin-review-excerpt { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted, #9aa); font-size: 0.85rem; }
 .admin-review-row > * { min-width: 0; }
 .admin-review-row { display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 12px; }
+.admin-review-body { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 12px; }
+.admin-review-body > .admin-form { min-width: 0; }
 @media (max-width: 560px) { .admin-review-row { grid-template-columns: 1fr 1fr; } .admin-review-row label:first-child { grid-column: 1 / -1; } }
+@media (max-width: 640px) { .admin-review-body { grid-template-columns: 1fr; justify-items: start; } }
 .admin-file-choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .admin-file-choices .admin-small-btn { cursor: pointer; }
 .admin-dropzone { display: flex; align-items: center; justify-content: center; min-height: 140px; background: var(--bg-soft); border: 2px dashed rgba(255, 255, 255, 0.22); border-radius: 12px; cursor: pointer; overflow: hidden; transition: border-color 0.2s, background 0.2s; }

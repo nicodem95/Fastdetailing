@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { getAdminUser } from '@/lib/auth/server';
 import { defaultLegal, defaultSeo, legalFields, seoPages, type SeoEntry } from '@/lib/extra-content';
 import type { NewReview } from '@/db/schema';
-import { replaceReviews } from '@/lib/services/reviews';
+import { createReview, deleteReview, updateReview } from '@/lib/services/reviews';
 import { deleteContactMessage, setMessageRead } from '@/lib/services/messages';
 import { setSetting } from '@/lib/services/settings';
 
@@ -20,6 +20,21 @@ function refreshSite() {
 function text(value: FormDataEntryValue | null, max: number) {
   return String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 }
+
+function reviewFields(formData: FormData): Pick<NewReview, 'nom' | 'ville' | 'note' | 'texte'> | null {
+  const nom = text(formData.get('name'), 60);
+  const texte = text(formData.get('text'), 1200);
+  if (!nom || !texte) return null;
+
+  return {
+    nom,
+    texte,
+    note: Math.min(5, Math.max(1, Number(formData.get('rating')) || 5)),
+    ville: text(formData.get('location'), 60) || 'Gisors',
+  };
+}
+
+const reviewIdPattern = /^[\da-f]{8}-([\da-f]{4}-){3}[\da-f]{12}$/i;
 
 export async function saveLegalAction(formData: FormData) {
   await requireAdmin();
@@ -62,26 +77,33 @@ export async function saveBannerAction(formData: FormData) {
   redirect('/admin/annonce?ok=1');
 }
 
-export async function saveReviewsAction(formData: FormData) {
+export async function saveReviewAction(formData: FormData) {
   await requireAdmin();
 
-  const count = Math.min(Number(formData.get('count')) || 0, 60);
-  const items: Omit<NewReview, 'ordre'>[] = [];
-  for (let index = 0; index < count; index += 1) {
-    if (formData.get(`delete-${index}`) === 'on') continue;
-    const nom = text(formData.get(`name-${index}`), 60);
-    const texte = text(formData.get(`text-${index}`), 1200);
-    if (!nom || !texte) continue;
-    items.push({
-      nom,
-      texte,
-      note: Math.min(5, Math.max(1, Number(formData.get(`rating-${index}`)) || 5)),
-      ville: text(formData.get(`location-${index}`), 60) || 'Gisors',
-    });
+  const id = text(formData.get('id'), 36);
+  const fields = reviewFields(formData);
+  if (id && !reviewIdPattern.test(id)) redirect('/admin/avis?erreur=id');
+  if (!fields) redirect('/admin/avis?erreur=champs');
+
+  if (id) {
+    if (!(await updateReview(id, fields))) redirect('/admin/avis?erreur=introuvable');
+  } else {
+    await createReview(fields);
   }
-  await replaceReviews(items);
+
   refreshSite();
-  redirect('/admin/avis?ok=1');
+  redirect(`/admin/avis?ok=${id ? 'updated' : 'created'}`);
+}
+
+export async function deleteReviewAction(formData: FormData) {
+  await requireAdmin();
+
+  const id = text(formData.get('id'), 36);
+  if (!reviewIdPattern.test(id)) redirect('/admin/avis?erreur=id');
+  if (!(await deleteReview(id))) redirect('/admin/avis?erreur=introuvable');
+
+  refreshSite();
+  redirect('/admin/avis?ok=deleted');
 }
 
 export async function toggleMessageReadAction(formData: FormData) {
