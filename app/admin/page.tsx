@@ -33,7 +33,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
       <div className="admin">
         <div className="admin-header">
           <PageTitle icon="images" hint="Tout ce qui s’affiche sur la page Réalisations du site : la grande photo du haut, puis la galerie.">Page Réalisations</PageTitle>
-          <div className="admin-user">{user.email} <SignOutButton /></div>
+          <div className="admin-user">{user.email}</div>
         </div>
         <RealisationSection type="galerie" ok={ok} />
       </div>

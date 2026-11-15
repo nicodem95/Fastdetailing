@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { SignOutButton } from './sign-out-button';
 
 
 const pages: { href: string; label: string }[] = [
@@ -50,6 +51,7 @@ export function AdminNav({ unread = 0, logo }: { unread?: number; logo: string }
               <Link key={link.href} href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>{link.label}</Link>
             ))}
           </nav>
+          <SignOutButton />
         </div>
       </header>
       <div className="admin-subbar">
